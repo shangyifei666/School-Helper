@@ -117,7 +117,6 @@
                     android:id="@+id/edit_text"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background=""
                     android:hint="请输入金额"
                     android:textSize="40sp" />
 
