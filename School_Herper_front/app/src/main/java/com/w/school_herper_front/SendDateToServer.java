@@ -29,12 +29,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SendDateToServer {
-    private static String url="http://10.7.89.199:8080/School_Helper_Back/RegisterServlet";//服务器地址
+    private static String url="http://10.7.89.250:8080/School_Helper_Back/RegisterServlet";//服务器地址
     public static final int SEND_SUCCESS=0x123;
     public static final int SEND_FAIL=0x124;
     public static final int SEND_FAIL1=0x125;
     private Handler handler;
     public JSONObject object;
+    public JSONArray array;
     public SendDateToServer(Handler handler) {
         // TODO Auto-generated constructor stub
         this.handler=handler;
@@ -57,7 +58,7 @@ public class SendDateToServer {
                 try {
 //                    Log.e("error",object.getString("error"));
                     if (sendGetRequest(map,url,"utf-8")) {
-                        if(object.getString("error").equals("注册成功")){
+                        if(object.getString("success").equals("注册成功")){
                             handler.sendEmptyMessage(SEND_SUCCESS);//通知主线程数据发送成功
                         }else if(object.getString("error").equals("用户已存在")){
                             handler.sendEmptyMessage(SEND_FAIL1);//将数据发送给服务器失败或者用户名不存在
@@ -98,12 +99,10 @@ public class SendDateToServer {
             InputStream in = conn.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String res=reader.readLine();
-            try{
-                object=new JSONObject(res);
-            }catch (JSONException e){
-                e.printStackTrace();
+            array=new JSONArray(res);
+            for(int i=0;i<array.length();i++) {
+                object = array.getJSONObject(i);
             }
-
             return true;
         }
         return false;

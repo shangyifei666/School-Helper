@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
             switch (msg.what) {
                 case SendDatesToServer.SEND_SUCCESS:
                     Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(intent);
                     break;
                 case SendDatesToServer.SEND_FAIL:
                     Toast.makeText(MainActivity.this, "数据发送失败", Toast.LENGTH_SHORT).show();
@@ -69,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
                 String phone1 = phone.getText().toString();
                 String password1 = password.getText().toString();
 
-                /*测试用跳转到HomeActivity
-                 * 随时删除
-                 * 开发人：尚一飞
-                 * */
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(intent);
-                /*/测试用*/
+//                /*测试用跳转到HomeActivity
+//                 * 随时删除
+//                 * 开发人：尚一飞
+//                 * */
+//                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//                startActivity(intent);
+//                /*/测试用*/
 
                 //打包在user里
                 if(phone1.equals("") || password1.equals("")){
