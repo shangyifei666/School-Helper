@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SendDatesToServer {
-    private static String url="http://10.7.89.250:8080/School_Helper_Back/LoginServlet";//服务器地址
+    private static String url=new ServerUrl().getUrl();//服务器地址
     public static final int SEND_SUCCESS=0x123;
     public static final int SEND_FAIL1=0x124;
     public static final int SEND_FAIL2=0x125;
@@ -78,6 +78,7 @@ public class SendDatesToServer {
         // TODO Auto-generated method stub
         StringBuffer sb = new StringBuffer(url);
         if (!url.equals("")&!param.isEmpty()) {
+            sb.append("/School_Helper_Back/LoginServlet");
             sb.append("?");
             for (Map.Entry<String, String>entry:param.entrySet()) {
                 sb.append(entry.getKey()+"=");

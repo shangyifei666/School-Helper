@@ -29,7 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SendDateToServer {
-    private static String url="http://10.7.89.250:8080/School_Helper_Back/RegisterServlet";//服务器地址
+    private static String url=new ServerUrl().getUrl();//服务器地址
     public static final int SEND_SUCCESS=0x123;
     public static final int SEND_FAIL=0x124;
     public static final int SEND_FAIL1=0x125;
@@ -79,6 +79,7 @@ public class SendDateToServer {
         // TODO Auto-generated method stub
         StringBuffer sb = new StringBuffer(url);
         if (!url.equals("")&!param.isEmpty()) {
+            sb.append("/School_Helper_Back/RegisterServlet");
             sb.append("?");
             for (Map.Entry<String, String>entry:param.entrySet()) {
                 sb.append(entry.getKey()+"=");
