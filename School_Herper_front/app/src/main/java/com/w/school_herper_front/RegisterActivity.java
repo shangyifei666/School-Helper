@@ -33,6 +33,8 @@ public class RegisterActivity extends Activity {
             switch (msg.what) {
                 case SendDateToServer.SEND_SUCCESS:
                     Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+                    startActivity(intent);
                     break;
                 case SendDateToServer.SEND_FAIL1:
                     Toast.makeText(RegisterActivity.this, "用户已存在", Toast.LENGTH_SHORT).show();
