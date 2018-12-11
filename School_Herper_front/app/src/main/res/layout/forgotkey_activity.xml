@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   /*
+   * 功能：登录页面的前台实现xml部分
+   * 开发人：李伟娟
+   * 开发时间：2018.12.7
+   *
+   * 描述：登录页面
+   */
+   -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#F8B511"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="26dp"
+            android:src="@drawable/goback"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="13dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="忘记密码"
+            android:textSize="25sp"
+            android:paddingRight="35dp"
+            android:gravity="center"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+    //输入手机号
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/textview_border">
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/phone"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp" />
+        <EditText
+            android:id="@+id/forgotkey_phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="请输入手机号"
+            android:text=""
+            android:textSize="15sp"
+            android:textColor="#AAAAAA"
+            android:paddingLeft="15dp"
+            android:background="@drawable/textview_border"/>
+    </LinearLayout>
+    //输入验证码
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/textview_border">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/input"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/textview_border"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/forgotkey_input"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:hint="请输入手机验证码"
+                android:text=""
+                android:textSize="15sp"
+                android:textColor="#AAAAAA"
+                android:paddingLeft="15dp"
+                android:background="@null"/>
+            <Button
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:text="获取验证码"
+                android:background="#F8B511"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    //新密码
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/textview_border">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/password"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp" />
+        <EditText
+            android:id="@+id/forgotkey_newpassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="新密码"
+            android:inputType="textPassword"
+            android:textSize="15sp"
+            android:textColor="#AAAAAA"
+            android:paddingLeft="15dp"
+            android:background="@drawable/textview_border"/>
+    </LinearLayout>
+    //确认新密码
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/textview_border">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/password"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp" />
+        <EditText
+            android:id="@+id/forgotkey_okpassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="确认新密码"
+            android:inputType="textPassword"
+            android:textSize="15sp"
+            android:textColor="#AAAAAA"
+            android:paddingLeft="15dp"
+            android:background="@drawable/textview_border"/>
+    </LinearLayout>
+    //确定按钮
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:background="#F8B511">
+        <Button
+            android:id="@+id/forgotkey_sure"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:text="确定"
+            android:textSize="25sp"
+            android:textColor="#ffffff"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
