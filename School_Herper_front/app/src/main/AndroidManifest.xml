@@ -22,7 +22,10 @@
         <activity android:name=".ForgotKeyActivity" />
         <activity android:name=".HomePage.HomeActivity" />
         <activity android:name=".HomeShowContentActivity" />
-        <activity android:name=".HomePublishActivity"></activity>
+        <activity android:name=".HomePublishActivity" />
+        <activity android:name=".wallet.WalletActivity" />
+        <activity android:name=".wallet.WalletDepositActivity" />
+        <activity android:name=".wallet.WalletWithDrawActivity"></activity>
     </application>
 
 </manifest>
