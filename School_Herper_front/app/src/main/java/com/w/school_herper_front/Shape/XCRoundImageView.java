@@ -1,9 +1,6 @@
-/*
-* 
-*
-*
-* */
 package com.w.school_herper_front.Shape;
+
+/* Copied by zhangxixian from Internet on 18/12/11 */
 
 import android.content.Context;
 import android.graphics.Bitmap;

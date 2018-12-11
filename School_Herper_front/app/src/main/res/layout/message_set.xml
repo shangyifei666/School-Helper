@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-/*
- * 功能：我的主页设置的前台实现xml部分
- * 开发人：赵璐
- * 开发时间：2018.11.27
- *
- * 描述：我的主页设置
- */
--->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -205,7 +196,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ln_changepsd"
             android:layout_width="600dp"
             android:layout_height="50dp"
             android:background="@drawable/box_color1">
@@ -227,7 +217,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ln_authens"
             android:layout_width="600dp"
             android:layout_height="50dp"
             android:background="@drawable/box_color1">
