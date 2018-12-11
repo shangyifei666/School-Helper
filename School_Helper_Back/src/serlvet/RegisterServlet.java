@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import bean.UserBean;
@@ -50,10 +51,12 @@ public class RegisterServlet extends HttpServlet {
 		UserBean user=new UserBean();
 		UserDao userdao=new UserDao();
 		List<UserBean> userList = userdao.getAllUser(); 
-		JSONObject jsonObject = new JSONObject();
+		JSONObject json1 = new JSONObject();
+		JSONObject json2 = new JSONObject();
+		JSONArray array = new JSONArray();
 		for(UserBean thisUser:userList) {
 			if(thisUser.getUserPhone().equals(phone)){
-				user.setUserPhone(thisUser.getUserPhone());
+				user=thisUser;
 			}
 		}
 		if(user.getUserPhone()==null) {
@@ -67,12 +70,16 @@ public class RegisterServlet extends HttpServlet {
 			user.setUserReputationValue(value);
 			user.setUserTookCount(took);
 			user.setUserPublishCount(publish);
-			jsonObject.put("error", "注册成功");
+			json1.put("success", "注册成功");
+			json1.put("error","error");
+			array.put(json1);
 			userdao.setUser(user);
 		}else {
-			jsonObject.put("error", "用户已存在");
+			json2.put("error", "用户已存在");
+			json2.put("success", "success");
+			array.put(json2);
 		}
-		response.getWriter().append(jsonObject.toString()).append(request.getContextPath());
+		response.getWriter().append(array.toString()).append(request.getContextPath());
 	}
 
 	/**

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import bean.UserBean;
@@ -46,27 +47,38 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		String phone = request.getParameter("phone");
 		String password = request.getParameter("password");
-		JSONObject jsonObject = new JSONObject();
+		JSONObject json3 = new JSONObject();
+		JSONObject json4 = new JSONObject();
+		JSONObject json5 = new JSONObject();
+		JSONArray array = new JSONArray();
 		UserDao userDao = new UserDao();
 		List<UserBean> userList = userDao.getAllUser();
 		UserBean user = new UserBean();
 		for(UserBean thisUser:userList) {
 			if(thisUser.getUserPhone().equals(phone)) {
-				user.setUserPhone(thisUser.getUserPhone());
-				user.setUserPassword(thisUser.getUserPassword());
+				user=thisUser;
 			}
 		}
 		if(user.getUserPhone()==null) {
-			jsonObject.put("error", "用户不存在");
+			json3.put("error", "用户不存在");
+			json3.put("success", "success");
+			json3.put("userId", "Id");
+			array.put(json3);
 		}else {
 			if(!user.getUserPassword().equals(password)) {
-				jsonObject.put("error", "密码错误");
+				json4.put("success", "success");
+				json4.put("error", "密码错误");
+				json4.put("userId", "Id");
+				array.put(json4);
 			}else {
-				jsonObject.put("error", "登录成功");
-				jsonObject.put("userId", user.getUserId());
+				json5.put("success", "登录成功");
+				json5.put("error", "error");
+				json5.put("userId", user.getUserId());
+				System.err.println(user.getUserId());
+				array.put(json5);
 			}
 		}
-		response.getWriter().append(jsonObject.toString()).append(request.getContextPath());
+		response.getWriter().append(array.toString()).append(request.getContextPath());
 	}
 
 	/**

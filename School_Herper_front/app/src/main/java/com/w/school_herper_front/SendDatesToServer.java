@@ -29,12 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SendDatesToServer {
-    private static String url="http://10.7.89.199:8080/School_Helper_Back/LoginServlet";//服务器地址
+    private static String url="http://10.7.89.250:8080/School_Helper_Back/LoginServlet";//服务器地址
     public static final int SEND_SUCCESS=0x123;
     public static final int SEND_FAIL1=0x124;
     public static final int SEND_FAIL2=0x125;
     public static final int SEND_FAIL=0x126;
     public JSONObject object;
+    public JSONArray array;
     private Handler handler;
     public SendDatesToServer(Handler handler) {
         // TODO Auto-generated constructor stub
@@ -53,7 +54,7 @@ public class SendDatesToServer {
                 // TODO Auto-generated method stub
                 try {
                     if (sendGetRequest(map,url,"utf-8")) {
-                        if(object.getString("error").equals("登录成功")){
+                        if(object.getString("success").equals("登录成功")){
                             handler.sendEmptyMessage(SEND_SUCCESS);//通知主线程数据发送成功
                         }else if(object.getString("error").equals("用户不存在")){
                             handler.sendEmptyMessage(SEND_FAIL1);//将数据发送给服务器失败或者用户名不存在
@@ -96,11 +97,11 @@ public class SendDatesToServer {
             InputStream in = conn.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String res=reader.readLine();
-            try{
-                object=new JSONObject(res);
-            }catch (JSONException e){
-                e.printStackTrace();
+            array=new JSONArray(res);
+            for(int i=0;i<array.length();i++){
+                object=array.getJSONObject(i);
             }
+            Log.e("id",object.getString("userId"));
             return true;
         }
         return false;
