@@ -13,6 +13,12 @@ import com.w.school_herper_front.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 功能：布告栏adapter
+ * 开发人：尚一飞
+ * 日期：2018.12.12
+ * 简介：与BoardFragment  board交互使用
+ */
 public class BoardAdapter extends BaseAdapter {
     private Context context;
     private int itemLayout;

@@ -4,7 +4,7 @@ package com.w.school_herper_front.HomePage.fragment.board;
 * 功能：board
 * 开发人：尚一飞
 * 日期：2018.12.12
-* 简介：用于生成布告内容
+* 简介：用于生成布告内容 与BoardFragment  board交互使用
 * */
 public class board {
     private int myhead;

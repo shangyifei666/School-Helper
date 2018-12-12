@@ -29,8 +29,9 @@ public class BoardFragment extends Fragment {
     }
 
 /*
-*开发人：尚一飞
+* 开发人：尚一飞
 * 这是布告栏页
+* 简介：与BoardFragment  board交互使用
 * */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
