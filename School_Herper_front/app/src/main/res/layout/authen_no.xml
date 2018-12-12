@@ -70,6 +70,7 @@ android:orientation="vertical">
 </LinearLayout>
 
 <LinearLayout
+    android:id="@+id/go_authenget"
     android:layout_alignParentBottom="true"
     android:layout_width="match_parent"
     android:layout_height="50dp"
