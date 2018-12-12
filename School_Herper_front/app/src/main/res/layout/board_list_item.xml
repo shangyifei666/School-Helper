@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    开发人：尚一飞
+    时间：2018.12.12
+    描述：用于布告栏界面单个布告栏信息
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+        <ImageView
+            android:id="@+id/myhead"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/myhead"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp"
+            android:text="我的名字"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="3dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="机场接人"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="50dp"/>
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="5dp"
+        android:text="有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李...."/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="截至时间："
+            android:textColor="@color/moneyRed"/>
+        <TextView
+            android:id="@+id/endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018-1-1"/>
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:textColor="@color/moneyRed"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="￥6.00"/>
+    </LinearLayout>
+</LinearLayout>
