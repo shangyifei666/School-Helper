@@ -12,20 +12,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ForgotKeyActivity" />
+        <activity android:name=".HomePage.HomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgotKeyActivity" />
-        <activity android:name=".HomePage.HomeActivity" />
         <activity android:name=".HomeShowContentActivity" />
         <activity android:name=".HomePublishActivity" />
         <activity android:name=".wallet.WalletActivity" />
         <activity android:name=".wallet.WalletDepositActivity" />
-        <activity android:name=".wallet.WalletWithDrawActivity"></activity>
+        <activity android:name=".wallet.WalletWithDrawActivity"/>
+        <activity android:name=".ChangeKeyActivity"/>
+        <activity android:name=".HomePage.OtherHomeActivity"/>
+
+        <activity android:name=".ChangePassword.ChangePassword"/>
+        <activity android:name=".ChangePassword.ChangePasswordok"/>
+
+        <activity android:name=".Message.MessageSetActivity"></activity>
+
+        <activity android:name=".Authen.AuthenGetActivity"/>
+        <activity android:name=".Authen.AuthenGetokActivity"/>
+        <activity android:name=".Authen.AuthenOkActivity"/>
+        <activity android:name=".Authen.AuthenNoActivity"/>
     </application>
 
 </manifest>

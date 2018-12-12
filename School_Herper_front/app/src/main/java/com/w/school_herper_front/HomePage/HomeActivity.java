@@ -37,6 +37,39 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        /*
+         * 姓名：赵璐
+         * 日期：2018.12.12
+         * 说明：页面跳转的接收id跳转特定的fragment
+         * */
+        int id = getIntent().getIntExtra("id", 0);
+        if (id == 4) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame_mine,new MineFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }else if(id == 1){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame_board,new BoardFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }else if(id == 2){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame_message,new MessageFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }else if(id == 3){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame_task,new TaskFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+
         FragmentTabHost fragmentTabHost = findViewById(android.R.id.tabhost);
         fragmentTabHost.setup(this,getSupportFragmentManager(),android.R.id.tabcontent);
         /*布告栏*/
