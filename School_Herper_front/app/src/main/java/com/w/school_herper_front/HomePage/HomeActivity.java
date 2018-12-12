@@ -1,16 +1,19 @@
 package com.w.school_herper_front.HomePage;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-
+import android.content.Intent;
 import com.w.school_herper_front.HomePage.fragment.BoardFragment;
 import com.w.school_herper_front.HomePage.fragment.MessageFragment;
 import com.w.school_herper_front.HomePage.fragment.MineFragment;
@@ -32,43 +35,16 @@ public class HomeActivity extends AppCompatActivity {
     private Map<String,View> tabspecViews = new HashMap<>();
     private Map<String,ImageView> imageViewMap = new HashMap<>();
     private Map<String,TextView> textViewMap = new HashMap<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        /*
-         * 姓名：赵璐
-         * 日期：2018.12.12
-         * 说明：页面跳转的接收id跳转特定的fragment
-         * */
-        int id = getIntent().getIntExtra("id", 0);
-        if (id == 4) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frame_mine,new MineFragment())
-                    .addToBackStack(null)
-                    .commit();
-        }else if(id == 1){
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frame_board,new BoardFragment())
-                    .addToBackStack(null)
-                    .commit();
-        }else if(id == 2){
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frame_message,new MessageFragment())
-                    .addToBackStack(null)
-                    .commit();
-        }else if(id == 3){
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frame_task,new TaskFragment())
-                    .addToBackStack(null)
-                    .commit();
-        }
 
+
+        int id = getIntent().getIntExtra("id", 0);
 
         FragmentTabHost fragmentTabHost = findViewById(android.R.id.tabhost);
         fragmentTabHost.setup(this,getSupportFragmentManager(),android.R.id.tabcontent);
@@ -89,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
                 .setIndicator(getTabSpecView("我",R.drawable.my1,"tab4"));
         fragmentTabHost.addTab(tabSpec4, MineFragment.class,null);
 
+        //        fragmentTabHost.setCurrentTab(0);    设置第一个页面
 
         /*
         * tabhost的点击实践用于更换点击后的颜色

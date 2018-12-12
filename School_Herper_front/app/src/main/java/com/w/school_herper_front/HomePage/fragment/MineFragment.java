@@ -40,6 +40,8 @@ public class MineFragment extends Fragment {
         // Inflate the layout for this fragment
 
 
+
+
         /*
          * 姓名：赵璐
          * 日期：2018.12.12
@@ -62,8 +64,12 @@ public class MineFragment extends Fragment {
             }
         });
         return view;
+    }
 
-
-        
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 4){
+        }
     }
 }

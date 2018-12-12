@@ -31,9 +31,10 @@ public class WalletActivity extends AppCompatActivity {
         back1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WalletActivity.this, HomeActivity.class);
+                Intent intent = new Intent();
                 intent.putExtra("id",1);
-                startActivity(intent);
+                setResult(4,intent);
+                finish();
             }
         });
         deposit.setOnClickListener(new View.OnClickListener(){
@@ -50,5 +51,12 @@ public class WalletActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 4){
+        }
     }
 }

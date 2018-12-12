@@ -54,7 +54,7 @@
         android:orientation="vertical">
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="400dp"
+            android:layout_width="440dp"
             android:layout_height="100dp"
             android:background="@drawable/box_color1">
             <TextView

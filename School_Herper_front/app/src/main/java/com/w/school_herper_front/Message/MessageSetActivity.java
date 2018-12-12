@@ -38,9 +38,10 @@ public class MessageSetActivity extends Activity {
         authen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MessageSetActivity.this,HomeActivity.class);
+                Intent intent = new Intent();
                 intent.putExtra("id",1);
-                startActivity(intent);
+                setResult(4,intent);
+                finish();
             }
         });
 
