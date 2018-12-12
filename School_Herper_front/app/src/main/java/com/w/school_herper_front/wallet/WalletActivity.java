@@ -6,49 +6,58 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.w.school_herper_front.HomePage.HomeActivity;
 import com.w.school_herper_front.R;
-
+import com.w.school_herper_front.wallet.WalletDepositActivity;
 public class WalletActivity extends AppCompatActivity {
-
+    private LinearLayout deposit1;
+    private LinearLayout withdraw1;
     private ImageView back1;
-    private LinearLayout deposit;
-    private LinearLayout withdraw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
         back1 = findViewById(R.id.wallet_image_goback);
-        deposit = findViewById(R.id.deposit);
-        withdraw = findViewById(R.id.with_draw);
+        deposit1 = findViewById(R.id.ln_deposit);
+        withdraw1 = findViewById(R.id.ln_draw);
 
         /*
          * 姓名：赵璐
          * 日期：2018.12.12
          * 说明：基本的页面跳转
-         * */
-        back1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(WalletActivity.this, HomeActivity.class);
-                intent.putExtra("id",1);
-                startActivity(intent);
-            }
-        });
-        deposit.setOnClickListener(new View.OnClickListener(){
+         *
+        */
+
+        deposit1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WalletActivity.this,WalletDepositActivity.class);
                 startActivity(intent);
             }
-        });
-        withdraw.setOnClickListener(new View.OnClickListener(){
+        });;
+
+        withdraw1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WalletActivity.this, WalletWithDrawActivity.class);
+                Intent intent = new Intent(WalletActivity.this,WalletWithDrawActivity.class);
                 startActivity(intent);
             }
         });
+
+        back1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("id",1);
+                setResult(4,intent);
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 3){
+        }
     }
 }
