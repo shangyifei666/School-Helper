@@ -62,7 +62,7 @@ public class HomePublishActivity extends AppCompatActivity {
 
             @Override
             public void onTimeSelect(Date date, View v) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy/MM/dd日-HH:MM:SS");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy/MM/dd-HH:MM:SS");
                 String format = simpleDateFormat.format(date);
                 tvTime.setText(format);
 //                Toast.makeText(HomePublishActivity.this, date.toString(), Toast.LENGTH_SHORT).show();
