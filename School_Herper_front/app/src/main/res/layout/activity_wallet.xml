@@ -73,7 +73,7 @@
 
 
         <LinearLayout
-            android:id="@+id/deposit"
+            android:id="@+id/ln_deposit"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="2dp"
@@ -94,7 +94,7 @@
                 android:layout_marginLeft="15dp"/>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/with_draw"
+            android:id="@+id/ln_draw"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="2dp"

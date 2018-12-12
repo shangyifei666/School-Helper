@@ -25,9 +25,9 @@
         </activity>
         <activity android:name=".HomeShowContentActivity" />
         <activity android:name=".HomePublishActivity" />
-        <activity android:name=".wallet.WalletActivity" />
-        <activity android:name=".wallet.WalletDepositActivity" />
-        <activity android:name=".wallet.WalletWithDrawActivity"/>
+        <activity android:name=".wallet.WalletActivity"></activity>
+        <activity android:name=".wallet.WalletWithDrawActivity"></activity>
+        <activity android:name=".wallet.WalletDepositActivity"></activity>
         <activity android:name=".ChangeKeyActivity"/>
         <activity android:name=".HomePage.OtherHomeActivity"/>
 
