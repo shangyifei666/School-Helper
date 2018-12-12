@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -13,5 +14,9 @@
         <item name="android:textStyle">normal</item>
         <item name="android:gravity">center</item>
     </style>
-
+    <style name="CountTimeText" parent="CustomText">
+        <item name="android:textSize">25sp</item>
+        <item name="android:layout_width">34dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
 </resources>
