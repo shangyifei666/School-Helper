@@ -4,13 +4,20 @@
     DEVELOPER:Zhangxixian
     DATE:18/12/11
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeShowContentActivity">
-    <LinearLayout
-        android:id="@+id/ll_mycontent"
+
+    <ScrollView
+        android:id="@+id/scro_mycontent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="vertical"
+        android:scrollbars="vertical">
+        <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -148,10 +155,6 @@
             android:layout_height="1dp"
             android:background="@color/buttonGray" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -170,15 +173,12 @@
                 android:layout_marginLeft="5dp"
                 android:text="假装有内容假装有内容假装有内容假装有内容，假装有内容假装有内容假装有内容假装有内容假装有内，容假装有内容假装有内容假装有内容假装有内容假装有内容"/>
             <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/home_publish_test1"/>
+                style="@style/CustomPicView"
+                android:src="@drawable/home_publish_test1"
+                />
             <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/home_publish_test2"/>
+                style="@style/CustomPicView"
+                android:src="@drawable/home_publish_test2"/>
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -206,18 +206,18 @@
                     android:textSize="14sp"
                     android:textColor="@color/black"/>
             </LinearLayout>
-
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
     <!--tail-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_above="@+id/ll_mycontent"
-        >
+        android:layout_above="@+id/scro_mycontent">
         <Button
             android:id="@+id/content_btn_chat"
             android:layout_width="0dp"
