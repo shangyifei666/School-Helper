@@ -20,7 +20,7 @@
         android:padding="1dp">
 
         <ImageView
-            android:id="@+id/backwallet"
+            android:id="@+id/back_wallet"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="13dp"

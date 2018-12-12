@@ -9,13 +9,12 @@ import android.widget.ImageView;
 import com.w.school_herper_front.R;
 
 public class WalletWithDrawActivity extends AppCompatActivity {
-
     private ImageView back1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_with_draw);
-        back1 = findViewById(R.id.backwallet);
+        back1 = findViewById(R.id.back_wallet2);
 
 
         /*
@@ -28,7 +27,7 @@ public class WalletWithDrawActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.putExtra("id",1);
-                setResult(4,intent);
+                setResult(3,intent);
                 finish();
             }
         });
