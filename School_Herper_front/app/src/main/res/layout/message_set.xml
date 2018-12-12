@@ -20,6 +20,7 @@
         android:padding="1dp">
 
         <ImageView
+            android:id="@+id/back_1"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/goback"
