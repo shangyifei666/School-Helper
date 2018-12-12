@@ -8,10 +8,10 @@
     android:id="@+id/frame_board">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/lv_boards"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="布告栏" />
+        android:layout_height="match_parent"></ListView>
 
     <!--
         开发人：尚一飞
@@ -26,5 +26,6 @@
         android:src="@drawable/jiahao"
         android:elevation="8dp"
         app:pressedTranslationZ="10dp"/>
+
 
 </FrameLayout>
