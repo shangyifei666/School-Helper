@@ -35,7 +35,7 @@ public class MessageSetActivity extends Activity {
          * 说明：基本的页面跳转
          * */
         //返回个人主页
-        authen.setOnClickListener(new View.OnClickListener() {
+        back1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
