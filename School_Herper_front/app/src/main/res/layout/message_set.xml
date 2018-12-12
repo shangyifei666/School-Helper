@@ -54,13 +54,14 @@
         android:orientation="vertical">
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="400dp"
             android:layout_height="100dp"
             android:background="@drawable/box_color1">
             <TextView
                 android:gravity="center_vertical"
                 android:layout_marginLeft="30dp"
                 android:textSize="20dp"
+
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="头像"
