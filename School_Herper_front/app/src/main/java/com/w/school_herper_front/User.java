@@ -11,6 +11,7 @@ package com.w.school_herper_front;
 import android.hardware.usb.UsbRequest;
 
 public class User {
+    private int userId;
     private String phone;
     private String password;
     private String name;
@@ -68,6 +69,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
 
