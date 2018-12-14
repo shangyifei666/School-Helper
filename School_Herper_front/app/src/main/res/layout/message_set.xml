@@ -8,6 +8,12 @@
  * 描述：我的主页设置
  */
 -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Message.MessageSetActivity"
+    android:id="@+id/root">
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,14 +42,16 @@
         android:textColor="#FFFFFF"/>
 
         <TextView
-            android:gravity="right"
-            android:layout_width="match_parent"
+            android:id="@+id/img_change"
+            android:gravity="center"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:text="保存"
             android:textSize="26dp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="285dp"
             android:layout_marginRight="12dp"/>
     </FrameLayout>
     
@@ -67,11 +75,12 @@
                 android:text="头像"
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="200dp"/>
-
-            <ImageView
+            <com.w.school_herper_front.CircleImageView
+                android:id="@+id/img_touxiang"
                 android:gravity="center_vertical"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/myhead"
                 android:layout_marginTop="10dp"/>
 
@@ -90,6 +99,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
+                android:id="@+id/img_username"
                 android:gravity="center"
                 android:hint="Kika Kong"
                 android:text=""
@@ -116,6 +126,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
+                android:id="@+id/img_names"
                 android:gravity="center"
                 android:hint="吴彦祖"
                 android:text=""
@@ -138,10 +149,11 @@
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="个性标签"
+                android:text="个性签名"
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="20dp"/>
             <EditText
+                android:id="@+id/img_autograph"
                 android:gravity="center"
                 android:hint=""
                 android:text=""
@@ -168,6 +180,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
+                android:id="@+id/img_sex"
                 android:gravity="center"
                 android:hint=""
                 android:text="男"
@@ -194,6 +207,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="110dp"/>
             <EditText
+                android:id="@+id/img_phone"
                 android:gravity="center"
                 android:hint="1234567456"
                 android:text=""
@@ -243,6 +257,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="180dp"/>
             <TextView
+                android:id="@+id/img_authentication"
                 android:gravity="center"
                 android:text="未认证"
                 android:textSize="20dp"
@@ -257,3 +272,4 @@
     </LinearLayout>
 
 </FrameLayout>
+</android.support.constraint.ConstraintLayout>
