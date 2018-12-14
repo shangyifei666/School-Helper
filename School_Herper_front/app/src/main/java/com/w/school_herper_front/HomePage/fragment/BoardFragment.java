@@ -59,6 +59,10 @@ public class BoardFragment extends Fragment {
         boards.add(board1);
         board board2 = new board(R.drawable.myhead,"我的名字","机场接人",R.drawable.testimage,"有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李....","2018-1-1","￥6.00");
         boards.add(board2);
+        board board3 = new board(R.drawable.myhead,"我的名字","机场接人","有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李....","2018-1-1","￥6.00");
+        boards.add(board3);
+        board board4 = new board(R.drawable.myhead,"我的名字","机场接人",R.drawable.testimage,"有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李....","2018-1-1","￥6.00");
+        boards.add(board4);
         ListView listView = view.findViewById(R.id.lv_boards);
         BoardAdapter boardAdapter = new BoardAdapter(getContext(),R.layout.board_list_item,boards);
 
