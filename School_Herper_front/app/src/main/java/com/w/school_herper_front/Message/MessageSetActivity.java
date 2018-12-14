@@ -48,7 +48,7 @@ public class MessageSetActivity extends Activity{
         setContentView(R.layout.message_set);
         authen = findViewById(R.id.ln_authens);
         changepsd = findViewById(R.id.ln_changepsd);
-        imageView=findViewById(R.id.tx);
+        imageView=findViewById(R.id.img_touxiang);
         constraintLayout=findViewById(R.id.root);
         //跳转到认证页面
         imageView.setOnClickListener(new View.OnClickListener() {
