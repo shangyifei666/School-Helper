@@ -36,14 +36,16 @@
         android:textColor="#FFFFFF"/>
 
         <TextView
-            android:gravity="right"
-            android:layout_width="match_parent"
+            android:id="@+id/img_change"
+            android:gravity="center"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:text="保存"
             android:textSize="26dp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="285dp"
             android:layout_marginRight="12dp"/>
     </FrameLayout>
     
@@ -69,6 +71,7 @@
                 android:layout_marginRight="200dp"/>
 
             <ImageView
+                android:id="@+id/img_touxiang"
                 android:gravity="center_vertical"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -90,6 +93,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
+                android:id="@+id/img_username"
                 android:gravity="center"
                 android:hint="Kika Kong"
                 android:text=""
@@ -116,6 +120,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
+                android:id="@+id/img_realname"
                 android:gravity="center"
                 android:hint="吴彦祖"
                 android:text=""
@@ -138,10 +143,11 @@
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="个性标签"
+                android:text="个性签名"
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="20dp"/>
             <EditText
+                android:id="@+id/img_autograph"
                 android:gravity="center"
                 android:hint=""
                 android:text=""
@@ -168,6 +174,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
+                android:id="@+id/img_sex"
                 android:gravity="center"
                 android:hint=""
                 android:text="男"
@@ -194,6 +201,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="110dp"/>
             <EditText
+                android:id="@+id/img_phone"
                 android:gravity="center"
                 android:hint="1234567456"
                 android:text=""
@@ -243,6 +251,7 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="180dp"/>
             <TextView
+                android:id="@+id/img_authen"
                 android:gravity="center"
                 android:text="未认证"
                 android:textSize="20dp"
