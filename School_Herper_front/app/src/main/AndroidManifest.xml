@@ -20,26 +20,24 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ForgotKeyActivity" />
-        <activity android:name=".HomePage.HomeActivity">
-
-        </activity>
+        <activity android:name=".HomePage.HomeActivity" />
         <activity android:name=".HomeShowContentActivity" />
         <activity android:name=".HomePublishActivity" />
-        <activity android:name=".wallet.WalletActivity"></activity>
-        <activity android:name=".wallet.WalletWithDrawActivity"></activity>
-        <activity android:name=".wallet.WalletDepositActivity"></activity>
-        <activity android:name=".ChangeKeyActivity"/>
-        <activity android:name=".HomePage.OtherHomeActivity"/>
-
-        <activity android:name=".ChangePassword.ChangePassword"/>
-        <activity android:name=".ChangePassword.ChangePasswordok"/>
-
-        <activity android:name=".Message.MessageSetActivity"></activity>
-
-        <activity android:name=".Authen.AuthenGetActivity"/>
-        <activity android:name=".Authen.AuthenGetokActivity"/>
-        <activity android:name=".Authen.AuthenOkActivity"/>
-        <activity android:name=".Authen.AuthenNoActivity"/>
+        <activity android:name=".wallet.WalletActivity" />
+        <activity android:name=".wallet.WalletWithDrawActivity" />
+        <activity android:name=".wallet.WalletDepositActivity" />
+        <activity android:name=".ChangeKeyActivity" />
+        <activity android:name=".HomePage.OtherHomeActivity" />
+        <activity android:name=".ChangePassword.ChangePassword" />
+        <activity android:name=".ChangePassword.ChangePasswordok" />
+        <activity android:name=".Message.MessageSetActivity" />
+        <activity android:name=".Authen.AuthenGetActivity" />
+        <activity android:name=".Authen.AuthenGetokActivity" />
+        <activity android:name=".Authen.AuthenOkActivity" />
+        <activity android:name=".Authen.AuthenNoActivity" />
+        <activity android:name=".HomePage.fragment.task.TaskFirstActivity" />
+        <activity android:name=".HomePage.fragment.task.TaskSecondActivity" />
+        <activity android:name=".HomePage.fragment.task.TaskThirdActivity"></activity>
     </application>
 
 </manifest>
