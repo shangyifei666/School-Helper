@@ -1,14 +1,19 @@
 package com.w.school_herper_front.HomePage.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.w.school_herper_front.HomePage.fragment.task.TaskAdapter;
+import com.w.school_herper_front.HomePage.fragment.task.TaskFirstFragment;
 import com.w.school_herper_front.HomePage.fragment.task.task;
 import com.w.school_herper_front.R;
 
@@ -33,6 +38,18 @@ public class TaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task, container, false);
+        /**
+         * 绑定点击事件
+         */
+        LinearLayout linearLayout1 = view.findViewById(R.id.tab1);
+        LinearLayout linearLayout2 = view.findViewById(R.id.tab2);
+        LinearLayout linearLayout3 = view.findViewById(R.id.tab3);
+
+
+
+        /**
+         * 列出所有任务Adapter
+         */
         final List<task> tasks = new ArrayList<>();
 
         task task1 = new task(R.drawable.myhead,"我的名字","2018-12-12","代取快递","待验收");
