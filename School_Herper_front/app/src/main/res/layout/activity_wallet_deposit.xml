@@ -78,13 +78,13 @@
                     android:src="@drawable/home_publish_arrows_right" />
             </LinearLayout>
 
-            <view
-                android:layout_width="360dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="7dp"
                 android:background="#000000"
-                android:gravity="center"></view>
+                android:gravity="center"></LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -123,19 +123,19 @@
                     android:hint="请输入金额"
                     android:textSize="40sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:orientation="vertical"></LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:orientation="vertical"></LinearLayout>-->
             </LinearLayout>
 
-            <view
-                android:layout_width="360dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="7dp"
                 android:background="#000000"
-                android:gravity="center"></view>
+                android:gravity="center"></LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:gravity="center"

@@ -22,7 +22,7 @@ public class WalletDepositActivity extends AppCompatActivity {
          * 说明：基本的页面跳转
          * */
 
-        /*
+
         back1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -32,7 +32,7 @@ public class WalletDepositActivity extends AppCompatActivity {
                 finish();
             }
         });
-*/
+
 
     }
 }
