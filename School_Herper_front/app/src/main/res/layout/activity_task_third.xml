@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<!--
+    开发人：尚一飞
+    时间：12.17
+    简介：Task子页的显示页
+-->
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lv_task_third"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage.fragment.task.TaskThirdActivity">
+    >
 
-</android.support.constraint.ConstraintLayout>
+
+</ListView>
