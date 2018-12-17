@@ -58,17 +58,29 @@
                     android:gravity="top"
                     android:layout_margin="12dp"
                     android:background="@null"/>
-                <ImageView
-                    style="@style/CustomPicView"
-                    android:src="@drawable/home_publish_test1" />
-                <ImageView
-                    style="@style/CustomPicView"
-                    android:src="@drawable/home_publish_test2"/>
-                <Button
-                    android:id="@+id/home_publish_btn_addimage"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/home_publish_btn_bg"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        style="@style/CustomPicView"
+                        android:layout_width="100dp"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/testimage"
+                        android:layout_marginBottom="12dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"/>
+                    <Button
+                        android:id="@+id/home_publish_btn_addimage"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="right"
+                        android:background="@drawable/home_publish_btn_bg"/>
+                </LinearLayout>
+
             </LinearLayout>
 
 
