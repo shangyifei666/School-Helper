@@ -22,7 +22,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@drawable/myback">
             <TextView
@@ -60,7 +60,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kika Kong"
+                android:id="@+id/tv_name"
                 android:textColor="#0F0F0F"
                 android:textSize="24dp"
                 android:textStyle="bold" />
@@ -86,7 +86,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="二十出头的时候，我是一个素食主义者"
+                android:id="@+id/tv_write"
                 android:textColor="#7D7777"
                 android:textSize="16dp" />
 
@@ -109,7 +109,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="15232811399"
+                android:id="@+id/tv_phone"
                 android:textColor="#101010" />
 
         </LinearLayout>
@@ -128,7 +128,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="吴彦祖"
+                android:id="@+id/tv_realname"
                 android:textColor="#101010" />
         </LinearLayout>
 
@@ -146,7 +146,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="男"
+                android:id="@+id/tv_sex"
                 android:textColor="#101010" />
 
         </LinearLayout>

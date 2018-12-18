@@ -49,6 +49,7 @@ public class MessageSetActivity extends Activity {
     private EditText sex;
     private EditText phone;
     private TextView authentication;
+    private EditText write;
     private ConstraintLayout constraintLayout;
     private static final int ALBUM_REQUEST_CODE = 1;
     //相机请求码
@@ -95,13 +96,18 @@ public class MessageSetActivity extends Activity {
          * */
 
         headphoto = findViewById(R.id.img_touxiang);
-        username = findViewById(R.id.img_username);
-        names = findViewById(R.id.img_names);
-        autograph = findViewById(R.id.img_autograph);
-        sex = findViewById(R.id.img_sex);
-        phone = findViewById(R.id.img_phone);
         authentication = findViewById(R.id.img_authentication);
         constraintLayout=findViewById(R.id.root);
+        username=findViewById(R.id.name);
+        names=findViewById(R.id.realname);
+        sex=findViewById(R.id.sex);
+        phone=findViewById(R.id.phone);
+        write=findViewById(R.id.write);
+        names.setText(SendDatesToServer.user1.getRealname());
+        username.setText(SendDatesToServer.user1.getName());
+        sex.setText(SendDatesToServer.user1.getSex());
+        phone.setText(SendDatesToServer.user1.getPhone());
+        write.setText(SendDatesToServer.user1.getStuWriter());
 //        Bundle extras = getIntent().getExtras();
 //        userId =  extras.getInt("userId");
 //        String ID  = userId + "";

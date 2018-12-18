@@ -99,10 +99,8 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
-                android:id="@+id/img_username"
+                android:id="@+id/name"
                 android:gravity="center"
-                android:hint="Kika Kong"
-                android:text=""
                 android:textSize="20dp"
                 android:layout_marginTop="2dp"
                 android:paddingLeft="15dp"
@@ -126,10 +124,8 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
-                android:id="@+id/img_names"
+                android:id="@+id/realname"
                 android:gravity="center"
-                android:hint="吴彦祖"
-                android:text=""
                 android:textSize="20dp"
                 android:layout_marginTop="2dp"
                 android:paddingLeft="15dp"
@@ -153,10 +149,8 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="20dp"/>
             <EditText
-                android:id="@+id/img_autograph"
+                android:id="@+id/write"
                 android:gravity="center"
-                android:hint=""
-                android:text=""
                 android:textSize="20dp"
                 android:layout_marginTop="2dp"
                 android:paddingLeft="15dp"
@@ -180,10 +174,8 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="150dp"/>
             <EditText
-                android:id="@+id/img_sex"
+                android:id="@+id/sex"
                 android:gravity="center"
-                android:hint=""
-                android:text="男"
                 android:textSize="20dp"
                 android:layout_marginTop="2dp"
                 android:paddingLeft="15dp"
@@ -207,10 +199,8 @@
                 android:textColor="#0F0F0F"
                 android:layout_marginRight="110dp"/>
             <EditText
-                android:id="@+id/img_phone"
+                android:id="@+id/phone"
                 android:gravity="center"
-                android:hint="1234567456"
-                android:text=""
                 android:textSize="20dp"
                 android:layout_marginTop="2dp"
                 android:paddingLeft="15dp"

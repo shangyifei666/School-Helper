@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.w.school_herper_front.Authen.AuthenNoActivity;
 import com.w.school_herper_front.Message.MessageSetActivity;
 import com.w.school_herper_front.R;
+import com.w.school_herper_front.SendDatesToServer;
 import com.w.school_herper_front.wallet.WalletActivity;
 
 /**
@@ -23,6 +24,11 @@ public class MineFragment extends Fragment {
     
     private TextView setMessage;
     private ImageView moneybag;
+    private TextView tv_name;
+    private TextView tv_write;
+    private TextView tv_phone;
+    private TextView tv_realname;
+    private TextView tv_sex;
 
     public MineFragment() {
         // Required empty public constructor
@@ -38,10 +44,16 @@ public class MineFragment extends Fragment {
         setMessage = view.findViewById(R.id.tv_set);
         moneybag = view.findViewById(R.id.img_money);
         // Inflate the layout for this fragment
-
-
-
-
+        tv_name=view.findViewById(R.id.tv_name);
+        tv_phone=view.findViewById(R.id.tv_phone);
+        tv_realname=view.findViewById(R.id.tv_realname);
+        tv_sex=view.findViewById(R.id.tv_sex);
+        tv_write=view.findViewById(R.id.tv_write);
+        tv_name.setText(SendDatesToServer.user1.getName());
+        tv_phone.setText(SendDatesToServer.user1.getPhone());
+        tv_sex.setText(SendDatesToServer.user1.getSex());
+        tv_write.setText(SendDatesToServer.user1.getStuWriter());
+        tv_realname.setText(SendDatesToServer.user1.getRealname());
         /*
          * 姓名：赵璐
          * 日期：2018.12.12
