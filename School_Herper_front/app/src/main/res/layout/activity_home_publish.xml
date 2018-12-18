@@ -9,7 +9,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HomePublishActivity">
+        tools:context=".HomePublishActivity"
+        android:id="@+id/home_publish">
     <ScrollView
         android:id="@+id/scro"
         android:layout_width="match_parent"
@@ -35,6 +36,7 @@
                 android:textSize="20sp"
                 android:layout_marginTop="8dp"/>
             <EditText
+                android:id="@+id/home_publish_et_title"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="不超过15字"
@@ -64,10 +66,10 @@
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
                     <ImageView
+                        android:id="@+id/home_publish_img"
                         style="@style/CustomPicView"
                         android:layout_width="100dp"
                         android:layout_marginLeft="15dp"
-                        android:src="@drawable/testimage"
                         android:layout_marginBottom="12dp"/>
                     <TextView
                         android:layout_width="0dp"
@@ -102,7 +104,8 @@
                     android:layout_height="38dp"
                     android:textSize="16sp"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="7dp"
                     android:background="@drawable/home_publish_et_bg"/>
 
             </LinearLayout>

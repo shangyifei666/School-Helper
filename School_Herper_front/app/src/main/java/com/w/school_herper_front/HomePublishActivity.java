@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.FileProvider;
@@ -21,12 +20,14 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.w.school_herper_front.listener.TextChange;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,11 +36,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class HomePublishActivity extends AppCompatActivity {
+public class HomePublishActivity extends AppCompatActivity   {
+
     private TextView tvTime ;
-    private Button btnSelectTime,btnaddImg ;
-    private ConstraintLayout constraintLayout;
+    private Button btnSelectTime,btnaddImg ,btnPublish;
+    private RelativeLayout relativeLayout;
     private ImageView pic;
+    private EditText etAddMoney,etTitle;
     private static final int ALBUM_REQUEST_CODE = 1;
     //相机请求码
     private static final int CAMERA_REQUEST_CODE = 2;
@@ -68,9 +71,12 @@ public class HomePublishActivity extends AppCompatActivity {
                 showPopupWindow();
             }
         });
+        //Button改变颜色
+        etAddMoney.addTextChangedListener(new TextChange(etAddMoney,etTitle,btnPublish));
 
 
     }
+
     /**
      * function:get all Widgets by id from layout ;
      * param: void ;
@@ -80,8 +86,11 @@ public class HomePublishActivity extends AppCompatActivity {
         tvTime = findViewById(R.id.home_publish_tv_showtime);
         btnSelectTime = findViewById(R.id.home_publish_btn_timepicker);
         btnaddImg = findViewById(R.id.home_publish_btn_addimage);
-        constraintLayout = findViewById(R.id.home_publish);
+        relativeLayout = findViewById(R.id.home_publish);
         pic = findViewById(R.id.home_publish_img);
+        etAddMoney = findViewById(R.id.home_publish_et_moneycount);
+        btnPublish = findViewById(R.id.home_publish_btn_publish);
+        etTitle = findViewById(R.id.home_publish_et_title);
     }
 
 
@@ -145,7 +154,7 @@ public class HomePublishActivity extends AppCompatActivity {
         });
         popupWindow.setContentView(view);
         //显示PopupWindow
-        popupWindow.showAtLocation(constraintLayout, Gravity.NO_GRAVITY,0,0);
+        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY,0,0);
     }
     /**
      * 从相册获取图片
