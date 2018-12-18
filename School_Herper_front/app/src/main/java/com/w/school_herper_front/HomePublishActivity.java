@@ -38,7 +38,7 @@ import java.util.Date;
 
 public class HomePublishActivity extends AppCompatActivity   {
 
-    private TextView tvTime ;
+    private TextView tvTime ,tvShowTime;
     private Button btnSelectTime,btnaddImg ,btnPublish;
     private RelativeLayout relativeLayout;
     private ImageView pic;
@@ -72,7 +72,7 @@ public class HomePublishActivity extends AppCompatActivity   {
             }
         });
         //Button改变颜色
-        etAddMoney.addTextChangedListener(new TextChange(etAddMoney,etTitle,btnPublish));
+        tvShowTime.addTextChangedListener(new TextChange(etAddMoney,etTitle,tvShowTime,btnPublish));
 
 
     }
@@ -91,6 +91,7 @@ public class HomePublishActivity extends AppCompatActivity   {
         etAddMoney = findViewById(R.id.home_publish_et_moneycount);
         btnPublish = findViewById(R.id.home_publish_btn_publish);
         etTitle = findViewById(R.id.home_publish_et_title);
+        tvShowTime = findViewById(R.id.home_publish_tv_showtime);
     }
 
 
