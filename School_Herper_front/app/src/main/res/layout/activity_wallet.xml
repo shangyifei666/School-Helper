@@ -74,10 +74,11 @@
 
         <LinearLayout
             android:id="@+id/ln_deposit"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="2dp"
-            android:background="#FFCCCC">
+            android:background="#FFCCCC"
+            android:layout_weight="1">
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -95,11 +96,12 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ln_draw"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="2dp"
-            android:background="#FFCCCC">
+            android:background="#FFCCCC"
+            android:layout_weight="1">
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -120,13 +122,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:background="#FFFFFF"
         android:orientation="horizontal"
         android:padding="1dp">
 
         <TextView
-            android:layout_width="340dp"
-            android:layout_height="40dp"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:text="账单明细"
             android:textColor="#000000"
@@ -136,7 +140,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="13dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="12dp"
             android:src="@drawable/home_publish_arrows_right" />
     </LinearLayout>
 
@@ -148,8 +152,9 @@
         android:padding="1dp">
 
         <TextView
-            android:layout_width="290dp"
-            android:layout_height="40dp"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:text="我的银行卡"
             android:textColor="#000000"
@@ -167,7 +172,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="13dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="12dp"
             android:src="@drawable/home_publish_arrows_right" />
     </LinearLayout>
 
@@ -179,8 +184,9 @@
         android:padding="1dp">
 
         <TextView
-            android:layout_width="290dp"
-            android:layout_height="40dp"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:text="我的支付宝"
             android:textColor="#000000"
@@ -198,7 +204,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="13dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="13dp"
             android:src="@drawable/home_publish_arrows_right" />
     </LinearLayout>
 
@@ -210,8 +216,9 @@
         android:padding="1dp">
 
         <TextView
-            android:layout_width="340dp"
-            android:layout_height="40dp"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:text="支付设置"
             android:textColor="#000000"
@@ -221,7 +228,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="13dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="13dp"
             android:src="@drawable/home_publish_arrows_right" />
 
     </LinearLayout>

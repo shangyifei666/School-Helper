@@ -48,6 +48,10 @@ public class RegisterServlet extends HttpServlet {
 		int value=60;
 		int took=0;
 		int publish=0;
+		int identification=0;
+		String signature="个性标签";
+		String realname="真实姓名";
+		String sex="男";
 		UserBean user=new UserBean();
 		UserDao userdao=new UserDao();
 		List<UserBean> userList = userdao.getAllUser(); 
@@ -70,6 +74,10 @@ public class RegisterServlet extends HttpServlet {
 			user.setUserReputationValue(value);
 			user.setUserTookCount(took);
 			user.setUserPublishCount(publish);
+			user.setUserIdentification(identification);
+			user.setUserSignature(signature);
+			user.setUserRealname(realname);
+			user.setUserSex(sex);
 			json1.put("success", "注册成功");
 			json1.put("error","error");
 			array.put(json1);

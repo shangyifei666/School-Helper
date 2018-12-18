@@ -41,6 +41,9 @@
         <activity android:name=".Authen.AuthenGetokActivity" />
         <activity android:name=".Authen.AuthenOkActivity" />
         <activity android:name=".Authen.AuthenNoActivity" />
+        <activity android:name=".HomePage.fragment.task.TaskFirstActivity" />
+        <activity android:name=".HomePage.fragment.task.TaskSecondActivity" />
+        <activity android:name=".HomePage.fragment.task.TaskThirdActivity"></activity>
     </application>
 
 </manifest>

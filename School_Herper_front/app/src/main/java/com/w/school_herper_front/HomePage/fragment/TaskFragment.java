@@ -4,8 +4,6 @@ package com.w.school_herper_front.HomePage.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.w.school_herper_front.HomePage.fragment.task.TaskAdapter;
-import com.w.school_herper_front.HomePage.fragment.task.TaskFirstFragment;
+import com.w.school_herper_front.HomePage.fragment.task.TaskFirstActivity;
+import com.w.school_herper_front.HomePage.fragment.task.TaskSecondActivity;
+import com.w.school_herper_front.HomePage.fragment.task.TaskThirdActivity;
 import com.w.school_herper_front.HomePage.fragment.task.task;
 import com.w.school_herper_front.R;
 
@@ -44,11 +44,34 @@ public class TaskFragment extends Fragment {
         LinearLayout linearLayout1 = view.findViewById(R.id.tab1);
         LinearLayout linearLayout2 = view.findViewById(R.id.tab2);
         LinearLayout linearLayout3 = view.findViewById(R.id.tab3);
+        linearLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TaskFirstActivity.class);
+                startActivity(intent);
+            }
+        });
+        linearLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TaskSecondActivity.class);
+                startActivity(intent);
+            }
+        });
+        linearLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TaskThirdActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
         /**
          * 列出所有任务Adapter
+         * 数据库建立后从数据库获取
+         * 预计获取10个
          */
         final List<task> tasks = new ArrayList<>();
 
