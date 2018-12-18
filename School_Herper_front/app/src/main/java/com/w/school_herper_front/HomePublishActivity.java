@@ -11,6 +11,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.FileProvider;
@@ -25,8 +27,12 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.w.school_herper_front.HomePage.HomeActivity;
+import com.w.school_herper_front.bean.RewardBean;
+import com.w.school_herper_front.connect.SendData;
 import com.w.school_herper_front.listener.TextChange;
 
 import java.io.File;
@@ -38,11 +44,11 @@ import java.util.Date;
 
 public class HomePublishActivity extends AppCompatActivity   {
 
-    private TextView tvTime ,tvShowTime;
+    private TextView tvShowTime;
     private Button btnSelectTime,btnaddImg ,btnPublish;
     private RelativeLayout relativeLayout;
     private ImageView pic;
-    private EditText etAddMoney,etTitle;
+    private EditText etAddMoney,etTitle,etContent;
     private static final int ALBUM_REQUEST_CODE = 1;
     //相机请求码
     private static final int CAMERA_REQUEST_CODE = 2;
@@ -50,6 +56,26 @@ public class HomePublishActivity extends AppCompatActivity   {
     private static final int CROP_REQUEST_CODE = 3;
     //调用照相机返回图片文件
     private File tempFile;
+    private RewardBean reward;
+    Handler handler=new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SendDatesToServer.SEND_SUCCESS:
+                    Toast.makeText(HomePublishActivity.this, "任务发布成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(HomePublishActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    break;
+                case SendDatesToServer.SEND_FAIL:
+                    Toast.makeText(HomePublishActivity.this, "数据上传失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case SendDatesToServer.SEND_FAIL1:
+                    Toast.makeText(HomePublishActivity.this, "任务发布失败，请重新发布", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
 
     @Override
@@ -61,7 +87,7 @@ public class HomePublishActivity extends AppCompatActivity   {
         btnSelectTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimePicker(tvTime);
+                showTimePicker(tvShowTime);
             }
         });
         //添加图片功能
@@ -73,8 +99,34 @@ public class HomePublishActivity extends AppCompatActivity   {
         });
         //Button改变颜色
         tvShowTime.addTextChangedListener(new TextChange(etAddMoney,etTitle,tvShowTime,btnPublish));
+        //submit
+        fillDataFromView();
+        btnPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SendData(handler).SendDatasToServer(reward);
+            }
+        });
 
+    }
 
+    /**
+     * function:fill data in reward
+     * param:null
+     * return:void
+     */
+    private void fillDataFromView(){
+        int posterId = SendDatesToServer.user1.getUserId();
+        String title = etTitle.getText().toString();
+        String content = etContent.getText().toString();
+        Double money = Double.valueOf(etAddMoney.getText().toString());
+        String deadline = tvShowTime.getText().toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        String publishTime = simpleDateFormat.format(date);
+
+        reward = new RewardBean(posterId,content,title,deadline,money);
+        reward.setPublishTime(publishTime);
     }
 
     /**
@@ -83,7 +135,6 @@ public class HomePublishActivity extends AppCompatActivity   {
      * return: void ;
      * */
     private void getWidgets(){
-        tvTime = findViewById(R.id.home_publish_tv_showtime);
         btnSelectTime = findViewById(R.id.home_publish_btn_timepicker);
         btnaddImg = findViewById(R.id.home_publish_btn_addimage);
         relativeLayout = findViewById(R.id.home_publish);
@@ -92,6 +143,7 @@ public class HomePublishActivity extends AppCompatActivity   {
         btnPublish = findViewById(R.id.home_publish_btn_publish);
         etTitle = findViewById(R.id.home_publish_et_title);
         tvShowTime = findViewById(R.id.home_publish_tv_showtime);
+        etContent = findViewById(R.id.home_publish_et_content);
     }
 
 
@@ -106,9 +158,10 @@ public class HomePublishActivity extends AppCompatActivity   {
 
             @Override
             public void onTimeSelect(Date date, View v) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy/MM/dd-HH:MM:SS");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy/MM/dd-hh:mm:ss");
                 String format = simpleDateFormat.format(date);
                 tvTime.setText(format);
+                Log.e("time=============",format);
 //                Toast.makeText(HomePublishActivity.this, date.toString(), Toast.LENGTH_SHORT).show();
             }
         })
