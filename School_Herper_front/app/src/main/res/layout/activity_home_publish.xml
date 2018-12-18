@@ -190,7 +190,6 @@
             android:id="@+id/home_publish_btn_publish"
             android:layout_width="match_parent"
             android:layout_height="58dp"
-            android:layout_above="@+id/scro"
             android:layout_alignParentBottom="true"
             android:text="确认发布"
             android:gravity="center"
