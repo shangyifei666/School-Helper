@@ -23,7 +23,7 @@ public class UserDao {
 	public static void setUser(UserBean use) {
 			
 			Connection conn = DataBase.getConnection();
-			String sql = "insert into user(user_phone,user_password,user_name,school_id,user_student_num,user_image,user_money,user_reputation_value,user_took_count,user_publish_count) values(?,?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into user(user_phone,user_password,user_name,school_id,user_student_num,user_image,user_money,user_reputation_value,user_took_count,user_publish_count,user_identification,user_signature,user_realname,user_sex) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			try {
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, use.getUserPhone());
@@ -36,6 +36,10 @@ public class UserDao {
 				pstmt.setInt(8, use.getUserReputationValue());
 				pstmt.setInt(9, use.getUserTookCount());
 				pstmt.setInt(10, use.getUserPublishCount());
+				pstmt.setInt(11, use.getUserIdentification());
+				pstmt.setString(12, use.getUserSignature());
+				pstmt.setString(13, use.getUserRealname());
+				pstmt.setString(14, use.getUserSex());
 				pstmt.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -59,7 +63,7 @@ public class UserDao {
 	 * */
 	public static int reviseUser(UserBean user) throws Exception{
 		Connection conn=DataBase.getConnection();
-		String sql="update user set user_name='"+user.getUserName()+"',user_password='"+user.getUserPassword()+"',user_phone='"+user.getUserPhone()+"',user_money="+user.getUserMoney()+",user_took_count="+user.getUserTookCount()+",user_publish_count="+user.getUserPublishCount()+" where user_id="+user.getUserId()+"";
+		String sql="update user set user_name='"+user.getUserName()+"',user_password='"+user.getUserPassword()+"',user_phone='"+user.getUserPhone()+"',user_money="+user.getUserMoney()+",user_took_count="+user.getUserTookCount()+",user_publish_count="+user.getUserPublishCount()+",user_identification="+user.getUserIdentification()+",user_signature='"+user.getUserSignature()+"',user_realname='"+user.getUserRealname()+"',user_sex='"+user.getUserSex()+"' where user_id="+user.getUserId()+"";
 		Statement stmt=conn.createStatement();
 		int result=stmt.executeUpdate(sql);
 		conn.close();
@@ -88,6 +92,10 @@ public class UserDao {
 				userbean.setUserReputationValue(rs.getInt("user_reputation_value"));
 				userbean.setUserTookCount(rs.getInt("user_took_count"));
 				userbean.setUserPublishCount(rs.getInt("user_publish_count"));
+				userbean.setUserIdentification(rs.getInt("user_identification"));
+				userbean.setUserSignature(rs.getString("user_signature"));
+				userbean.setUserRealname(rs.getString("user_realname"));
+				userbean.setUserSex(rs.getString("user_sex"));
 				userList.add(userbean);
 			}
 		} catch (SQLException e) {
@@ -113,7 +121,7 @@ public class UserDao {
 	public static UserBean checkUser(int userId) {
 		UserBean user = new UserBean();
 		Connection conn = DataBase.getConnection();
-		String sql = "select user_id,user_name,user_password,school_id,user_student_num,user_phone,user_image,user_money,user_reputation_value,user_took_count,user_publish_count from user where user_id=?";
+		String sql = "select user_id,user_name,user_password,school_id,user_student_num,user_phone,user_image,user_money,user_reputation_value,user_took_count,user_publish_count,user_identification,user_signature,user_realname,user_sex from user where user_id=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userId);
@@ -129,6 +137,11 @@ public class UserDao {
 				user.setUserReputationValue(rs.getInt("user_reputation_value"));
 				user.setUserTookCount(rs.getInt("user_took_count"));
 				user.setUserPublishCount(rs.getInt("user_publish_count"));
+				user.setUserIdentification(rs.getInt("user_identification"));
+				user.setUserSignature(rs.getString("user_signature"));
+				user.setUserRealname(rs.getString("user_realname"));
+				user.setUserSex(rs.getString("user_sex"));
+				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
