@@ -11,13 +11,123 @@ package com.w.school_herper_front;
 import android.hardware.usb.UsbRequest;
 
 public class User {
-    private int userId;
     private String phone;
     private String password;
     private String name;
     private String school;
     private String stuNumber;
+    private String stuName;
+    private String stuWriter;
+    private String sex;
+    private int userId;
+    private int schoolId;
+    private String image;
+    private int value;
+    private int money;
+    private int took;
+    private int publish;
+    private String realname;
+    private int identification;
 
+    public int getIdentification() {
+        return identification;
+    }
+
+    public void setIdentification(int identification) {
+        this.identification = identification;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getTook() {
+        return took;
+    }
+
+    public void setTook(int took) {
+        this.took = took;
+    }
+
+    public int getPublish() {
+        return publish;
+    }
+
+    public void setPublish(int publish) {
+        this.publish = publish;
+    }
+
+
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    public String getStuWriter() {
+        return stuWriter;
+    }
+
+    public void setStuWriter(String stuWriter) {
+        this.stuWriter = stuWriter;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    public User(){
+
+    }
     public User(String phone, String password){
         this.phone = phone;
         this.password = password;
@@ -69,14 +179,6 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 }
 

@@ -35,6 +35,7 @@ public class SendDatesToServer {
     public static final int SEND_FAIL2=0x125;
     public static final int SEND_FAIL=0x126;
     public JSONObject object;
+    public static User user1;
     public JSONArray array;
     private Handler handler;
     public SendDatesToServer(Handler handler) {
@@ -99,10 +100,31 @@ public class SendDatesToServer {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String res=reader.readLine();
             array=new JSONArray(res);
-            for(int i=0;i<array.length();i++){
-                object=array.getJSONObject(i);
+            for(int i=0;i<array.length();i++) {
+                object = array.getJSONObject(i);
+                /*
+                 * 功能：把数据库数据存到静态user中，以方便后续获取数据
+                 * 开发人：杨旭辉
+                 * 开发时间：2018.12.17
+                 */
+                user1 = new User();
+                user1.setUserId(object.getInt("userId"));
+                user1.setPhone(object.getString("phone"));
+                user1.setMoney(object.getInt("money"));
+                user1.setPassword(object.getString("password"));
+                user1.setImage(object.getString("image"));
+                user1.setPublish(object.getInt("publish"));
+                user1.setStuName(object.getString("stuNum"));
+                user1.setTook(object.getInt("took"));
+                user1.setValue(object.getInt("value"));
+                user1.setSchoolId(object.getInt("schoolId"));
+                user1.setName(object.getString("userName"));
+                user1.setRealname(object.getString("realname"));
+                user1.setIdentification(object.getInt("identification"));
+                user1.setStuWriter(object.getString("signature"));
+                user1.setSex(object.getString("sex"));
+                Log.e("id", user1.getName());
             }
-            Log.e("id",object.getString("userId"));
             return true;
         }
         return false;
