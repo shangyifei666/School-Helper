@@ -1,5 +1,7 @@
 package com.w.school_herper_front.HomePage.fragment.board;
 
+import com.w.school_herper_front.R;
+
 /*
 * 功能：board
 * 开发人：尚一飞
@@ -7,7 +9,7 @@ package com.w.school_herper_front.HomePage.fragment.board;
 * 简介：用于生成布告内容 与BoardFragment  board交互使用
 * */
 public class board {
-    private int myhead;
+    private int myhead = R.drawable.myhead;
     private String name;
     private String title;
     private int image;
@@ -15,6 +17,7 @@ public class board {
     private String endTime;
     private String money;
 
+    public board(){}
     public board(int myhead, String name, String title, String content, String endTime, String money) {
         this.myhead = myhead;
         this.name = name;

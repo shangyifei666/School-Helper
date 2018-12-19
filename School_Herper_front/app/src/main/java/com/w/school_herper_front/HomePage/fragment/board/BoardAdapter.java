@@ -64,7 +64,7 @@ public class BoardAdapter extends BaseAdapter {
         TextView endTime = convertView.findViewById(R.id.endtime);
         endTime.setText(boards.get(position).getEndTime());
         TextView money = convertView.findViewById(R.id.money);
-        money.setText(boards.get(position).getMoney());
+        money.setText(String.valueOf(boards.get(position).getMoney()));
 
 
 

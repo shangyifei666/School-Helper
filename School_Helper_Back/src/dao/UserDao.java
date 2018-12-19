@@ -126,6 +126,7 @@ public class UserDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userId);
 			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
 				user.setUserId(rs.getInt("user_id"));
 				user.setUserName(rs.getString("user_name"));
 				user.setUserPassword(rs.getString("user_password"));
@@ -141,6 +142,7 @@ public class UserDao {
 				user.setUserSignature(rs.getString("user_signature"));
 				user.setUserRealname(rs.getString("user_realname"));
 				user.setUserSex(rs.getString("user_sex"));
+			}
 				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
