@@ -119,7 +119,8 @@ public class HomePublishActivity extends AppCompatActivity   {
         int posterId = SendDatesToServer.user1.getUserId();
         String title = etTitle.getText().toString();
         String content = etContent.getText().toString();
-        Double money = Double.valueOf(etAddMoney.getText().toString());
+//        Double money = Double.valueOf(etAddMoney.getText().toString());
+        String money = etAddMoney.getText().toString();
         String deadline = tvShowTime.getText().toString();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
