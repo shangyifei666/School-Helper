@@ -1,5 +1,10 @@
 package serlvet;
-
+/*
+ * 功能：RegisterServlet
+ * 开发人：杨旭辉
+ * 开发时间：2018.12.19
+ * 
+ * */
 import java.io.IOException;
 import java.util.List;
 
@@ -48,10 +53,7 @@ public class RegisterServlet extends HttpServlet {
 		int value=60;
 		int took=0;
 		int publish=0;
-		int identification=0;
-		String signature="个性标签";
-		String realname="真实姓名";
-		String sex="男";
+		String identification="未认证";
 		UserBean user=new UserBean();
 		UserDao userdao=new UserDao();
 		List<UserBean> userList = userdao.getAllUser(); 
@@ -75,9 +77,6 @@ public class RegisterServlet extends HttpServlet {
 			user.setUserTookCount(took);
 			user.setUserPublishCount(publish);
 			user.setUserIdentification(identification);
-			user.setUserSignature(signature);
-			user.setUserRealname(realname);
-			user.setUserSex(sex);
 			json1.put("success", "注册成功");
 			json1.put("error","error");
 			array.put(json1);
