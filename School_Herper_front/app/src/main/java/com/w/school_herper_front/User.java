@@ -27,13 +27,13 @@ public class User {
     private int took;
     private int publish;
     private String realname;
-    private int identification;
+    private String identification;
 
-    public int getIdentification() {
+    public String getIdentification() {
         return identification;
     }
 
-    public void setIdentification(int identification) {
+    public void setIdentification(String identification) {
         this.identification = identification;
     }
 
@@ -132,7 +132,14 @@ public class User {
         this.phone = phone;
         this.password = password;
     }
-
+    public User(String identification,String name,String realname,String phone,String sex,String stuWriter){
+        this.identification=identification;
+        this.name=name;
+        this.realname=realname;
+        this.phone=phone;
+        this.sex=sex;
+        this.stuWriter=stuWriter;
+    }
     public User(String phone, String password, String name, String school, String stuNumber) {
         this.phone = phone;
         this.password = password;

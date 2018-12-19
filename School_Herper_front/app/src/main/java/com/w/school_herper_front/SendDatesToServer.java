@@ -119,10 +119,10 @@ public class SendDatesToServer {
                 user1.setValue(object.getInt("value"));
                 user1.setSchoolId(object.getInt("schoolId"));
                 user1.setName(object.getString("userName"));
-                user1.setRealname(object.getString("realname"));
-                user1.setIdentification(object.getInt("identification"));
-                user1.setStuWriter(object.getString("signature"));
-                user1.setSex(object.getString("sex"));
+                user1.setIdentification(object.getString("identification"));
+                user1.setRealname(object.optString("realname"));
+                user1.setStuWriter(object.optString("signature"));
+                user1.setSex(object.optString("sex"));
                 Log.e("id", user1.getName());
             }
             return true;
