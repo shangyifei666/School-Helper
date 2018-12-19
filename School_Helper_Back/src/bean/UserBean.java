@@ -20,19 +20,18 @@ public class UserBean {
 	private int userReputationValue;
 	private int userTookCount;
 	private int userPublishCount;
-	private int userIdentification;
+	private String userIdentification;
 	private String userSignature;
 	private String userRealname;
 	private String userSex;
 	private int userId;
-	
 	public UserBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public UserBean(String userName, String userPassword, int schoolId, String userStudentNum, String userPhone,
 			String image, double userMoney, int userReputationValue, int userTookCount, int userPublishCount,
-			int userIdentification, String userSignature, String userRealname, String userSex, int userId) {
+			String userIdentification, String userSignature, String userRealname, String userSex, int userId) {
 		super();
 		this.userName = userName;
 		this.userPassword = userPassword;
@@ -48,12 +47,6 @@ public class UserBean {
 		this.userSignature = userSignature;
 		this.userRealname = userRealname;
 		this.userSex = userSex;
-		this.userId = userId;
-	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getUserName() {
@@ -116,10 +109,10 @@ public class UserBean {
 	public void setUserPublishCount(int userPublishCount) {
 		this.userPublishCount = userPublishCount;
 	}
-	public int getUserIdentification() {
+	public String getUserIdentification() {
 		return userIdentification;
 	}
-	public void setUserIdentification(int userIdentification) {
+	public void setUserIdentification(String userIdentification) {
 		this.userIdentification = userIdentification;
 	}
 	public String getUserSignature() {
@@ -140,8 +133,12 @@ public class UserBean {
 	public void setUserSex(String userSex) {
 		this.userSex = userSex;
 	}
-	
-	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	
 	
 	

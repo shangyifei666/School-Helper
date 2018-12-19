@@ -31,6 +31,7 @@ import com.w.school_herper_front.HomePage.HomeActivity;
 import com.w.school_herper_front.MainActivity;
 import com.w.school_herper_front.R;
 import com.w.school_herper_front.SendDatesToServer;
+import com.w.school_herper_front.User;
 import com.w.school_herper_front.bean.ReviseUser;
 
 import java.io.File;
@@ -45,11 +46,11 @@ public class MessageSetActivity extends Activity {
     private ImageView headphoto;
     private EditText username;
     private EditText names;
-    private EditText autograph;
     private EditText sex;
     private EditText phone;
     private TextView authentication;
     private EditText write;
+    private TextView change;
     private ConstraintLayout constraintLayout;
     private static final int ALBUM_REQUEST_CODE = 1;
     //相机请求码
@@ -94,7 +95,7 @@ public class MessageSetActivity extends Activity {
          * 日期：2018.12.14
          * 说明：根据id进行数据导入
          * */
-
+        change=findViewById(R.id.img_change);
         headphoto = findViewById(R.id.img_touxiang);
         authentication = findViewById(R.id.img_authentication);
         constraintLayout=findViewById(R.id.root);
@@ -108,27 +109,20 @@ public class MessageSetActivity extends Activity {
         sex.setText(SendDatesToServer.user1.getSex());
         phone.setText(SendDatesToServer.user1.getPhone());
         write.setText(SendDatesToServer.user1.getStuWriter());
-//        Bundle extras = getIntent().getExtras();
-//        userId =  extras.getInt("userId");
-//        String ID  = userId + "";
-//        if(ID.equals("")){
-//            Toast.makeText(MessageSetActivity.this, "登录失效请重新登录", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(MessageSetActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        }else{
-//            ReviseUser reviseUser = new SetMessageToServer(handler).SetMessageToServer(ID);
-//            String photoUrl = reviseUser.getHeadPhoto();
-//            String path= Environment.getExternalStorageDirectory()+ File.separator+photoUrl;
-//            Bitmap bm = BitmapFactory.decodeFile(path);
-//            headphoto.setImageBitmap(bm);
-//            username.setText(reviseUser.getUsername());
-//            names.setText(reviseUser.getNames());
-//            autograph.setText(reviseUser.getAutograph());
-//            sex.setText(reviseUser.getSex());
-//            phone.setText(reviseUser.getPhone());
-//            authentication.setText(reviseUser.getAuthentication());
-//        }
-
+        authentication.setText(SendDatesToServer.user1.getIdentification());
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username1=username.getText().toString();
+                String names1=names.getText().toString();
+                String sex1=sex.getText().toString();
+                String phone1=phone.getText().toString();
+                String write1=write.getText().toString();
+                String identification1=authentication.getText().toString();
+                User user=new User(identification1,username1,names1,phone1,sex1,write1);
+                new SetMessageToServer(handler).SetMessageToServer(user);
+            }
+        });
 
         /*
          * 姓名：赵璐
@@ -169,13 +163,6 @@ public class MessageSetActivity extends Activity {
             }
         });
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == 0){
-//        }
-//    }
     private void getPicFromCamera() {
         //用于保存调用相机拍照后所生成的文件
         tempFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
