@@ -4,18 +4,14 @@ package com.w.school_herper_front.HomePage.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.w.school_herper_front.HomePage.fragment.board.BoardAdapter;
-import com.w.school_herper_front.HomePage.fragment.board.BoardSendData;
 import com.w.school_herper_front.HomePage.fragment.board.board;
 import com.w.school_herper_front.HomePublishActivity;
 import com.w.school_herper_front.R;
@@ -31,7 +27,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.chrono.ThaiBuddhistChronology;
 import java.util.ArrayList;
 import java.util.List;
 
