@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50506
 File Encoding         : 65001
 
-Date: 2018-12-19 17:49:43
+Date: 2018-12-20 19:18:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,12 +49,14 @@ CREATE TABLE `reward` (
   `reward_image` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`reward_id`),
   UNIQUE KEY `reward_id` (`reward_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of reward
 -- ----------------------------
 INSERT INTO `reward` VALUES ('1', '1', '有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李....', '机场接人', '15.00', '', '2018-12-19', '1', null);
+INSERT INTO `reward` VALUES ('2', '2', '我有一个快递在西门中通快递除，具体私聊', '代取快递', '5.00', '', '2018-12-20', '1', null);
+INSERT INTO `reward` VALUES ('3', '3', '有一个Android项目需要开发，人手不够，请有才能的人帮忙，酬金丰厚', '帮忙写项目', '10000.00', '', '2018-12-30', '1', null);
 
 -- ----------------------------
 -- Table structure for `school`
@@ -100,8 +102,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'a', '123123', '1', '2016', '110', 'R.drawble.myhead', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
-INSERT INTO `user` VALUES ('2', '1613', '16513', '1', '65232620', '1321', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
-INSERT INTO `user` VALUES ('3', 'b', '123123', '1', '2017', '120', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
+INSERT INTO `user` VALUES ('1', '我是官方号', '123123', '1', '2016', '110', 'R.drawble.myhead', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
+INSERT INTO `user` VALUES ('2', '别人的名字', '16513', '1', '65232620', '1321', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
+INSERT INTO `user` VALUES ('3', '技术大牛', '123123', '1', '2017', '120', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
 INSERT INTO `user` VALUES ('4', '123', '123', '1', '2016', '12345', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
 INSERT INTO `user` VALUES ('5', '12', '123', '1', '2016', '123456', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
