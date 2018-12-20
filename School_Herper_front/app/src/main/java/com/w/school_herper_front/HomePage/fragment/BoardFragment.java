@@ -2,6 +2,7 @@ package com.w.school_herper_front.HomePage.fragment;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,9 +21,17 @@ import com.w.school_herper_front.HomePublishActivity;
 import com.w.school_herper_front.R;
 import com.w.school_herper_front.ServerUrl;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.chrono.ThaiBuddhistChronology;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,21 +43,13 @@ public class BoardFragment extends Fragment {
     public View view;
     ListView listView;
     private int sendSuccess = 0;
+    private String url = new ServerUrl().getUrl();
 
     public BoardFragment() {
         // Required empty public constructor
     }
 
 
-    Handler handler = new Handler(){
-        public void handleMessage(Message msg){
-            switch (msg.what){
-                case 1:
-                    sendSuccess = 1;
-                    break;
-            }
-        }
-    };
 /*
 * 开发人：尚一飞
 * 这是布告栏页
@@ -76,7 +77,6 @@ public class BoardFragment extends Fragment {
          * 数据库建立好后所有信息从数据库中存取
          * 预计每次遍历10个
          */
-
 //        board board1 = new board(R.drawable.myhead,"我的名字","机场接人","有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李....","2018-1-1","￥6.00");
 //        boards.add(board1);
 //        board board2 = new board(R.drawable.myhead,"我的名字","机场接人",R.drawable.testimage,"有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李....","2018-1-1","￥6.00");
@@ -88,20 +88,64 @@ public class BoardFragment extends Fragment {
 
         List<board> boards = new ArrayList<>();
         /**
-         * 从数据库取数据
+         * 开启异步任务
          */
-        try {
-            boards = new BoardSendData(handler).getBoardList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        listView = view.findViewById(R.id.lv_boards);
-
-        BoardAdapter boardAdapter = new BoardAdapter(getContext(), R.layout.board_list_item, boards);
-        listView.setAdapter(boardAdapter);
+        new BoardAsyncTask().execute();
         return view;
+    }
+
+
+    /**
+     * 创建异步任务AsyncTask
+     */
+    class BoardAsyncTask extends AsyncTask<Void,Void,List<board>>{
+
+        @Override
+        protected List<board> doInBackground(Void... voids) {
+            final List<board> boards = new ArrayList<>();
+            final StringBuffer stringBuffer = new StringBuffer(url);
+            stringBuffer.append("/School_Helper_Back/BoardItemServlet");
+            HttpURLConnection conn = null;
+            try {
+                conn = (HttpURLConnection) new URL(stringBuffer.toString()).openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("charset","UTF-8");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream is = null;
+            try {
+                is = conn.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(is);
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                String res = reader.readLine();
+                JSONArray array = new JSONArray(res);
+                for (int i=0; i < array.length(); i++){
+                    JSONObject object = array.getJSONObject(i);
+                    board board1 = new board();
+                    board1.setMyhead(R.drawable.myhead);
+                    board1.setName(object.getString("name"));
+                    board1.setTitle(object.getString("title"));
+                    board1.setContent(object.getString("content"));
+                    board1.setEndTime(object.getString("endTime"));
+                    board1.setMoney("￥"+ object.getDouble("money"));
+                    boards.add(board1);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return boards;
+        }
+
+        protected void onPostExecute(List<board> boards){
+            super.onPostExecute(boards);
+            listView = view.findViewById(R.id.lv_boards);
+            BoardAdapter boardAdapter = new BoardAdapter(getContext(), R.layout.board_list_item, boards);
+            listView.setAdapter(boardAdapter);
+        }
     }
 
 

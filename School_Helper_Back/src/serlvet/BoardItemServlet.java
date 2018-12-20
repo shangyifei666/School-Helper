@@ -43,7 +43,6 @@ public class BoardItemServlet extends HttpServlet {
 		 * 日期：2018.12.18
 		 * 简介：向Board页传递数据库中的赏金任务
 		 */
-		System.err.println("访问到了BoardItemServlet");
 		RewardDao rewardDao = new RewardDao();
 		List<RewardBean> rewardList = rewardDao.selectBoardReward();
 		JSONArray array = new JSONArray();
