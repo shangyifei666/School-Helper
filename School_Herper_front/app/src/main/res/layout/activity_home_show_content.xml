@@ -164,6 +164,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/showcontent_user1"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:orientation="vertical"
@@ -239,9 +240,9 @@
                 android:layout_marginLeft="5dp"
                 android:text="假装有内容假装有内容假装有内容假装有内容，假装有内容假装有内容假装有内容假装有内容假装有内，容假装有内容假装有内容假装有内容假装有内容假装有内容"/>
 
-            <!--<ImageView-->
-                <!--style="@style/CustomPicView"-->
-                <!--android:src="@drawable/home_publish_test2"/>-->
+            <ImageView
+                style="@style/CustomPicView"
+                android:src="@drawable/home_publish_test2"/>
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -280,6 +281,7 @@
                     android:gravity="right"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/showcontent_line"
                 android:layout_width="match_parent"
                 android:layout_height="45dp" />
         </LinearLayout>
