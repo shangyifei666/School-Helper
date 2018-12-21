@@ -67,7 +67,7 @@ public class SendPassword {
         // TODO Auto-generated method stub
         StringBuffer sb = new StringBuffer(url);
         if (!url.equals("")&!param.isEmpty()) {
-            sb.append("/School_Helper_Back/UpdateServlet");
+            sb.append("/School_Helper_Back/UpdateServletone");
             sb.append("?");
             for (Map.Entry<String, String>entry:param.entrySet()) {
                 sb.append(entry.getKey()+"=");
