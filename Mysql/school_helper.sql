@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mySQL
-Source Server Version : 50506
+Source Server         : mysql
+Source Server Version : 80012
 Source Host           : localhost:3306
 Source Database       : school_helper
 
 Target Server Type    : MYSQL
-Target Server Version : 50506
+Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2018-12-20 19:18:40
+Date: 2018-12-21 10:54:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -89,10 +89,10 @@ CREATE TABLE `user` (
   `user_reputation_value` int(10) NOT NULL,
   `user_took_count` int(10) NOT NULL,
   `user_publish_count` int(10) NOT NULL,
-  `user_identification` int(10) NOT NULL,
-  `user_signature` varchar(50) NOT NULL DEFAULT '',
-  `user_realname` varchar(25) NOT NULL,
-  `user_sex` varchar(25) NOT NULL,
+  `user_identification` varchar(10) NOT NULL,
+  `user_signature` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '',
+  `user_realname` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user_sex` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id` (`user_id`),
   KEY `school_id` (`school_id`),
@@ -105,5 +105,5 @@ CREATE TABLE `user` (
 INSERT INTO `user` VALUES ('1', '我是官方号', '123123', '1', '2016', '110', 'R.drawble.myhead', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
 INSERT INTO `user` VALUES ('2', '别人的名字', '16513', '1', '65232620', '1321', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
 INSERT INTO `user` VALUES ('3', '技术大牛', '123123', '1', '2017', '120', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
-INSERT INTO `user` VALUES ('4', '123', '123', '1', '2016', '12345', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
+INSERT INTO `user` VALUES ('4', 'null', '12345', '1', '2016', '12345', 'images/geren.png', '0.00', '60', '0', '0', 'null', 'null', 'null', 'null');
 INSERT INTO `user` VALUES ('5', '12', '123', '1', '2016', '123456', 'images/geren.png', '0.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
