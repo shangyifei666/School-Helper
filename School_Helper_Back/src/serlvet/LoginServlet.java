@@ -62,17 +62,17 @@ public class LoginServlet extends HttpServlet {
 		if(user.getUserPhone()==null) {
 			json3.put("error", "用户不存在");
 			json3.put("success", "success");
-			json3.put("userId", "Id");
+			json3.put("userId", 0);
 			json3.put("userName", "name");
 			json3.put("password", "pass");
-			json3.put("schoolId", "school");
+			json3.put("schoolId", 0);
 			json3.put("stuNum", "num");
 			json3.put("phone", "phone");
 			json3.put("image", "image");
-			json3.put("money", "money");
-			json3.put("value", "value");
-			json3.put("took", "took");
-			json3.put("publish", "publish");
+			json3.put("money", 0);
+			json3.put("value", 0);
+			json3.put("took", 0);
+			json3.put("publish", 0);
 			json3.put("identification", "identification");
 			json3.put("signature", "signature");
 			json3.put("realname", "realname");
@@ -82,17 +82,17 @@ public class LoginServlet extends HttpServlet {
 			if(!user.getUserPassword().equals(password)) {
 				json4.put("success", "success");
 				json4.put("error", "密码错误");
-				json4.put("userId", "Id");
+				json4.put("userId", 0);
 				json4.put("userName", "name");
 				json4.put("password", "pass");
-				json4.put("schoolId", "school");
+				json4.put("schoolId", 0);
 				json4.put("stuNum", "num");
 				json4.put("phone", "phone");
 				json4.put("image", "image");
-				json4.put("money", "money");
-				json4.put("value", "value");
-				json4.put("took", "took");
-				json4.put("publish", "publish");
+				json4.put("money", 0);
+				json4.put("value", 0);
+				json4.put("took", 0);
+				json4.put("publish", 0);
 				json4.put("identification", "identification");
 				json4.put("signature", "signature");
 				json4.put("realname", "realname");
