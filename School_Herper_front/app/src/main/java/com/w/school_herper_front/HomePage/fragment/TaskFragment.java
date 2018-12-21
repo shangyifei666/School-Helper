@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class TaskFragment extends Fragment {
     private Banner myBanner;
-    View myZhuYeView;
+    View view;
     List<Integer> ImageUrlData;
     List<String>ContentData;
     /*
@@ -40,7 +40,7 @@ public class TaskFragment extends Fragment {
     * */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        myZhuYeView=LayoutInflater.from(getActivity()).inflate(R.layout.fragment_task,container,false);
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_task,container,false);
         initBanner();
 
 
@@ -50,9 +50,9 @@ public class TaskFragment extends Fragment {
         /**
          * 绑定点击事件
          */
-        LinearLayout linearLayout1 = myZhuYeView.findViewById(R.id.tab1);
-        LinearLayout linearLayout2 = myZhuYeView.findViewById(R.id.tab2);
-        LinearLayout linearLayout3 = myZhuYeView.findViewById(R.id.tab3);
+        LinearLayout linearLayout1 = view.findViewById(R.id.tab1);
+        LinearLayout linearLayout2 = view.findViewById(R.id.tab2);
+        LinearLayout linearLayout3 = view.findViewById(R.id.tab3);
         linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,23 +91,27 @@ public class TaskFragment extends Fragment {
         task task3 = new task(R.drawable.myhead,"我的名字","2018-12-12","代取快递","待验收");
         tasks.add(task3);
 
-        ListView listView = myZhuYeView.findViewById(R.id.lv_task);
+        ListView listView = view.findViewById(R.id.lv_task);
 
         TaskAdapter taskAdapter = new TaskAdapter(getContext(),R.layout.task_list_item,tasks);
         listView.setAdapter(taskAdapter);
 
-        return myZhuYeView;
+        return view;
     }
+
+    /**
+     * 轮播图方法
+     */
     private void initBanner()
     {
-        myBanner=(Banner)myZhuYeView.findViewById(R.id.banner);
+        myBanner=(Banner)view.findViewById(R.id.banner);
 
         ImageUrlData=new ArrayList<>();
         ContentData=new ArrayList<>();
-        ImageUrlData.add(R.drawable.home_publish_test1);
-        ImageUrlData.add(R.drawable.home_publish_test2);
-        ImageUrlData.add(R.drawable.home_publish_clock);
-        ImageUrlData.add(R.drawable.home_publish_arrows_right);
+        ImageUrlData.add(R.drawable.guanggao1);
+        ImageUrlData.add(R.drawable.guanggao2);
+        ImageUrlData.add(R.drawable.guanggao3);
+        ImageUrlData.add(R.drawable.guanggao4);
         ContentData.add("我就是测试的什么也没有用，你就将就看吧1");
         ContentData.add("我就是测试的什么也没有用，2");
         ContentData.add("我我没有作用，你就将就看吧3");
