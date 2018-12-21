@@ -87,7 +87,8 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="5dp"/>
 
     <!--广告待更改-->
     <!--<ImageView-->
@@ -101,6 +102,6 @@
         android:id="@+id/lv_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="280dp"></ListView>
+        android:layout_marginTop="250dp"></ListView>
 
 </FrameLayout>

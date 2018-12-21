@@ -16,8 +16,8 @@
         android:layout_height="match_parent"
         android:fadingEdge="vertical"
         android:scrollbars="vertical">
+        
         <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -53,13 +53,26 @@
                 android:layout_height="30dp"
                 android:src="@drawable/girl"
                 android:layout_marginLeft="10dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/showcontent_btn_submit"
+                android:layout_width="70dp"
+                android:layout_height="36dp"
+                android:background="@color/themeColor"
+                style="CustomText"
+                android:text="提交任务"
+                android:visibility="visible"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,6 +163,60 @@
                 android:layout_marginLeft="7dp"/>
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/showcontent_user1"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="vertical"
+            android:background="@drawable/content_user1"
+            android:paddingBottom="9dp">
+            <TextView
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:text="【发布者】"
+                android:textSize="18sp"
+                android:layout_marginTop="6dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <com.w.school_herper_front.Shape.XCRoundImageView
+                    android:id="@+id/showcontent_iv_head1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/home_publish_test1"/>
+                <TextView
+                    android:id="@+id/showcontent_tv_name1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="假的昵称"
+                    android:textSize="16sp"
+                    android:textColor="@color/darkGary"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/diamond"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/chat"
+                    android:layout_marginRight="15dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -172,10 +239,7 @@
                 android:lineSpacingExtra="9dp"
                 android:layout_marginLeft="5dp"
                 android:text="假装有内容假装有内容假装有内容假装有内容，假装有内容假装有内容假装有内容假装有内容假装有内，容假装有内容假装有内容假装有内容假装有内容假装有内容"/>
-            <ImageView
-                style="@style/CustomPicView"
-                android:src="@drawable/home_publish_test1"
-                />
+
             <ImageView
                 style="@style/CustomPicView"
                 android:src="@drawable/home_publish_test2"/>
@@ -205,8 +269,19 @@
                     android:text="2018-11-05 14:12:04"
                     android:textSize="14sp"
                     android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/showcontent_tv_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="删除任务"
+                    android:textSize="14sp"
+                    android:textColor="@color/moneyRed"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:gravity="right"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/showcontent_line"
                 android:layout_width="match_parent"
                 android:layout_height="45dp" />
         </LinearLayout>
@@ -217,7 +292,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_above="@+id/scro_mycontent">
+        android:layout_above="@+id/scro_mycontent"
+        >
         <Button
             android:id="@+id/content_btn_chat"
             android:layout_width="0dp"
