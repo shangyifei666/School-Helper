@@ -40,6 +40,7 @@ public class UpdateServlet extends HttpServlet {
 		String name=request.getParameter("name");
 		String phone=request.getParameter("phone");
 		String signature=request.getParameter("write");
+		String password=request.getParameter("password");
 		String realname=request.getParameter("realname");
 		String sex=request.getParameter("sex");
 		String identification=request.getParameter("identification");
@@ -53,6 +54,7 @@ public class UpdateServlet extends HttpServlet {
 				user=thisUser;
 			}
 		}
+		user.setUserPassword(password);
 		user.setUserName(name);
 		user.setUserPhone(phone);
 		user.setUserSignature(signature);
