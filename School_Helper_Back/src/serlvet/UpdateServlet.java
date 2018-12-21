@@ -40,7 +40,7 @@ public class UpdateServlet extends HttpServlet {
 		String name=request.getParameter("name");
 		String phone=request.getParameter("phone");
 		String signature=request.getParameter("write");
-		String password=request.getParameter("password");
+//		String password=request.getParameter("password");
 		String realname=request.getParameter("realname");
 		String sex=request.getParameter("sex");
 		String identification=request.getParameter("identification");
@@ -54,7 +54,7 @@ public class UpdateServlet extends HttpServlet {
 				user=thisUser;
 			}
 		}
-		user.setUserPassword(password);
+//		user.setUserPassword(password);
 		user.setUserName(name);
 		user.setUserPhone(phone);
 		user.setUserSignature(signature);
@@ -67,15 +67,6 @@ public class UpdateServlet extends HttpServlet {
 			json7.put("error", "error");
 			json7.put("userId", user.getUserId());
 			json7.put("userName", user.getUserName());
-			json7.put("password", user.getUserPassword());
-			json7.put("schoolId", user.getSchoolId());
-			json7.put("stuNum", user.getUserStudentNum());
-			json7.put("phone", user.getUserPhone());
-			json7.put("image", user.getImage());
-			json7.put("money", user.getUserMoney());
-			json7.put("value", user.getUserReputationValue());
-			json7.put("took", user.getUserTookCount());
-			json7.put("publish", user.getUserPublishCount());
 			json7.put("identification", user.getUserIdentification());
 			json7.put("signature", user.getUserSignature());
 			json7.put("realname", user.getUserRealname());

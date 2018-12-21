@@ -32,7 +32,7 @@ public class ChangePassword extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SendDatesToServer.SEND_SUCCESS:
-                    Toast.makeText(ChangePassword.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePassword.this, "修改成功,请重新登录", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ChangePassword.this, MainActivity.class);
                     startActivity(intent);
                     break;

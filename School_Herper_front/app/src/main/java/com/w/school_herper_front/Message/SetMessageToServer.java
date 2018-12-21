@@ -111,15 +111,6 @@ public class SetMessageToServer {
                  * 开发人：杨旭辉
                  * 开发时间：2018.12.17
                  */
-                SendDatesToServer.user1.setPhone(object.getString("phone"));
-                SendDatesToServer.user1.setMoney(object.getInt("money"));
-                SendDatesToServer.user1.setPassword(object.getString("password"));
-                SendDatesToServer.user1.setImage(object.getString("image"));
-                SendDatesToServer.user1.setPublish(object.getInt("publish"));
-                SendDatesToServer.user1.setStuName(object.getString("stuNum"));
-                SendDatesToServer.user1.setTook(object.getInt("took"));
-                SendDatesToServer.user1.setValue(object.getInt("value"));
-                SendDatesToServer.user1.setSchoolId(object.getInt("schoolId"));
                 SendDatesToServer.user1.setName(object.getString("userName"));
                 SendDatesToServer.user1.setRealname(object.optString("realname"));
                 SendDatesToServer.user1.setIdentification(object.getString("identification"));
