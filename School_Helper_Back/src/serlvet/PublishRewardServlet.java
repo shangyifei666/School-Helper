@@ -39,7 +39,7 @@ public class PublishRewardServlet extends HttpServlet {
 		String rewardImage = request.getParameter("imgUrl");
 		String rewardTime = request.getParameter("publishTime");
 		String rewardDeadline = request.getParameter("deadline");
-		double rewardMoney = Double.valueOf(request.getParameter("rewardMoney"));
+		double rewardMoney = Double.parseDouble(request.getParameter("rewardMoney"));
 		//此为创建赏金，状态默认为“1”
 		String rewardState = "1";
 		

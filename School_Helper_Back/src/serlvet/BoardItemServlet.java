@@ -49,9 +49,13 @@ public class BoardItemServlet extends HttpServlet {
 		for(RewardBean reward:rewardList) {
 			JSONObject object = new JSONObject();
 			
+			object.put("userId", reward.getPosterId());
+			object.put("rewardId", reward.getRewardId());
 			object.put("name", getName(reward));
+			object.put("sex", getSex(reward));
 			object.put("title", reward.getRewardTitle());
 			object.put("content", reward.getRewardContent());
+			object.put("rewardTime", reward.getRewardTime());
 			object.put("endTime", reward.getRewardDeadline());
 			object.put("money", reward.getRewardMoney());
 			array.put(object);
@@ -80,6 +84,13 @@ public class BoardItemServlet extends HttpServlet {
 		
 		return name;
 		
+	}
+	private String getSex(RewardBean reward) {
+		UserDao userDao = new UserDao();
+		UserBean user = userDao.checkUser(reward.getPosterId());
+		String sex = user.getUserSex();
+		
+		return sex;
 	}
 
 }
