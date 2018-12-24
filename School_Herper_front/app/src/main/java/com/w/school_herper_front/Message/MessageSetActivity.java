@@ -73,6 +73,12 @@ public class MessageSetActivity extends Activity {
                 case SendDatesToServer.SEND_FAIL:
                     Toast.makeText(MessageSetActivity.this, "数据错误或没有获取回应", Toast.LENGTH_SHORT).show();
                     break;
+                case SendDatesToServer.SEND_FAIL1:
+                    Toast.makeText(MessageSetActivity.this, "该手机号已被注册", Toast.LENGTH_SHORT).show();
+                    break;
+                case SendDatesToServer.SEND_FAIL2:
+                    Toast.makeText(MessageSetActivity.this, "修改错误", Toast.LENGTH_SHORT).show();
+                    break;
                 default:
                     break;
             }
@@ -163,6 +169,11 @@ public class MessageSetActivity extends Activity {
             }
         });
     }
+    /*
+     * 姓名：杨旭辉
+     * 日期：2018.12.10
+     * 说明：相册中图片的上传
+     * */
     private void getPicFromCamera() {
         //用于保存调用相机拍照后所生成的文件
         tempFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
