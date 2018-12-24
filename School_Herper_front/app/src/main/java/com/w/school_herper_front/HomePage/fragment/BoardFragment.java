@@ -9,13 +9,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.w.school_herper_front.HomePage.fragment.board.BoardAdapter;
 import com.w.school_herper_front.HomePage.fragment.board.board;
 import com.w.school_herper_front.HomePublishActivity;
+import com.w.school_herper_front.HomeShowContentActivity;
 import com.w.school_herper_front.R;
 import com.w.school_herper_front.ServerUrl;
+import com.w.school_herper_front.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,7 +41,7 @@ public class BoardFragment extends Fragment {
 
     public View view;
     ListView listView;
-    private int sendSuccess = 0;
+    final List<board> boards = new ArrayList<>();
     private String url = new ServerUrl().getUrl();
 
     public BoardFragment() {
@@ -51,7 +55,7 @@ public class BoardFragment extends Fragment {
 * 简介：与BoardFragment  board交互使用
 * */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_board,container,false);
         /*
@@ -81,11 +85,28 @@ public class BoardFragment extends Fragment {
 //        board board4 = new board(R.drawable.myhead,"我的名字","机场接人",R.drawable.testimage,"有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李....","2018-1-1","￥6.00");
 //        boards.add(board4);
 
-        List<board> boards = new ArrayList<>();
+        final List<board> boards = new ArrayList<>();
         /**
          * 开启异步任务
          */
         new BoardAsyncTask().execute();
+        /**
+         * 每个listview绑定点击事件
+         */
+        listView = view.findViewById(R.id.lv_boards);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), HomeShowContentActivity.class);
+
+                board Tboard = boards.get(position);
+                intent.putExtra("board",(Serializable) Tboard);
+
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
@@ -97,7 +118,7 @@ public class BoardFragment extends Fragment {
 
         @Override
         protected List<board> doInBackground(Void... voids) {
-            final List<board> boards = new ArrayList<>();
+
             final StringBuffer stringBuffer = new StringBuffer(url);
             stringBuffer.append("/School_Helper_Back/BoardItemServlet");
             HttpURLConnection conn = null;
@@ -120,9 +141,13 @@ public class BoardFragment extends Fragment {
                     JSONObject object = array.getJSONObject(i);
                     board board1 = new board();
                     board1.setMyhead(R.drawable.myhead);
+                    board1.setUserId(object.getInt("userId"));
+                    board1.setRewardId(object.getInt("rewardId"));
                     board1.setName(object.getString("name"));
+                    board1.setSex(object.getString("sex"));
                     board1.setTitle(object.getString("title"));
                     board1.setContent(object.getString("content"));
+                    board1.setRewardTime(object.getString("rewardTime"));
                     board1.setEndTime(object.getString("endTime"));
                     board1.setMoney("￥"+ object.getDouble("money"));
                     boards.add(board1);
@@ -137,7 +162,6 @@ public class BoardFragment extends Fragment {
 
         protected void onPostExecute(List<board> boards){
             super.onPostExecute(boards);
-            listView = view.findViewById(R.id.lv_boards);
             BoardAdapter boardAdapter = new BoardAdapter(getContext(), R.layout.board_list_item, boards);
             listView.setAdapter(boardAdapter);
         }

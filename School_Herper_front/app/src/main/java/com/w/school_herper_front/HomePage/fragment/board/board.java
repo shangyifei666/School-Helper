@@ -10,10 +10,14 @@ import com.w.school_herper_front.R;
 * */
 public class board {
     private int myhead = R.drawable.myhead;
+    private int userId;
+    private int rewardId;
     private String name;
+    private String sex;
     private String title;
     private int image;
     private String content;
+    private String rewardTime;
     private String endTime;
     private String money;
 
@@ -91,5 +95,37 @@ public class board {
 
     public void setMoney(String money) {
         this.money = money;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getRewardId() {
+        return rewardId;
+    }
+
+    public void setRewardId(int rewardId) {
+        this.rewardId = rewardId;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getRewardTime() {
+        return rewardTime;
+    }
+
+    public void setRewardTime(String rewardTime) {
+        this.rewardTime = rewardTime;
     }
 }
