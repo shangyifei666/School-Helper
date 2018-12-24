@@ -1,5 +1,10 @@
 package serlvet;
-
+/*
+ * 功能：UpdateServletone
+ * 开发人：杨旭辉
+ * 开发时间：2018.12.19
+ * 
+ * */
 import java.io.IOException;
 import java.util.List;
 
