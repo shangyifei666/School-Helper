@@ -28,7 +28,7 @@ public class RewardDao {
 			pstmt.setString(6, reward.getRewardDeadline());
 			pstmt.setString(7, reward.getRewardState());
 			pstmt.setString(8, reward.getRewardImage());
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
