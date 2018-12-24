@@ -5,10 +5,10 @@
     DATE:18/12/11
 -->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeShowContentActivity">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HomeShowContentActivity">
 
     <ScrollView
         android:id="@+id/scro_mycontent"
@@ -29,8 +29,7 @@
             <Button
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/content_arrows_left"
-                />
+                android:background="@drawable/content_arrows_left"/>
 
             <com.w.school_herper_front.Shape.XCRoundImageView
                 android:id="@+id/showcontent_iv_head"
@@ -62,9 +61,8 @@
                 android:layout_width="70dp"
                 android:layout_height="36dp"
                 android:background="@color/themeColor"
-                style="CustomText"
-                android:text="提交任务"
-                android:visibility="visible"/>
+                android:textColor="@color/white"
+                android:text="提交任务"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,18 +77,26 @@
                 android:text="信用等级"
                 android:textColor="@color/buttonGray"
                 android:textSize="15sp"/>
-            <ImageView
-                android:layout_marginLeft="10dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/star"/>
-            <ImageView
-                android:layout_marginLeft="10dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/star"/>
+            <LinearLayout
+                android:id="@+id/showcontent_ll_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/star"/>
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/star"/>
+            </LinearLayout>
+
         </LinearLayout>
         <TextView
+            android:id="@+id/showcontent_tv_money"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:text="赏金：10.00￥"
@@ -164,7 +170,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/showcontent_user1"
+            android:id="@+id/showcontent_ll_user1"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:orientation="vertical"
@@ -197,18 +203,25 @@
                     android:textColor="@color/darkGary"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/diamond"
-                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:id="@+id/showcontent_ll_value1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/diamond"
+                        android:layout_marginTop="10dp"/>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
                 <Button
+                    android:id="@+id/showcontent_btn_user1_chat"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/chat"
@@ -264,6 +277,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"/>
                 <TextView
+                    android:id="@+id/showcontent_tv_publish_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2018-11-05 14:12:04"

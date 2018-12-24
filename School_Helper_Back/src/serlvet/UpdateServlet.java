@@ -75,6 +75,7 @@ public class UpdateServlet extends HttpServlet {
 					json9.put("sex", "sex");
 					array.put(json9);
 					flag=0;
+					break;
 				}
 			}else {
 				if(thisUser.getUserId()==id) {
