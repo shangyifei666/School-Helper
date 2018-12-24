@@ -33,6 +33,7 @@ import java.util.Map;
 public class SetMessageToServer {
     private static String url=new ServerUrl().getUrl();//服务器地址
     public static final int SEND_SUCCESS=0x123;
+    public static final int SEND_FAIL1=0x124;
     public static final int SEND_FAIL2=0x125;
     public static final int SEND_FAIL=0x126;
     public JSONObject object;
@@ -47,6 +48,7 @@ public class SetMessageToServer {
     public void SetMessageToServer(User user) {
         // TODO Auto-generated method stub
         final Map<String, String> map=new HashMap<String, String>();
+        map.put("id",""+SendDatesToServer.user1.getUserId());
         map.put("realname",user.getRealname());
         map.put("identification", user.getIdentification());
         map.put("name", user.getName());
@@ -62,6 +64,8 @@ public class SetMessageToServer {
                     if (sendGetRequest(map,url,"utf-8")) {
                         if(object.getString("success").equals("修改成功")){
                             handler.sendEmptyMessage(SEND_SUCCESS);//通知主线程数据发送成功
+                        }else if (object.getString("error").equals("该手机号已被注册")) {
+                            handler.sendEmptyMessage(SEND_FAIL1);//将数据发送给服务器失败或者密码错误
                         }
                         else if (object.getString("error").equals("修改错误")){
                             handler.sendEmptyMessage(SEND_FAIL2);//将数据发送给服务器失败或者密码错误
