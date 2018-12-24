@@ -67,6 +67,7 @@ public class UpdateServlet extends HttpServlet {
 					json9.put("success", "success");
 					json9.put("error", "该手机号已被注册");
 					json9.put("userId", "id");
+					json9.put("phone", "phone");
 					json9.put("userName", "name");
 					json9.put("identification", "identification");
 					json9.put("signature", "signature");
@@ -93,6 +94,7 @@ public class UpdateServlet extends HttpServlet {
 			userdao.reviseUser(user);
 			json7.put("success", "修改成功");
 			json7.put("error", "error");
+			json7.put("phone", user.getUserPhone());
 			json7.put("userId", user.getUserId());
 			json7.put("userName", user.getUserName());
 			json7.put("identification", user.getUserIdentification());

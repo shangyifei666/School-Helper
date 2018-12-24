@@ -115,6 +115,7 @@ public class SetMessageToServer {
                  * 开发人：杨旭辉
                  * 开发时间：2018.12.17
                  */
+                SendDatesToServer.user1.setPhone(object.getString("phone"));
                 SendDatesToServer.user1.setName(object.getString("userName"));
                 SendDatesToServer.user1.setRealname(object.optString("realname"));
                 SendDatesToServer.user1.setIdentification(object.getString("identification"));
