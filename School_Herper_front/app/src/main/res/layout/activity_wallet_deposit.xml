@@ -120,6 +120,7 @@
                     android:textColor="@color/black"/>
 
                 <EditText
+                    android:inputType="number|numberDecimal"
                     android:id="@+id/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -142,6 +143,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn"
             android:layout_width="360dp"
             android:layout_height="60dp"
             android:layout_marginLeft="15dp"
