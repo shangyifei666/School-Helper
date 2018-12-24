@@ -100,10 +100,11 @@ public class HomePublishActivity extends AppCompatActivity   {
         //Button改变颜色
         tvShowTime.addTextChangedListener(new TextChange(etAddMoney,etTitle,tvShowTime,btnPublish));
         //submit
-        fillDataFromView();
+
         btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fillDataFromView();
                 new SendData(handler).SendDatasToServer(reward);
             }
         });
