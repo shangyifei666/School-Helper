@@ -115,13 +115,14 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="120dp"
                 android:layout_marginTop="5dp">
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="钱包余额:"
                     android:textSize="14sp"
                     android:textColor="@color/tintGray"/>
-                <EditText
+                <TextView
+                    android:id="@+id/money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="102.34"
