@@ -1,16 +1,15 @@
-package com.w.school_herper_front.connect;
-
-
-/**
- * CONTENT:SENDDATA
- * DEVELOPER:Zhangxixina
- * Date:18/12/18
+package com.w.school_herper_front.wallet;
+/*
+ * 功能：余额充值
+ * 开发人：杨旭辉
+ * 开发时间：2018.12.24
  */
-import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.Log;
 
+import com.w.school_herper_front.SendDatesToServer;
 import com.w.school_herper_front.ServerUrl;
-import com.w.school_herper_front.bean.RewardBean;
+import com.w.school_herper_front.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +23,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SendData{
+public class IntoMoney {
     private static String url=new ServerUrl().getUrl();//服务器地址
     public static final int SEND_SUCCESS=0x123;
     public static final int SEND_FAIL1=0x124;
@@ -32,33 +31,28 @@ public class SendData{
     public JSONObject object;
     public JSONArray array;
     private Handler handler;
-
-    public SendData(Handler handler) {
+    public IntoMoney(Handler handler) {
+        // TODO Auto-generated constructor stub
         this.handler=handler;
     }
 
 
-    public void SendDatasToServer(RewardBean reward) {
+    public void IntoMoney(User user) {
+        // TODO Auto-generated method stub
         final Map<String, String> map=new HashMap<String, String>();
-        map.put("posterId",reward.getPosterId()+"");
-        map.put("rewardTitle",reward.getRewardTitle());
-        map.put("rewardContent",reward.getRewardContent()) ;
-        map.put("publishTime",reward.getPublishTime()+"");
-        map.put("deadline",reward.getDeadline()+"");
-        map.put("rewardMoney",reward.getRewardMoney()+"");
-
+        map.put("phone",user.getPhone());
+        map.put("money", ""+user.getMoney());
         new Thread(new Runnable() {
             @Override
             public void run() {
+                // TODO Auto-generated method stub
                 try {
                     if (sendGetRequest(map,url,"utf-8")) {
-
-                        if(object.getString("response").equals("success")){
+                        if(object.getString("success").equals("充值成功")){
                             handler.sendEmptyMessage(SEND_SUCCESS);//通知主线程数据发送成功
-                        }else{
+                        }else if(object.getString("error").equals("充值错误")){
                             handler.sendEmptyMessage(SEND_FAIL1);//将数据发送给服务器失败或者用户名不存在
                         }
-
                     }else {
                         handler.sendEmptyMessage(SEND_FAIL);//将数据发送给服务器失败
                     }
@@ -76,7 +70,7 @@ public class SendData{
         // TODO Auto-generated method stub
         StringBuffer sb = new StringBuffer(url);
         if (!url.equals("")&!param.isEmpty()) {
-            sb.append("/School_Helper_Back/PublishRewardServlet");
+            sb.append("/School_Helper_Back/AddMoneyServlet");
             sb.append("?");
             for (Map.Entry<String, String>entry:param.entrySet()) {
                 sb.append(entry.getKey()+"=");
@@ -92,17 +86,23 @@ public class SendData{
         conn.setConnectTimeout(5000);
         conn.setDoInput(true);
         if (conn.getResponseCode()==200) {
+            //数据接收
             InputStream in = conn.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String res=reader.readLine();
-            object = new JSONObject(res);
-
+            array=new JSONArray(res);
+            for(int i=0;i<array.length();i++) {
+                object = array.getJSONObject(i);
+                /*
+                 * 功能：把数据库数据存到静态user中，以方便后续获取数据
+                 * 开发人：杨旭辉
+                 * 开发时间：2018.12.17
+                 */
+                SendDatesToServer.user1.setMoney(object.getDouble("money"));
+                Log.e("money",SendDatesToServer.user1.getMoney()+"");
+            }
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
-
-
 }
-

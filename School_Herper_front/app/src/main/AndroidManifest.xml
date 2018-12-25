@@ -44,6 +44,9 @@
         <activity android:name=".HomePage.fragment.task.TaskFirstActivity" />
         <activity android:name=".HomePage.fragment.task.TaskSecondActivity" />
         <activity android:name=".HomePage.fragment.task.TaskThirdActivity"></activity>
+        <activity android:name=".Talk.MessageTalkActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".Talk.MessageUserActivity"/>
     </application>
 
 </manifest>

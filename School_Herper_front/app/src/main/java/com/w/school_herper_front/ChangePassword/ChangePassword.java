@@ -20,7 +20,11 @@ import com.w.school_herper_front.Message.MessageSetActivity;
 import com.w.school_herper_front.R;
 import com.w.school_herper_front.SendDatesToServer;
 import com.w.school_herper_front.User;
-
+/*
+ * 功能：密码修改
+ * 开发人：杨旭辉
+ * 开发时间：2018.12.19
+ */
 public class ChangePassword extends Activity {
     private ImageView back1;
     private EditText et1;

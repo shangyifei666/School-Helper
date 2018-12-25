@@ -120,6 +120,7 @@
                     android:textColor="@color/black"/>
 
                 <EditText
+                    android:inputType="number|numberDecimal"
                     android:id="@+id/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -138,10 +139,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:layout_marginBottom="15dp"
-                android:text="改卡本次最多可充值￥10000" />
+                android:text="该卡本次最多可充值￥10000" />
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn"
             android:layout_width="360dp"
             android:layout_height="60dp"
             android:layout_marginLeft="15dp"

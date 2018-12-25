@@ -85,7 +85,7 @@ public class BoardFragment extends Fragment {
 //        board board4 = new board(R.drawable.myhead,"我的名字","机场接人",R.drawable.testimage,"有人这周日有时间吗？愿不愿意去机场接下人，顺便帮忙拎行李....","2018-1-1","￥6.00");
 //        boards.add(board4);
 
-        final List<board> boards = new ArrayList<>();
+
         /**
          * 开启异步任务
          */
@@ -101,11 +101,12 @@ public class BoardFragment extends Fragment {
                 intent.setClass(getContext(), HomeShowContentActivity.class);
 
                 board Tboard = boards.get(position);
-                intent.putExtra("board",(Serializable) Tboard);
+                intent.putExtra("user",(Serializable) Tboard);
 
                 startActivity(intent);
             }
         });
+        boards.clear();
 
         return view;
     }
@@ -144,7 +145,7 @@ public class BoardFragment extends Fragment {
                     board1.setUserId(object.getInt("userId"));
                     board1.setRewardId(object.getInt("rewardId"));
                     board1.setName(object.getString("name"));
-                    board1.setSex(object.getString("sex"));
+                    board1.setSex(object.optString("sex"));
                     board1.setTitle(object.getString("title"));
                     board1.setContent(object.getString("content"));
                     board1.setRewardTime(object.getString("rewardTime"));

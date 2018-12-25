@@ -18,7 +18,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
+/*
+ * 功能：密码修改
+ * 开发人：杨旭辉
+ * 开发时间：2018.12.19
+ */
 public class SendPassword {
     private static String url=new ServerUrl().getUrl();//服务器地址
     public static final int SEND_SUCCESS=0x123;

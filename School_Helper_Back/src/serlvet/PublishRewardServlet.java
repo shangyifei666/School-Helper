@@ -49,6 +49,7 @@ public class PublishRewardServlet extends HttpServlet {
 		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("response", "success");
+		response.getWriter().append(jsonObject.toString()).append(request.getContextPath());
 	}
 
 	/**

@@ -48,6 +48,7 @@ public class BoardItemServlet extends HttpServlet {
 		JSONArray array = new JSONArray();
 		for(RewardBean reward:rewardList) {
 			JSONObject object = new JSONObject();
+			String endTime = "20"+reward.getRewardDeadline().substring(0, 2)+"-"+reward.getRewardDeadline().substring(3,5)+"-"+reward.getRewardDeadline().substring(6,8);
 			
 			object.put("userId", reward.getPosterId());
 			object.put("rewardId", reward.getRewardId());
@@ -56,7 +57,7 @@ public class BoardItemServlet extends HttpServlet {
 			object.put("title", reward.getRewardTitle());
 			object.put("content", reward.getRewardContent());
 			object.put("rewardTime", reward.getRewardTime());
-			object.put("endTime", reward.getRewardDeadline());
+			object.put("endTime", endTime);
 			object.put("money", reward.getRewardMoney());
 			array.put(object);
 		}

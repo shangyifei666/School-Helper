@@ -34,6 +34,9 @@ import com.w.school_herper_front.HomePage.HomeActivity;
 import com.w.school_herper_front.bean.RewardBean;
 import com.w.school_herper_front.connect.SendData;
 import com.w.school_herper_front.listener.TextChange;
+import com.w.school_herper_front.wallet.GetMoney;
+import com.w.school_herper_front.wallet.WalletDepositActivity;
+import com.w.school_herper_front.wallet.WalletWithDrawActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,6 +60,8 @@ public class HomePublishActivity extends AppCompatActivity   {
     //调用照相机返回图片文件
     private File tempFile;
     private RewardBean reward;
+    private TextView money;
+    private TextView addmoney;
     Handler handler=new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -82,7 +87,16 @@ public class HomePublishActivity extends AppCompatActivity   {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_publish);
-
+        money=findViewById(R.id.money);
+        money.setText(""+SendDatesToServer.user1.getMoney());
+        addmoney=findViewById(R.id.home_publish_tv_addmoney);
+        addmoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePublishActivity.this, com.w.school_herper_front.wallet.WalletDepositActivity.class);
+                startActivity(intent);
+            }
+        });
         getWidgets();
         btnSelectTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +119,6 @@ public class HomePublishActivity extends AppCompatActivity   {
             @Override
             public void onClick(View v) {
                 fillDataFromView();
-                new SendData(handler).SendDatasToServer(reward);
             }
         });
 
@@ -121,14 +134,22 @@ public class HomePublishActivity extends AppCompatActivity   {
         String title = etTitle.getText().toString();
         String content = etContent.getText().toString();
 //        Double money = Double.valueOf(etAddMoney.getText().toString());
-        String money = etAddMoney.getText().toString();
-        String deadline = tvShowTime.getText().toString();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
-        String publishTime = simpleDateFormat.format(date);
+        double money = Double.parseDouble(etAddMoney.getText().toString());
+        if(money>SendDatesToServer.user1.getMoney()){
+            Toast.makeText(HomePublishActivity.this, "余额不足", Toast.LENGTH_LONG).show();
+        }else {
+            String phone = SendDatesToServer.user1.getPhone();
+            User user1 = new User(phone, money);
+            new GetMoney(handler).GetMoney(user1);
+            String deadline = tvShowTime.getText().toString();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+            Date date = new Date(System.currentTimeMillis());
+            String publishTime = simpleDateFormat.format(date);
 
-        reward = new RewardBean(posterId,content,title,deadline,money);
-        reward.setPublishTime(publishTime);
+            reward = new RewardBean(posterId, content, title, deadline, money);
+            reward.setPublishTime(publishTime);
+            new SendData(handler).SendDatasToServer(reward);
+        }
     }
 
     /**
