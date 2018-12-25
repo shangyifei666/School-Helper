@@ -62,7 +62,9 @@ public class BoardAdapter extends BaseAdapter {
         TextView content = convertView.findViewById(R.id.content);
         content.setText(boards.get(position).getContent());
         TextView endTime = convertView.findViewById(R.id.endtime);
-        endTime.setText(boards.get(position).getEndTime());
+        /*转变日期的格式*/
+        String e = "20"+boards.get(position).getEndTime().substring(0, 2)+"-"+boards.get(position).getEndTime().substring(3,5)+"-"+boards.get(position).getEndTime().substring(6,8);
+        endTime.setText(e);
         TextView money = convertView.findViewById(R.id.money);
         money.setText(String.valueOf(boards.get(position).getMoney()));
 
