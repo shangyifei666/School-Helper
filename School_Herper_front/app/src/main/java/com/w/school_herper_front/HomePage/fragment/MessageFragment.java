@@ -41,7 +41,7 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_message, container, false);
         lna = view.findViewById(R.id.ln_a);
         lnb = view.findViewById(R.id.ln_b);
         lnc = view.findViewById(R.id.ln_c);
