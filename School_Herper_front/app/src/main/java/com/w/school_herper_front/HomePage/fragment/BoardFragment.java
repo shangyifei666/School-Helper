@@ -101,7 +101,7 @@ public class BoardFragment extends Fragment {
                 intent.setClass(getContext(), HomeShowContentActivity.class);
 
                 board Tboard = boards.get(position);
-                intent.putExtra("user",(Serializable) Tboard);
+                intent.putExtra("user",Tboard);
 
                 startActivity(intent);
             }
@@ -145,12 +145,13 @@ public class BoardFragment extends Fragment {
                     board1.setUserId(object.getInt("userId"));
                     board1.setRewardId(object.getInt("rewardId"));
                     board1.setName(object.getString("name"));
-                    board1.setSex(object.optString("sex"));
+                    board1.setSex(object.getString("sex"));
                     board1.setTitle(object.getString("title"));
                     board1.setContent(object.getString("content"));
                     board1.setRewardTime(object.getString("rewardTime"));
                     board1.setEndTime(object.getString("endTime"));
                     board1.setMoney("￥"+ object.getDouble("money"));
+                    board1.setState("1");
                     boards.add(board1);
                 }
             } catch (IOException e) {

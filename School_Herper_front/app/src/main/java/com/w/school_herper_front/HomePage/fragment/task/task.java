@@ -7,6 +7,8 @@ public class task {
     private String Tname;
     private String condition;
 
+    public task(){}
+
     public task(int myhead, String name, String endtime, String tname, String condition) {
         this.myhead = myhead;
         this.name = name;

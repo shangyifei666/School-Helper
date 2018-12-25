@@ -1,6 +1,8 @@
 package com.w.school_herper_front.HomePage.fragment.task;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.w.school_herper_front.HomePage.fragment.board.board;
 import com.w.school_herper_front.R;
 
 import java.util.ArrayList;
@@ -16,22 +19,22 @@ import java.util.List;
 public class TaskAdapter extends BaseAdapter {
     private Context context;
     private int itemLayout;
-    private List<task> tasks = new ArrayList<>();
+    private List<board> boards = new ArrayList<>();
 
-    public TaskAdapter(Context context, int itemLayout, List<task> tasks) {
+    public TaskAdapter(Context context, int itemLayout, List<board> boards) {
         this.context = context;
         this.itemLayout = itemLayout;
-        this.tasks = tasks;
+        this.boards = boards;
     }
 
     @Override
     public int getCount() {
-        return tasks.size();
+        return boards.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return tasks.get(position);
+        return boards.get(position);
     }
 
     @Override
@@ -46,15 +49,38 @@ public class TaskAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(itemLayout,null);
         }
         ImageView myHead = convertView.findViewById(R.id.myhead);
-        myHead.setImageResource(tasks.get(position).getMyhead());
+        myHead.setImageResource(boards.get(position).getMyhead());
         TextView name = convertView.findViewById(R.id.name);
-        name.setText(tasks.get(position).getName());
+        name.setText(boards.get(position).getName());
         TextView endTime = convertView.findViewById(R.id.endtime);
-        endTime.setText(tasks.get(position).getEndtime());
+        endTime.setText(boards.get(position).getEndTime());
         TextView tName = convertView.findViewById(R.id.Tname);
-        tName.setText(tasks.get(position).getTname());
+        tName.setText(boards.get(position).getTitle());
         TextView condition = convertView.findViewById(R.id.condition);
-        condition.setText(tasks.get(position).getCondition());
+        /**
+         * 判断当前任务状态
+         */
+
+        if ("1".equals(boards.get(position).getState())){
+            condition.setText("待接收");
+        }
+        if ("3".equals(boards.get(position).getState())){
+            condition.setText("待验收");
+            condition.setTextColor(Color.parseColor("0xFF0000"));
+        }
+
+        if("2".equals(boards.get(position).getState())){
+            condition.setText("待完成");
+            condition.setTextColor(Color.parseColor("0xFF0000"));
+        }
+        if ("4".equals(boards.get(position).getState())){
+            condition.setText("已完成");
+        }
+        if ("5".equals(boards.get(position).getState())){
+            condition.setText("已截止");
+        }
+
+
 
 
         return convertView;

@@ -3,27 +3,45 @@ package com.w.school_herper_front.HomePage.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
+import com.w.school_herper_front.HomePage.fragment.board.board;
 import com.w.school_herper_front.HomePage.fragment.task.TaskAdapter;
 import com.w.school_herper_front.HomePage.fragment.task.TaskFirstActivity;
 import com.w.school_herper_front.HomePage.fragment.task.TaskSecondActivity;
 import com.w.school_herper_front.HomePage.fragment.task.TaskThirdActivity;
 import com.w.school_herper_front.HomePage.fragment.task.task;
+import com.w.school_herper_front.HomeShowContentActivity;
 import com.w.school_herper_front.R;
+import com.w.school_herper_front.SendDatesToServer;
+import com.w.school_herper_front.ServerUrl;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +51,9 @@ import java.util.List;
 public class TaskFragment extends Fragment {
     private Banner myBanner;
     View view;
+    ListView listView;
+    final List<board> boards = new ArrayList<>();
+    private String url = new ServerUrl().getUrl();
     List<Integer> ImageUrlData;
     List<String>ContentData;
     /*
@@ -48,7 +69,7 @@ public class TaskFragment extends Fragment {
         //View view = inflater.inflate(R.layout.fragment_task, container, false);
 
         /**
-         * 绑定点击事件
+         * 绑定顶部三个按钮点击事件
          */
         LinearLayout linearLayout1 = view.findViewById(R.id.tab1);
         LinearLayout linearLayout2 = view.findViewById(R.id.tab2);
@@ -82,19 +103,30 @@ public class TaskFragment extends Fragment {
          * 数据库建立后从数据库获取
          * 预计获取10个
          */
-        final List<task> tasks = new ArrayList<>();
 
-        task task1 = new task(R.drawable.myhead,"我的名字","2018-12-12","代取快递","待验收");
-        tasks.add(task1);
-        task task2 = new task(R.drawable.myhead,"我的名字","2018-12-12","代取快递","待验收");
-        tasks.add(task2);
-        task task3 = new task(R.drawable.myhead,"我的名字","2018-12-12","代取快递","待验收");
-        tasks.add(task3);
+//        task task1 = new task(R.drawable.myhead,"我的名字","2018-12-12","代取快递","待验收");
+//        tasks.add(task1);
+//        task task2 = new task(R.drawable.myhead,"我的名字","2018-12-12","代取快递","待验收");
+//        tasks.add(task2);
+//        task task3 = new task(R.drawable.myhead,"我的名字","2018-12-12","代取快递","待验收");
+//        tasks.add(task3);
 
-        ListView listView = view.findViewById(R.id.lv_task);
+        new TaskAsyncTask().execute();
+        listView = view.findViewById(R.id.lv_task);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), HomeShowContentActivity.class);
 
-        TaskAdapter taskAdapter = new TaskAdapter(getContext(),R.layout.task_list_item,tasks);
-        listView.setAdapter(taskAdapter);
+                board Tboard = boards.get(position);
+                intent.putExtra("user",Tboard);
+
+                startActivity(intent);
+            }
+        });
+        boards.clear();
+
 
         return view;
     }
@@ -148,6 +180,65 @@ public class TaskFragment extends Fragment {
 
         }
 
+    }
+
+    /**
+     * 创建异步任务
+     */
+    class TaskAsyncTask extends AsyncTask<Void,Void,List<board>>{
+
+        @Override
+        protected List<board> doInBackground(Void... voids) {
+            final StringBuffer stringBuffer = new StringBuffer(url);
+            stringBuffer.append("/School_Helper_Back/BoardItemServlet");
+            stringBuffer.append("?userId=");
+            stringBuffer.append(URLEncoder.encode(String.valueOf(SendDatesToServer.user1.getUserId())));
+            HttpURLConnection conn = null;
+            try {
+                conn = (HttpURLConnection) new URL(stringBuffer.toString()).openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("charset","UTF-8");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream is = null;
+
+            try {
+                is = conn.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(is);
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                String res = reader.readLine();
+                JSONArray array = new JSONArray(res);
+                for (int i=0; i < array.length(); i++){
+                    JSONObject object = array.getJSONObject(i);
+                    board board1 = new board();
+                    board1.setMyhead(R.drawable.myhead);
+                    board1.setUserId(object.getInt("userId"));
+                    board1.setRewardId(object.getInt("rewardId"));
+                    board1.setName(object.getString("name"));
+                    board1.setSex(object.getString("sex"));
+                    board1.setTitle(object.getString("title"));
+                    board1.setContent(object.getString("content"));
+                    board1.setRewardTime(object.getString("rewardTime"));
+                    board1.setEndTime(object.getString("endTime"));
+                    board1.setMoney("￥"+ object.getDouble("money"));
+                    board1.setState(object.getString("state"));
+                    boards.add(board1);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return boards;
+        }
+
+        protected void onPostExecute(List<board> boards){
+            super.onPostExecute(boards);
+            TaskAdapter taskAdapter = new TaskAdapter(getContext(),R.layout.task_list_item,boards);
+            listView.setAdapter(taskAdapter);
+        }
     }
 
 }
