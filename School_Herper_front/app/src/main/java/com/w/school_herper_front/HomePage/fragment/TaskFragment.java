@@ -190,7 +190,7 @@ public class TaskFragment extends Fragment {
         @Override
         protected List<board> doInBackground(Void... voids) {
             final StringBuffer stringBuffer = new StringBuffer(url);
-            stringBuffer.append("/School_Helper_Back/BoardItemServlet");
+            stringBuffer.append("/School_Helper_Back/TaskServlet");
             stringBuffer.append("?userId=");
             stringBuffer.append(URLEncoder.encode(String.valueOf(SendDatesToServer.user1.getUserId())));
             HttpURLConnection conn = null;
@@ -214,16 +214,16 @@ public class TaskFragment extends Fragment {
                     JSONObject object = array.getJSONObject(i);
                     board board1 = new board();
                     board1.setMyhead(R.drawable.myhead);
-                    board1.setUserId(object.getInt("userId"));
-                    board1.setRewardId(object.getInt("rewardId"));
-                    board1.setName(object.getString("name"));
-                    board1.setSex(object.getString("sex"));
-                    board1.setTitle(object.getString("title"));
-                    board1.setContent(object.getString("content"));
-                    board1.setRewardTime(object.getString("rewardTime"));
-                    board1.setEndTime(object.getString("endTime"));
-                    board1.setMoney("￥"+ object.getDouble("money"));
-                    board1.setState(object.getString("state"));
+                    board1.setUserId(object.optInt("userId"));
+                    board1.setRewardId(object.optInt("rewardId"));
+                    board1.setName(object.optString("name"));
+                    board1.setSex(object.optString("sex"));
+                    board1.setTitle(object.optString("title"));
+                    board1.setContent(object.optString("content"));
+                    board1.setRewardTime(object.optString("rewardTime"));
+                    board1.setEndTime(object.optString("endTime"));
+                    board1.setMoney("￥"+ object.optDouble("money"));
+                    board1.setState(object.optString("state"));
                     boards.add(board1);
                 }
             } catch (IOException e) {
