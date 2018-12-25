@@ -2,13 +2,15 @@ package com.w.school_herper_front.HomePage.fragment.board;
 
 import com.w.school_herper_front.R;
 
+import java.io.Serializable;
+
 /*
 * 功能：board
 * 开发人：尚一飞
 * 日期：2018.12.12
 * 简介：用于生成布告内容 与BoardFragment  board交互使用
 * */
-public class board {
+public class board implements Serializable {
     private int myhead = R.drawable.myhead;
     private int userId;
     private int rewardId;
@@ -20,6 +22,7 @@ public class board {
     private String rewardTime;
     private String endTime;
     private String money;
+    private String state;
 
     public board(){}
     public board(int myhead, String name, String title, String content, String endTime, String money) {
@@ -127,5 +130,13 @@ public class board {
 
     public void setRewardTime(String rewardTime) {
         this.rewardTime = rewardTime;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
