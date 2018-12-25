@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.w.school_herper_front.R;
 import com.w.school_herper_front.Talk.MessageTalkActivity;
+import com.w.school_herper_front.Talk.MessageUserActivity;
 import com.w.school_herper_front.wallet.WalletActivity;
 
 /**
@@ -25,6 +26,7 @@ public class MessageFragment extends Fragment {
     private LinearLayout lna;
     private LinearLayout lnb;
     private LinearLayout lnc;
+    private LinearLayout lnUser;
 
 
     public MessageFragment() {
@@ -43,6 +45,16 @@ public class MessageFragment extends Fragment {
         lna = view.findViewById(R.id.ln_a);
         lnb = view.findViewById(R.id.ln_b);
         lnc = view.findViewById(R.id.ln_c);
+        lnUser = view.findViewById(R.id.ln_user);
+
+        //跳转单独对话框
+        lnUser.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MessageUserActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //跳转单独对话框
         lna.setOnClickListener(new View.OnClickListener(){

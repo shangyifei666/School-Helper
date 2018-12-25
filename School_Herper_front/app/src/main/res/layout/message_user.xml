@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
 /*
  * 功能：消息页面的前台实现xml部分
@@ -9,14 +8,12 @@
  * 描述：
  */
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage.fragment.MessageFragment"
-    android:id="@+id/frame_message">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,17 +21,25 @@
         android:background="@drawable/top_yellow"
         android:padding="1dp">
 
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/goback"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="13dp"/>
+
         <TextView
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="私信"
+            android:text="小黑"
             android:textSize="26dp"
             android:textColor="#FFFFFF"/>
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/ln_user"
+        android:id="@+id/ln_a"
         android:layout_width="600dp"
         android:layout_height="80dp"
         android:layout_marginTop="70dp"
@@ -47,54 +52,7 @@
                 android:layout_marginTop="9dp"
                 android:layout_width="70dp"
                 android:layout_height="62dp"
-                android:src="@drawable/bigmessage"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="我的通知"
-                android:textSize="24dp"
-                android:textColor="#000000"
-                android:layout_marginTop="8dp"/>
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="官方通知"
-                android:textSize="20dp"
-                android:textColor="#888888"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/home_publish_arrows_right"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ln_a"
-        android:layout_width="600dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="170dp"
-        android:background="@drawable/box_color1">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_gravity="center">
-            <ImageView
-                android:layout_marginTop="9dp"
-                android:layout_width="70dp"
-                android:layout_height="62dp"
-                android:src="@drawable/people1"/>
+                android:src="@drawable/logos"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="245dp"
@@ -104,7 +62,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="小红"
+                android:text="官方通知"
                 android:textSize="24dp"
                 android:textColor="#000000"
                 android:layout_marginTop="8dp"/>
@@ -112,8 +70,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="你的单子我接了"
-                android:textSize="20dp"
+                android:text="你的代取快递任务发布成功"
+                android:textSize="18dp"
                 android:textColor="#888888"/>
         </LinearLayout>
         <LinearLayout
@@ -133,7 +91,7 @@
         android:id="@+id/ln_b"
         android:layout_width="600dp"
         android:layout_height="80dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="170dp"
         android:background="@drawable/box_color1">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -143,7 +101,7 @@
                 android:layout_marginTop="9dp"
                 android:layout_width="70dp"
                 android:layout_height="62dp"
-                android:src="@drawable/people2"/>
+                android:src="@drawable/logos"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="245dp"
@@ -153,7 +111,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="小明"
+                android:text="官方通知"
                 android:textSize="24dp"
                 android:textColor="#000000"
                 android:layout_marginTop="8dp"/>
@@ -161,8 +119,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="你的单子我接了"
-                android:textSize="20dp"
+                android:text="你的代取快递任务取消成功"
+                android:textSize="18dp"
                 android:textColor="#888888"/>
         </LinearLayout>
         <LinearLayout
@@ -182,7 +140,7 @@
         android:id="@+id/ln_c"
         android:layout_width="600dp"
         android:layout_height="80dp"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="270dp"
         android:background="@drawable/box_color1">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -192,7 +150,7 @@
                 android:layout_marginTop="9dp"
                 android:layout_width="70dp"
                 android:layout_height="62dp"
-                android:src="@drawable/people3"/>
+                android:src="@drawable/logos"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="245dp"
@@ -202,7 +160,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="小黑"
+                android:text="官方通知"
                 android:textSize="24dp"
                 android:textColor="#000000"
                 android:layout_marginTop="8dp"/>
@@ -210,8 +168,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="你的单子我接了"
-                android:textSize="20dp"
+                android:text="你的代取快递任务已被接收"
+                android:textSize="18dp"
                 android:textColor="#888888"/>
         </LinearLayout>
         <LinearLayout
@@ -226,5 +184,7 @@
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
     </LinearLayout>
+
+
 
 </FrameLayout>
