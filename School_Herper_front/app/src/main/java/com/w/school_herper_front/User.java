@@ -23,7 +23,7 @@ public class User {
     private int schoolId;
     private String image;
     private int value;
-    private int money;
+    private double money;
     private int took;
     private int publish;
     private String realname;
@@ -77,11 +77,11 @@ public class User {
         this.value = value;
     }
 
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 
@@ -127,6 +127,10 @@ public class User {
     }
     public User(){
 
+    }
+    public User(String phone,double money){
+        this.money=money;
+        this.phone=phone;
     }
     public User(String password){
         this.password=password;
