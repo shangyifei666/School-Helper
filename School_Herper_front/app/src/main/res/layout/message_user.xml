@@ -33,7 +33,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="小黑"
+            android:text="官方通知"
             android:textSize="26dp"
             android:textColor="#FFFFFF"/>
     </FrameLayout>
