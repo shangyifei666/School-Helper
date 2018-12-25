@@ -16,9 +16,9 @@ public class RewardBean {
     private String publishTime;
     private String deadline;
     private String rewardState;
-    private String rewardMoney;
+    private double rewardMoney;
 
-    public RewardBean(int posterId, String rewardContent, String rewardTitle, String deadline, String rewardMoney) {
+    public RewardBean(int posterId, String rewardContent, String rewardTitle, String deadline, double rewardMoney) {
         this.posterId = posterId;
         this.rewardContent = rewardContent;
         this.rewardTitle = rewardTitle;
@@ -26,7 +26,7 @@ public class RewardBean {
         this.rewardMoney = rewardMoney;
     }
 
-    public RewardBean(String posterName, String rewardTitle, String rewardContent, String deadline, String rewardState, String rewardMoney) {
+    public RewardBean(String posterName, String rewardTitle, String rewardContent, String deadline, String rewardState, double rewardMoney) {
         this.posterName = posterName;
         this.rewardTitle = rewardTitle;
         this.rewardContent = rewardContent;
@@ -99,11 +99,11 @@ public class RewardBean {
         this.rewardState = rewardState;
     }
 
-    public String getRewardMoney() {
+    public double getRewardMoney() {
         return rewardMoney;
     }
 
-    public void setRewardMoney(String rewardMoney) {
+    public void setRewardMoney(double rewardMoney) {
         this.rewardMoney = rewardMoney;
     }
 }
