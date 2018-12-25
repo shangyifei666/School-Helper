@@ -181,7 +181,7 @@ public class HomePublishActivity extends AppCompatActivity   {
 
             @Override
             public void onTimeSelect(Date date, View v) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy/MM/dd-hh:mm:ss");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String format = simpleDateFormat.format(date);
                 tvTime.setText(format);
                 Log.e("time=============",format);

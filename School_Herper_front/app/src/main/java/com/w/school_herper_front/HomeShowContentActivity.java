@@ -241,7 +241,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 //        showValue(layout,value);
         showValue(layout,15);
 
-        tvMoney.setText("赏金："+user.getMoney()+" ￥");
+        tvMoney.setText("赏金："+user.getMoney());
         tvContent.setText(user.getContent());
         tvPublishTime.setText(user.getRewardTime());
 
@@ -291,7 +291,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
     /**
      * function:get deadline to count time and invoke other relavent function;
-     * param:Date deadline
+     * param:String deadline
      */
     private void countTime(String deadline){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
