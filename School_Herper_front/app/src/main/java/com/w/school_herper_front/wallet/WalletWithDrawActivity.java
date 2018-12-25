@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.w.school_herper_front.ChangePassword.ChangePassword;
+import com.w.school_herper_front.HomePage.HomeActivity;
+import com.w.school_herper_front.MainActivity;
 import com.w.school_herper_front.R;
 import com.w.school_herper_front.SendDatesToServer;
 import com.w.school_herper_front.User;
@@ -77,10 +79,8 @@ public class WalletWithDrawActivity extends AppCompatActivity {
         back1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("id",1);
-                setResult(3,intent);
-                finish();
+                Intent intent = new Intent(WalletWithDrawActivity.this, WalletActivity.class);
+                startActivity(intent);
             }
         });
     }

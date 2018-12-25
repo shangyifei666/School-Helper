@@ -58,10 +58,8 @@ public class WalletActivity extends AppCompatActivity {
         back1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("id",1);
-                setResult(4,intent);
-                finish();
+                Intent intent = new Intent(WalletActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
     }

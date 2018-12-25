@@ -145,7 +145,7 @@ public class BoardFragment extends Fragment {
                     board1.setUserId(object.getInt("userId"));
                     board1.setRewardId(object.getInt("rewardId"));
                     board1.setName(object.getString("name"));
-                    board1.setSex(object.getString("sex"));
+                    board1.setSex(object.optString("sex"));
                     board1.setTitle(object.getString("title"));
                     board1.setContent(object.getString("content"));
                     board1.setRewardTime(object.getString("rewardTime"));
