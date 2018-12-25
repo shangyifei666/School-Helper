@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.w.school_herper_front.HomePage.fragment.board.board;
@@ -35,15 +36,17 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     leftTime = 0;
                     handler.removeCallbacks(update_thread);
                     break;
+                case 2: //任务完成，停止计时，但是leftTime不等于0
+                    handler.removeCallbacks(update_thread);
+                    break;
             }
             super.handleMessage(msg);
         }
 
     };
     private ImageView ivUserHead,ivUserSex,ivHead1;
-    private TextView tvUserName,tvMoney,tvContent,tvPublishTime,tvName1,tvState,tvChoice;
-    private LinearLayout llValue,llvalue1,llUser1,llTail;
-    private RewardBean reward= null;
+    private TextView tvUserName,tvMoney,tvContent,tvPublishTime,tvName1,tvState,tvChoice,tvType,tvType1;
+    private LinearLayout llValue,llvalue1,llUser1,llTail,llNone;
     private Button btnUserChat1;
     private User my = SendDatesToServer.user1;
 
@@ -56,8 +59,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
         getWidgets();
 
         Intent intent = getIntent();
-        judge(intent);
-
+        judgeToShowWidgets(intent);
 
 
     }
@@ -66,60 +68,26 @@ public class HomeShowContentActivity extends AppCompatActivity {
      * function:to judge whether to show widgets by intent
      *
      */
-    private void judge(Intent intent){
+    private void judgeToShowWidgets(Intent intent){
+        String state;
         if(intent.getSerializableExtra("poser") != null){                   //我的接收
-            board poster = (board)intent.getSerializableExtra("poser");
+            final board poster = (board)intent.getSerializableExtra("poser");
             setState();
             fillViewFromMy(my,llValue);
 
-            String state = reward.getRewardState();
-            btnUserChat1.setVisibility(View.VISIBLE);
-            tvState.setVisibility(View.VISIBLE);
-            if("待完成".equals(state)){
-                tvState.setText("等待接单者完成");
-                btnUserChat1.setText("待完成");
-                btnUserChat1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        btnUserChat1.setBackgroundColor(Color.GRAY);
-                        btnUserChat1.setText("待确认");
-                        btnUserChat1.setEnabled(false);//不可点击
-                        //-----------------发送消息到发布者，请求确认
-                    }
-                });
-            }else if("待确认".equals(state)){
-                tvState.setText("已提交，等待发布者确认完成");
-                btnUserChat1.setText("待确认");
-                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
-                btnUserChat1.setEnabled(false);//不可点击
-
-            }else if("已完成".equals(state)){
-                tvState.setText("任务已结束");
-                btnUserChat1.setText("待已完成");
-                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
-                btnUserChat1.setEnabled(false);//不可点击
-                Message message = new Message();//结束倒计时
-                message.what = 1;
-                handlerStop.sendMessage(message);
-
-            }else{//已截止
-                tvState.setText("任务已截止");
-                btnUserChat1.setText("已截止");
-                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
-                btnUserChat1.setEnabled(false);//不可点击
-            }
-
-            llUser1.setVisibility(View.VISIBLE);
+            state = poster.getState();
+            eventFromReceiver(state);  //Button
             fillViewFromList(poster,llvalue1);
+            tvType.setText("发布者");
             btnUserChat1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(HomeShowContentActivity.this, MessageTalkActivity.class);
+                    i.putExtra("id",poster.getUserId());
                     startActivity(i);
                 }
             });
-
-
+            showChoiceFromReceive(state,"放弃任务");
 
         }else if(intent.getSerializableExtra("user")!=null){                //布告栏进入
             board user = (board)intent.getSerializableExtra("user");
@@ -128,13 +96,177 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
         }else{                                                                    //我的发布
             setState();
+            fillViewFromMy(my,llValue);
+
             if(intent.getSerializableExtra("receiver") != null){
                 //有人接收，显示信息
+                final board receiver = (board) intent.getSerializableExtra("receiver");
+                state = receiver.getState();
+                eventFromPoster(state);
+                fillViewFromList(receiver,llvalue1);
+                tvType.setText("接收者");
+                btnUserChat1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(HomeShowContentActivity.this, MessageTalkActivity.class);
+                        i.putExtra("id",receiver.getUserId());
+                        startActivity(i);
+                    }
+                });
+                showChoiceFromReceive(state,"删除任务");
 
             }else{
                 //无人接收
-
+                llNone.setVisibility(View.VISIBLE);
             }
+        }
+    }
+    /**
+     * function: show button event by judge state From Poster;
+     * param: String state;
+     * info: my receive;
+     */
+    private void eventFromPoster(String state){
+        switch (state){
+            case "1": //待接收
+                tvState.setText("任务尚未被接收");
+                btnUserChat1.setVisibility(View.INVISIBLE);
+                break;
+            case "2"://待完成
+                tvState.setText("任务已被接受，等待接受者完成");
+                btnUserChat1.setVisibility(View.INVISIBLE);
+                break;
+            case "3"://待确认
+                tvState.setText("任务已提交，等待您的确认");
+                btnUserChat1.setText("待确认");
+                btnUserChat1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        btnUserChat1.setBackgroundColor(Color.GRAY);
+                        btnUserChat1.setText("已完成");
+                        btnUserChat1.setEnabled(false);//不可点击
+
+                        //-----------------增加悬赏金，
+                        // 并发送消息到接收者，提示任务已经被确认，悬赏金已经被发放-----------
+
+                    }
+                });
+                break;
+            case "4"://已完成
+                tvState.setText("任务已结束");
+                btnUserChat1.setText("已完成");
+                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
+                btnUserChat1.setEnabled(false);//不可点击
+
+                Message message = new Message();//结束倒计时
+                message.what = 2;
+                handlerStop.sendMessage(message);
+
+                break;
+            case "5":  //已截止 5
+                tvState.setText("任务已截止");
+                btnUserChat1.setText("已截止");
+                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
+                btnUserChat1.setEnabled(false);//不可点击
+                RelativeLayout thisPage = findViewById(R.id.rl_show_content);
+                thisPage.setAlpha((float) 0.3);
+
+                Message message1 = new Message();//结束倒计时
+                message1.what = 1;
+                handlerStop.sendMessage(message1);
+
+                break;
+
+        }
+    }
+    /**
+     * function: show button event by judge state FromReceiver;
+     * param: String state;
+     * info: my receive;
+     */
+    private void eventFromReceiver(String state){
+        switch (state){
+            case "2"://待完成
+                tvState.setText("已接单，等待您的完成");
+                btnUserChat1.setText("待完成");
+                btnUserChat1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        btnUserChat1.setBackgroundColor(Color.GRAY);
+                        btnUserChat1.setText("待确认");
+                        btnUserChat1.setEnabled(false);//不可点击
+
+                        //-----------------发送消息到发布者，请求确认-----------
+
+                    }
+                });
+
+                break;
+            case "3"://待确认
+                tvState.setText("已提交，等待发布者确认完成");
+                btnUserChat1.setText("待确认");
+                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
+                btnUserChat1.setEnabled(false);//不可点击
+                break;
+            case "4"://已完成
+                tvState.setText("任务已结束");
+                btnUserChat1.setText("已完成");
+                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
+                btnUserChat1.setEnabled(false);//不可点击
+
+                Message message = new Message();//结束倒计时
+                message.what = 2;
+                handlerStop.sendMessage(message);
+
+                break;
+            case "5":  //已截止 5
+                tvState.setText("任务已截止");
+                btnUserChat1.setText("已截止");
+                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
+                btnUserChat1.setEnabled(false);//不可点击
+                RelativeLayout thisPage = findViewById(R.id.rl_show_content);
+                thisPage.setAlpha((float) 0.3);
+
+                Message message1 = new Message();//结束倒计时
+                message1.what = 1;
+                handlerStop.sendMessage(message1);
+
+                break;
+
+        }
+    }
+
+    /**
+     * function: TextView choice  event differ from state;
+     * param:String state ; String str
+     */
+    private void showChoiceFromReceive(String state , String str){
+        tvChoice.setText(str);
+        switch (state){
+            case "2": //待完成,（已接下任务状态，点击放弃任务要扣信誉值）
+                tvChoice.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        //----------------跳出对话框以警示会降低信誉值-----
+
+                        //------------------用户仍然点击，改变任务的状态为未接单，
+                        //---------同时发送消息通知任务发布者，并扣除接单者信誉值----------
+
+                    }
+                });
+                break;
+            case "3": //待确认
+                tvChoice.setVisibility(View.INVISIBLE);
+                break;
+            case "4": //已完成
+                tvChoice.setVisibility(View.INVISIBLE);
+                break;
+            case "5": //已截止
+                tvChoice.setVisibility(View.INVISIBLE);
+                break;
+
+
         }
     }
     /**
@@ -165,6 +297,9 @@ public class HomeShowContentActivity extends AppCompatActivity {
         tvState = findViewById(R.id.showcontent_tv_state);
         llTail = findViewById(R.id.showcontent_ll_tail);
         tvChoice = findViewById(R.id.showcontent_tv_choice);
+        llNone = findViewById(R.id.showcontent_ll_none);
+        tvType = findViewById(R.id.showcontent_tv_type);
+        tvType = findViewById(R.id.showcontent_tv_type1);
 
     }
 
@@ -241,7 +376,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 //        showValue(layout,value);
         showValue(layout,15);
 
-        tvMoney.setText("赏金："+user.getMoney());
+        tvMoney.setText("赏金："+user.getMoney()+" ￥");
         tvContent.setText(user.getContent());
         tvPublishTime.setText(user.getRewardTime());
 
@@ -321,10 +456,10 @@ public class HomeShowContentActivity extends AppCompatActivity {
      * return:void
      * */
     public void cutTime() {
-        day = leftTime / (60 * 60 * 24);
-        hour = (leftTime - day*( 60 * 60 * 24))/( 60 * 60);
-        minute = (leftTime-day*(60 * 60 * 24)-hour*(60 * 60))/60;
-        second = leftTime - day*(24*60*60) - hour*(60*60) - minute*60;
+            day = leftTime / (60 * 60 * 24);
+            hour = (leftTime - day*( 60 * 60 * 24))/( 60 * 60);
+            minute = (leftTime-day*(60 * 60 * 24)-hour*(60 * 60))/60;
+            second = leftTime - day*(24*60*60) - hour*(60*60) - minute*60;
 
     }
     /**
@@ -336,9 +471,9 @@ public class HomeShowContentActivity extends AppCompatActivity {
         update_thread = new Runnable() {
             @Override
             public void run() {
-                leftTime --;
+//                leftTime --;
                 cutTime();
-                if (leftTime > 0) {
+                if (leftTime >= 0) {
                     tvDay.setText("距离任务截止还有" + String.valueOf(day) + "天");
                     tvHour1.setText(String.valueOf(hour / 10));
                     tvHour2.setText(String.valueOf(hour % 10));
@@ -356,6 +491,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     message.what = 1;
                     handlerStop.sendMessage(message);
                 }
+                leftTime --;
             }
         };
         update_thread.run();
