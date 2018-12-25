@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.w.school_herper_front.HomePage.fragment.board.board;
+import com.w.school_herper_front.Talk.MessageTalkActivity;
 import com.w.school_herper_front.bean.RewardBean;
 
 import java.text.DateFormat;
@@ -37,37 +40,24 @@ public class HomeShowContentActivity extends AppCompatActivity {
         }
 
     };
-    private ImageView ivUserHead,ivUserSex;
-    private TextView tvUserName,tvMoney,tvContent,tvPublishTime,tvName1;
-    private LinearLayout llValue,llvalue1,llUser1;
+    private ImageView ivUserHead,ivUserSex,ivHead1;
+    private TextView tvUserName,tvMoney,tvContent,tvPublishTime,tvName1,tvState,tvChoice;
+    private LinearLayout llValue,llvalue1,llUser1,llTail;
     private RewardBean reward= null;
     private Button btnUserChat1;
+    private User my = SendDatesToServer.user1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_show_content);
+
         getWidgets();
 
         Intent intent = getIntent();
-        reward = (RewardBean) intent.getSerializableExtra("reward");
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try
-        {
-            Date d1 = df.parse(df.format(new Date()));//当前时间
-            Date d2 = df.parse(reward.getDeadline());
-//            Date d1 = df.parse("2018-12-12 13:31:40");
-//            Date d2 = df.parse("2018-12-22 11:30:24");
-            leftTime = (d2.getTime() - d1.getTime())/1000;
-                countDown();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        //判断以显示控件
         judge(intent);
+
 
 
     }
@@ -77,22 +67,16 @@ public class HomeShowContentActivity extends AppCompatActivity {
      *
      */
     private void judge(Intent intent){
-        if(intent.getSerializableExtra("poser") != null){//我的接收
-            User poster = (User)intent.getSerializableExtra("poser");
-            llUser1.setVisibility(View.VISIBLE);
-            tvName1.setText(poster.getName());
-//            showValue(llvalue1,poster.getValue());
-            showValue(llvalue1,10);
-//            btnUserChat1.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent i = new Intent(HomeShowContentActivity.this,);
-//                    startActivity(i);
-//                }
-//            });
+        if(intent.getSerializableExtra("poser") != null){                   //我的接收
+            board poster = (board)intent.getSerializableExtra("poser");
+            setState();
+            fillViewFromMy(my,llValue);
+
             String state = reward.getRewardState();
             btnUserChat1.setVisibility(View.VISIBLE);
+            tvState.setVisibility(View.VISIBLE);
             if("待完成".equals(state)){
+                tvState.setText("等待接单者完成");
                 btnUserChat1.setText("待完成");
                 btnUserChat1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -104,11 +88,13 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     }
                 });
             }else if("待确认".equals(state)){
+                tvState.setText("已提交，等待发布者确认完成");
                 btnUserChat1.setText("待确认");
                 btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
                 btnUserChat1.setEnabled(false);//不可点击
 
             }else if("已完成".equals(state)){
+                tvState.setText("任务已结束");
                 btnUserChat1.setText("待已完成");
                 btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
                 btnUserChat1.setEnabled(false);//不可点击
@@ -117,14 +103,31 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 handlerStop.sendMessage(message);
 
             }else{//已截止
+                tvState.setText("任务已截止");
                 btnUserChat1.setText("已截止");
                 btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
                 btnUserChat1.setEnabled(false);//不可点击
             }
-        }else if(intent.getSerializableExtra("user")!=null){
-            User user = (User)intent.getSerializableExtra("user");
-            showContent(user);
-        }else{
+
+            llUser1.setVisibility(View.VISIBLE);
+            fillViewFromList(poster,llvalue1);
+            btnUserChat1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(HomeShowContentActivity.this, MessageTalkActivity.class);
+                    startActivity(i);
+                }
+            });
+
+
+
+        }else if(intent.getSerializableExtra("user")!=null){                //布告栏进入
+            board user = (board)intent.getSerializableExtra("user");
+            fillViewFromMain(user,llValue);
+            countTime(user.getEndTime());
+
+        }else{                                                                    //我的发布
+            setState();
             if(intent.getSerializableExtra("receiver") != null){
                 //有人接收，显示信息
 
@@ -158,13 +161,32 @@ public class HomeShowContentActivity extends AppCompatActivity {
         tvName1 = findViewById(R.id.showcontent_tv_name1);
         llvalue1 = findViewById(R.id.showcontent_ll_value1);
         btnUserChat1 = findViewById(R.id.showcontent_btn_user1_chat);
+        ivHead1 = findViewById(R.id.showcontent_iv_head1);
+        tvState = findViewById(R.id.showcontent_tv_state);
+        llTail = findViewById(R.id.showcontent_ll_tail);
+        tvChoice = findViewById(R.id.showcontent_tv_choice);
 
     }
+
     /**
-     * function: show user informateion
-     * return :User
+     * function : show common state when enter from my riceive and my post;
+     * param :
      */
-    private void showContent(User user){
+    private void setState(){
+        btnUserChat1.setVisibility(View.VISIBLE);   //button
+        llUser1.setVisibility(View.VISIBLE);   //LinearLayout
+        tvState.setVisibility(View.VISIBLE);
+        tvChoice.setVisibility(View.VISIBLE);   //删除
+        llTail.setVisibility(View.GONE);        //隐藏tail
+
+    }
+
+    /**
+     * function: fill header where date from ;
+     * return :User; LinearLayout
+     * info:except center and bottom(fillViewFromList) where date filled from list;
+     */
+    private void fillViewFromMy(User user,LinearLayout layout){
 //        ivUserHead.setImageResource();
         tvUserName.setText(user.getName());
         if("女".equals(user.getSex())){
@@ -172,11 +194,56 @@ public class HomeShowContentActivity extends AppCompatActivity {
         }else{
             ivUserSex.setImageResource(R.drawable.boy);
         }
-        int value = user.getValue();
-        showValue(llValue,value);
-        tvMoney.setText("赏金："+reward.getRewardMoney()+" ￥");
-        tvContent.setText(reward.getRewardContent());
-        tvPublishTime.setText(reward.getPublishTime());
+//        int value = user.getValue();
+//        showValue(layout,value);
+        showValue(layout,10);
+
+    }
+
+    /**
+     * function: fill content in center and bottom;
+     * return :board ; LinearLayout
+     * info:except header(fillViewFromMy) where date  filled from my;
+     */
+    private void fillViewFromList(board user,LinearLayout layout){
+        tvMoney.setText("赏金："+user.getMoney()+" ￥");
+//        ivHead1.setImageResource();
+        tvName1.setText(user.getName());
+//        if("女".equals(user.getSex())){
+//            ivUserSex.setImageResource(R.drawable.girl);
+//        }else{
+//            ivUserSex.setImageResource(R.drawable.boy);
+//        }
+
+//        int value = user.getValue();
+//        showValue(layout,value);
+        showValue(layout,10);
+
+        tvContent.setText(user.getContent());
+        tvPublishTime.setText(user.getRewardTime());
+    }
+
+    /**
+     * function: show user informateion when enter from main activity;
+     * return :board ; LinearLayout
+     * info:
+     */
+    private void fillViewFromMain(board user,LinearLayout layout){
+//        ivUserHead.setImageResource();
+        tvUserName.setText(user.getName());
+        if("女".equals(user.getSex())){
+            ivUserSex.setImageResource(R.drawable.girl);
+        }else{
+            ivUserSex.setImageResource(R.drawable.boy);
+        }
+
+//        int value = user.getValue();
+//        showValue(layout,value);
+        showValue(layout,15);
+
+        tvMoney.setText("赏金："+user.getMoney()+" ￥");
+        tvContent.setText(user.getContent());
+        tvPublishTime.setText(user.getRewardTime());
 
     }
 
@@ -219,6 +286,25 @@ public class HomeShowContentActivity extends AppCompatActivity {
             imageView.setLayoutParams(new LinearLayout.LayoutParams(20,20));
             imageView.setImageResource(R.drawable.diamond);
             layout.addView(imageView);
+        }
+    }
+
+    /**
+     * function:get deadline to count time and invoke other relavent function;
+     * param:Date deadline
+     */
+    private void countTime(String deadline){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try
+        {
+            Date d1 = df.parse(df.format(new Date()));//当前时间
+            Date d2 = df.parse(deadline);
+//            Date d1 = df.parse("2018-12-12 13:31:40");
+//            Date d2 = df.parse("2018-12-22 11:30:24");
+            leftTime = (d2.getTime() - d1.getTime())/1000;
+            countDown();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
