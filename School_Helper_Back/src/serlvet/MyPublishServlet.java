@@ -16,18 +16,22 @@ import bean.RewardBean;
 import bean.UserBean;
 import dao.RewardDao;
 import dao.UserDao;
-
+/*
+ * 功能：MyPublishServlet
+ * 开发人：杨旭辉
+ * 开发时间：2018.12.26
+ * */
 /**
- * Servlet implementation class BoardItemServlet
+ * Servlet implementation class MyPublishServlet
  */
-@WebServlet("/BoardItemServlet")
-public class BoardItemServlet extends HttpServlet {
+@WebServlet("/MyPublishServlet")
+public class MyPublishServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardItemServlet() {
+    public MyPublishServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,30 +40,29 @@ public class BoardItemServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		/**
-		 * 姓名：尚一飞
-		 * 日期：2018.12.18
-		 * 简介：向Board页传递数据库中的赏金任务
-		 */
+		int userId=Integer.parseInt(request.getParameter("userId"));
+		JSONArray array=new JSONArray();
 		RewardDao rewardDao = new RewardDao();
-		List<RewardBean> rewardList = rewardDao.selectBoardReward();
-		JSONArray array = new JSONArray();
+		List<RewardBean> rewardList =rewardDao.MyPublish(userId);
 		for(RewardBean reward:rewardList) {
-			JSONObject object = new JSONObject();
-			object.put("userId", reward.getPosterId());
-			object.put("rewardId", reward.getRewardId());
-			object.put("name", getName(reward));
-			object.put("sex", getSex(reward));
-			object.put("title", reward.getRewardTitle());
-			object.put("content", reward.getRewardContent());
-			object.put("rewardTime", reward.getRewardTime());
-			object.put("endTime", reward.getRewardDeadline());
-			object.put("money", reward.getRewardMoney());
-			array.put(object);
+			JSONObject json12=new JSONObject();
+			json12.put("userId", reward.getPosterId());
+			json12.put("rewardId", reward.getRewardId());
+			json12.put("name", getName(reward));
+			json12.put("sex", getSex(reward));
+			json12.put("title", reward.getRewardTitle());
+			json12.put("content", reward.getRewardContent());
+			json12.put("rewardTime", reward.getRewardTime());
+			json12.put("endTime", reward.getRewardDeadline());
+			json12.put("money", reward.getRewardMoney());
+			json12.put("state", reward.getRewardState());
+			array.put(json12);
+			System.err.println(json12);
 		}
-		response.getWriter().append(array.toString()).append(request.getContextPath());
+		response.getWriter().append(array.toString()).append(request.getContentType());
 	}
 
 	/**
@@ -69,18 +72,13 @@ public class BoardItemServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	/**
-	 * 
-	 * @author 尚一飞
-	 * 日期：2018.12.18
-	 * 简介：根据用户ID获取用户名
-	 */
 	private String getName(RewardBean reward) {
 		UserDao userDao = new UserDao();
 		UserBean user = userDao.checkUser(reward.getPosterId());
 		String name = user.getUserName();
+		
 		return name;
+		
 	}
 	private String getSex(RewardBean reward) {
 		UserDao userDao = new UserDao();
@@ -88,5 +86,4 @@ public class BoardItemServlet extends HttpServlet {
 		String sex = user.getUserSex();
 		return sex;
 	}
-
 }

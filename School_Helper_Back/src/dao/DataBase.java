@@ -20,7 +20,7 @@ public class DataBase {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/school_helper?serverTimezone=GMT&useUnicode=true&characterEncoding=utf-8&useSSL=false";
-			conn = DriverManager.getConnection(url, "root", "");
+			conn = DriverManager.getConnection(url, "root", "272884559");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
