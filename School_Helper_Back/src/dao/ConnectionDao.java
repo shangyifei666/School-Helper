@@ -18,7 +18,7 @@ import bean.UserBean;
 public class ConnectionDao {
 	public static void setConnection(ConnectionBean con) {
 		Connection conn = DataBase.getConnection();
-		String sql = "insert into connection(poster_id,recriver_id,reward_id) values(?,?,?)";
+		String sql = "insert into connection(poster_id,receiver_id,reward_id) values(?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, con.getPosterId());
