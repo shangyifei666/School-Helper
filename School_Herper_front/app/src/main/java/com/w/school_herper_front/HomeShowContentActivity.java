@@ -1,4 +1,9 @@
 package com.w.school_herper_front;
+/**
+ * @CONTENT: publish content
+ * @DEVELOPER: Zhangxixian
+ * @DATE: 18/12/16
+ */
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -39,13 +44,22 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 case 2: //任务完成，停止计时，但是leftTime不等于0
                     handler.removeCallbacks(update_thread);
                     break;
-                case SendDatesToServer.SEND_SUCCESS:  //接赏金跳转
+                case SendData.SEND_SUCCESS:  //接赏金跳转
                     Toast.makeText(HomeShowContentActivity.this, "成功接下悬赏令~", Toast.LENGTH_SHORT).show();
                     break;
-                case SendDatesToServer.SEND_FAIL:
+                case SendData.SEND_FAIL:
                     Toast.makeText(HomeShowContentActivity.this, "接赏金失败，请重试~", Toast.LENGTH_SHORT).show();
                     break;
-                case SendDatesToServer.SEND_FAIL1:
+                case SendData.SEND_FAIL1:
+                    Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
+                    break;
+                case SendData.CHANGE_SUCCESS:  //接赏金跳转
+                    Toast.makeText(HomeShowContentActivity.this, "确认完成", Toast.LENGTH_SHORT).show();
+                    break;
+                case SendData.CHANGE_FAIL:
+                    Toast.makeText(HomeShowContentActivity.this, "确认失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case SendData.CHANGE_FAIL1:
                     Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
                     break;
                 default:
@@ -113,14 +127,15 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             });
-            final Map<String, String> connect=new HashMap<String, String>();
-            connect.put("posterId",user.getUserId()+"");
-            connect.put("receiverId",my.getUserId()+"");
-            connect.put("rewardId",user.getRewardId()+"");
+
             btnGetTask.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new SendData(handler).SendDatasToServer(connect);
+                    new SendData(handler).SendDatasToServer(
+                            transfer(user.getUserId()+"",
+                                    my.getUserId()+"",
+                                    user.getRewardId()+"")
+                    );
                 }
             });
 
@@ -129,7 +144,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
             final board receiver = (board) intent.getSerializableExtra("receiver");
             setState();
             state = receiver.getState();
-            eventFromPoster(state);
+            eventFromPoster(state,receiver);
             if("1"==state){ //1 :无人接下悬赏令
                 showDeleteTv("1","删除任务","poster");
                 llNone.setVisibility(View.VISIBLE);
@@ -172,16 +187,16 @@ public class HomeShowContentActivity extends AppCompatActivity {
      * param: String state;
      * info: my receive;
      */
-    private void eventFromPoster(String state){
+    private void eventFromPoster(String state,final board receiver){
         switch (state){
             case "1": //待接收
                 tvState.setText("任务尚未被接收");
                 btnState.setVisibility(View.INVISIBLE);
                 break;
             case "2"://待完成
-                tvState.setText("任务已被接受，等待接受者完成");
+                tvState.setText("任务已被接收，等待对方完成");
                 btnState.setText("待确认");
-                btnState.setBackgroundColor(Color.GRAY);
+                btnState.setBackgroundColor(Color.GRAY);  //待确认按钮为灰色且不可点击，知道对方确认完成
                 btnState.setEnabled(false);
                 break;
             case "3"://待确认
@@ -194,7 +209,13 @@ public class HomeShowContentActivity extends AppCompatActivity {
                         btnState.setText("已完成");
                         btnState.setEnabled(false);//不可点击
 
-                        //-----------------增加悬赏金，
+                        //-----------------给揭下悬赏令的用户发布悬赏金，（告知后台）
+                        new SendData(handler).changeState(
+                                transfer(my.getUserId()+"",
+                                        receiver.getUserId()+"",
+                                        receiver.getRewardId()+"")
+                        );
+
                         // 并发送消息到接收者，提示任务已经被确认，悬赏金已经被发放-----------
 
                     }
@@ -227,6 +248,23 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
         }
     }
+
+    /**
+     * @function connect with back and send message to change reward state;
+     * @param posterId
+     * @param receiverId
+     * @param rewardId
+     * @return map
+     */
+    private Map<String,String> transfer(String posterId,String receiverId ,String rewardId){
+        Map<String , String> map = new HashMap<>();
+        map.put("posterId",posterId);
+        map.put("receiverId",receiverId);
+        map.put("rewardId",rewardId);
+        return map;
+    }
+
+
     /**
      * function: show button event by judge state FromReceiver;
      * param: String state;

@@ -6,7 +6,7 @@ package com.w.school_herper_front.connect;
  * DEVELOPER:Zhangxixina
  * Date:18/12/18
  */
-import android.os.AsyncTask;
+;
 import android.os.Handler;
 
 import com.w.school_herper_front.ServerUrl;
@@ -29,12 +29,43 @@ public class SendData{
     public static final int SEND_SUCCESS=0x123;
     public static final int SEND_FAIL1=0x124;
     public static final int SEND_FAIL=0x126;
+    public static final int CHANGE_SUCCESS=0x128;
+    public static final int CHANGE_FAIL1=0x130;
+    public static final int CHANGE_FAIL=0x132;
     public JSONObject object;
     public JSONArray array;
+    private String servletUrl;
     private Handler handler;
 
     public SendData(Handler handler) {
         this.handler=handler;
+    }
+
+    /**
+     * @function after poster ensure task
+     * @param connect
+     */
+    public void changeState(final Map<String,String> connect ){
+        servletUrl ="/School_Helper_Back/changeStateServlet";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (sendGetRequest(connect,url,servletUrl)) {
+                        if(object.getString("response").equals("success")){
+                            handler.sendEmptyMessage(CHANGE_SUCCESS);//通知主线程数据发送成功
+                        }else{
+                            handler.sendEmptyMessage(CHANGE_FAIL1);//将数据发送给服务器失败或者用户名不存在
+                        }
+                    }else {
+                        handler.sendEmptyMessage(CHANGE_FAIL);//将数据发送给服务器失败
+                    }
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 
@@ -43,7 +74,7 @@ public class SendData{
      * @param connect
      */
     public void SendDatasToServer(final Map<String,String> connect ){
-        final String servletUrl ="/School_Helper_Back/GetTaskServlet";
+        servletUrl ="/School_Helper_Back/GetTaskServlet";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -70,7 +101,7 @@ public class SendData{
      * @param reward
      */
     public void SendDatasToServer(RewardBean reward) {
-        final String servletUrl ="/School_Helper_Back/PublishRewardServlet";
+        servletUrl ="/School_Helper_Back/PublishRewardServlet";
         final Map<String, String> map=new HashMap<>();
         map.put("posterId",reward.getPosterId()+"");
         map.put("rewardTitle",reward.getRewardTitle());
