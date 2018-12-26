@@ -38,27 +38,22 @@ public class SendData{
     }
 
 
-    public void SendDatasToServer(RewardBean reward) {
-        final Map<String, String> map=new HashMap<String, String>();
-        map.put("posterId",reward.getPosterId()+"");
-        map.put("rewardTitle",reward.getRewardTitle());
-        map.put("rewardContent",reward.getRewardContent()) ;
-        map.put("publishTime",reward.getPublishTime()+"");
-        map.put("deadline",reward.getDeadline()+"");
-        map.put("rewardMoney",reward.getRewardMoney()+"");
-
+    /**
+     * @function send datas where come from showContent Page;
+     * @param connect
+     */
+    public void SendDatasToServer(final Map<String,String> connect ){
+        final String servletUrl ="/School_Helper_Back/GetTaskServlet";
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (sendGetRequest(map,url,"utf-8")) {
-
+                    if (sendGetRequest(connect,url,servletUrl)) {
                         if(object.getString("response").equals("success")){
                             handler.sendEmptyMessage(SEND_SUCCESS);//通知主线程数据发送成功
                         }else{
                             handler.sendEmptyMessage(SEND_FAIL1);//将数据发送给服务器失败或者用户名不存在
                         }
-
                     }else {
                         handler.sendEmptyMessage(SEND_FAIL);//将数据发送给服务器失败
                     }
@@ -70,13 +65,56 @@ public class SendData{
         }).start();
     }
 
+    /**
+     * @function send datas where come from publish Page;
+     * @param reward
+     */
+    public void SendDatasToServer(RewardBean reward) {
+        final String servletUrl ="/School_Helper_Back/PublishRewardServlet";
+        final Map<String, String> map=new HashMap<>();
+        map.put("posterId",reward.getPosterId()+"");
+        map.put("rewardTitle",reward.getRewardTitle());
+        map.put("rewardContent",reward.getRewardContent()) ;
+        map.put("publishTime",reward.getPublishTime()+"");
+        map.put("deadline",reward.getDeadline()+"");
+        map.put("rewardMoney",reward.getRewardMoney()+"");
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (sendGetRequest(map,url,servletUrl)) {
 
-    private  boolean sendGetRequest(Map<String, String> param, String url,String encoding) throws Exception {
+                        if(object.getString("response").equals("success")){
+                            handler.sendEmptyMessage(SEND_SUCCESS);//通知主线程数据发送成功
+                        }else{
+                            handler.sendEmptyMessage(SEND_FAIL1);//将数据发送给服务器失败或者用户名不存在
+                        }
+                    }else {
+                        handler.sendEmptyMessage(SEND_FAIL);//将数据发送给服务器失败
+                    }
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * @function send datas where come from publish Page;
+     * @param param
+     * @param url
+     * @param servletUrl
+     * @return
+     * @throws Exception
+     */
+    private  boolean sendGetRequest(Map<String, String> param, String url,String servletUrl) throws Exception {
         // TODO Auto-generated method stub
         StringBuffer sb = new StringBuffer(url);
         if (!url.equals("")&!param.isEmpty()) {
-            sb.append("/School_Helper_Back/PublishRewardServlet");
+//            sb.append("/School_Helper_Back/PublishRewardServlet");
+            sb.append(servletUrl);
             sb.append("?");
             for (Map.Entry<String, String>entry:param.entrySet()) {
                 sb.append(entry.getKey()+"=");

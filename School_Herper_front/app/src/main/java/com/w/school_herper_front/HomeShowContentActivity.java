@@ -12,21 +12,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.w.school_herper_front.HomePage.fragment.board.board;
 import com.w.school_herper_front.Talk.MessageTalkActivity;
+import com.w.school_herper_front.connect.SendData;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeShowContentActivity extends AppCompatActivity {
     private TextView tvDay,tvHour1,tvHour2,tvMinute1,tvMinute2,tvSecond1,tvSecond2;
     private long leftTime ;      //剩余时间 = 截止时间 - 当前时间
     long day,hour,minute,second;
-    private Handler handler = new Handler();
     private Runnable update_thread ;
-    private final Handler handlerStop = new Handler() {
+    private final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
@@ -36,15 +39,26 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 case 2: //任务完成，停止计时，但是leftTime不等于0
                     handler.removeCallbacks(update_thread);
                     break;
+                case SendDatesToServer.SEND_SUCCESS:  //接赏金跳转
+                    Toast.makeText(HomeShowContentActivity.this, "成功接下悬赏令~", Toast.LENGTH_SHORT).show();
+                    break;
+                case SendDatesToServer.SEND_FAIL:
+                    Toast.makeText(HomeShowContentActivity.this, "接赏金失败，请重试~", Toast.LENGTH_SHORT).show();
+                    break;
+                case SendDatesToServer.SEND_FAIL1:
+                    Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
             }
-            super.handleMessage(msg);
+//            super.handleMessage(msg);
         }
 
     };
     private ImageView ivUserHead,ivUserSex,ivHead1;
     private TextView tvUserName,tvMoney,tvContent,tvPublishTime,tvName1,tvState, tvDelete,tvType,tvType1;
     private LinearLayout llValue,llvalue1,llUser1,llTail,llNone;
-    private Button btnState,btnchat;
+    private Button btnState,btnchat,btnBottomChat,btnGetTask;
     private User my = SendDatesToServer.user1;
 
 
@@ -88,9 +102,27 @@ public class HomeShowContentActivity extends AppCompatActivity {
             showDeleteTv(state,"放弃任务","receiver");
 
         }else if(intent.getSerializableExtra("user")!=null){                //布告栏进入
-            board user = (board)intent.getSerializableExtra("user");
+            final board user = (board)intent.getSerializableExtra("user");
             fillViewFromMain(user,llValue);
             countTime(user.getEndTime());
+            btnBottomChat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(HomeShowContentActivity.this, MessageTalkActivity.class);
+                    i.putExtra("id",user.getUserId());
+                    startActivity(i);
+                }
+            });
+            final Map<String, String> connect=new HashMap<String, String>();
+            connect.put("posterId",user.getUserId()+"");
+            connect.put("receiverId",my.getUserId()+"");
+            connect.put("rewardId",user.getRewardId()+"");
+            btnGetTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new SendData(handler).SendDatasToServer(connect);
+                }
+            });
 
         }else if(intent.getSerializableExtra("receiver") != null){           //我的发布
             fillViewFromMy(my,llValue);
@@ -159,7 +191,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                 Message message = new Message();//结束倒计时
                 message.what = 2;
-                handlerStop.sendMessage(message);
+                handler.sendMessage(message);
 
                 break;
             case "5":  //已截止 5
@@ -172,7 +204,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                 Message message1 = new Message();//结束倒计时
                 message1.what = 1;
-                handlerStop.sendMessage(message1);
+                handler.sendMessage(message1);
 
                 break;
 
@@ -215,7 +247,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                 Message message = new Message();//结束倒计时
                 message.what = 2;
-                handlerStop.sendMessage(message);
+                handler.sendMessage(message);
 
                 break;
             case "5":  //已截止 5
@@ -228,7 +260,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                 Message message1 = new Message();//结束倒计时
                 message1.what = 1;
-                handlerStop.sendMessage(message1);
+                handler.sendMessage(message1);
 
                 break;
 
@@ -326,6 +358,8 @@ public class HomeShowContentActivity extends AppCompatActivity {
         llNone = findViewById(R.id.showcontent_ll_none);
         tvType = findViewById(R.id.showcontent_tv_type);
         tvType = findViewById(R.id.showcontent_tv_type1);
+        btnBottomChat = findViewById(R.id.showcontent_btn_botttom_chat);
+        btnGetTask = findViewById(R.id.showcontent_btn_gettask);
 
     }
 
@@ -510,7 +544,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     //发送消息，结束倒计时
                     Message message = new Message();
                     message.what = 1;
-                    handlerStop.sendMessage(message);
+                    handler.sendMessage(message);
                 }
                 leftTime --;
             }
