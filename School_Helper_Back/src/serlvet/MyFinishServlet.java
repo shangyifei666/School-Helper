@@ -12,29 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import bean.ConnectionBean;
 import bean.RewardBean;
 import bean.UserBean;
-import dao.ConnectionDao;
 import dao.RewardDao;
 import dao.UserDao;
 /*
- * 功能：MyRecriveServlet
+ * 功能：MyFinishServlet
  * 开发人：杨旭辉
  * 开发时间：2018.12.26
  * */
 /**
- * Servlet implementation class MyRecriveServlet
+ * Servlet implementation class MyFinishServlet
  */
-@WebServlet("/MyRecriveServlet")
-public class MyRecriveServlet extends HttpServlet {
-	
+@WebServlet("/MyFinishServlet")
+public class MyFinishServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyRecriveServlet() {
+    public MyFinishServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,28 +43,25 @@ public class MyRecriveServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		int receiverId=Integer.parseInt(request.getParameter("userId"));
-		ConnectionDao condao=new ConnectionDao();
+		int userId=Integer.parseInt(request.getParameter("userId"));
 		JSONArray array=new JSONArray();
-		List<ConnectionBean> connectionList =condao.selectConnection(receiverId);
-		for(ConnectionBean con:connectionList) {
-			RewardDao redao=new RewardDao();
-			List<RewardBean> rewardList = redao.MyPublish(con.getPosterId());
-			for(RewardBean reward:rewardList) {
-				JSONObject json13 = new JSONObject();
-				json13.put("userId", reward.getPosterId());
-				json13.put("rewardId", reward.getRewardId());
-				json13.put("name", getName(con));
-				json13.put("sex", getSex(con));
-				json13.put("title", reward.getRewardTitle());
-				json13.put("content", reward.getRewardContent());
-				json13.put("rewardTime", reward.getRewardTime());
-				json13.put("endTime", reward.getRewardDeadline());
-				json13.put("money", reward.getRewardMoney());
-				json13.put("state", reward.getRewardState());
-				array.put(json13);
-				System.err.println(json13);
-//				rewardList=null;
+		RewardDao rewardDao = new RewardDao();
+		List<RewardBean> rewardList =rewardDao.MyPublish(userId);
+		for(RewardBean reward:rewardList) {
+			if(reward.getRewardState().equals("4")) {
+			JSONObject json14=new JSONObject();
+			json14.put("userId", reward.getPosterId());
+			json14.put("rewardId", reward.getRewardId());
+			json14.put("name", getName(reward));
+			json14.put("sex", getSex(reward));
+			json14.put("title", reward.getRewardTitle());
+			json14.put("content", reward.getRewardContent());
+			json14.put("rewardTime", reward.getRewardTime());
+			json14.put("endTime", reward.getRewardDeadline());
+			json14.put("money", reward.getRewardMoney());
+			json14.put("state", reward.getRewardState());
+			array.put(json14);
+			System.err.println(json14);
 			}
 		}
 		response.getWriter().append(array.toString()).append(request.getContentType());
@@ -80,15 +74,17 @@ public class MyRecriveServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	private String getName(ConnectionBean con) {
-		UserDao userdao=new UserDao();
-		UserBean user=userdao.checkUser(con.getPosterId());
-		String name=user.getUserName();
-		return name;
-	}
-	private String getSex(ConnectionBean con) {
+	private String getName(RewardBean reward) {
 		UserDao userDao = new UserDao();
-		UserBean user = userDao.checkUser(con.getPosterId());
+		UserBean user = userDao.checkUser(reward.getPosterId());
+		String name = user.getUserName();
+		
+		return name;
+		
+	}
+	private String getSex(RewardBean reward) {
+		UserDao userDao = new UserDao();
+		UserBean user = userDao.checkUser(reward.getPosterId());
 		String sex = user.getUserSex();
 		return sex;
 	}
