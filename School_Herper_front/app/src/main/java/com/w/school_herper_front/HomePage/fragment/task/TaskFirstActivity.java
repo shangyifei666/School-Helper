@@ -67,7 +67,7 @@ public class TaskFirstActivity extends AppCompatActivity {
                 intent.setClass(TaskFirstActivity.this, HomeShowContentActivity.class);
 
                 board Tboard = boards.get(position);
-                intent.putExtra("poster",Tboard);
+                intent.putExtra("receiver",Tboard);
 
                 startActivity(intent);
             }
