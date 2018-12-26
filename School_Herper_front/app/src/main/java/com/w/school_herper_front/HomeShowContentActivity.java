@@ -81,8 +81,8 @@ public class HomeShowContentActivity extends AppCompatActivity {
      */
     private void judgeToShowWidgets(Intent intent){
         String state;
-        if(intent.getSerializableExtra("poser") != null){                   //我的接收
-            final board poster = (board)intent.getSerializableExtra("poser");
+        if(intent.getSerializableExtra("poster") != null){                   //我的接收
+            final board poster = (board)intent.getSerializableExtra("poster");
             setState();
             fillViewFromMy(my,llValue);
 
@@ -148,6 +148,23 @@ public class HomeShowContentActivity extends AppCompatActivity {
             }
             countTime(receiver.getEndTime());
             showDeleteTv(state,"删除任务","poster");
+        }else if(intent.getSerializableExtra("posterFinished")!=null ){
+            fillViewFromMy(my,llValue);
+            final board pf = (board)intent.getSerializableExtra("posterFinished");
+            setState();
+            state = pf.getState();
+            eventFromReceiver(state);
+            fillViewFromList(pf,llvalue1);
+            tvType.setText("接收者");
+            btnchat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(HomeShowContentActivity.this, MessageTalkActivity.class);
+                    i.putExtra("id",pf.getUserId());
+                    startActivity(i);
+                }
+            });
+
         }
     }
     /**
@@ -431,7 +448,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 //        showValue(layout,value);
         showValue(layout,15);
 
-        tvMoney.setText("赏金："+user.getMoney()+" ￥");
+        tvMoney.setText("赏金："+user.getMoney());
         tvContent.setText(user.getContent());
         tvPublishTime.setText(user.getRewardTime());
 
@@ -551,10 +568,6 @@ public class HomeShowContentActivity extends AppCompatActivity {
         };
         update_thread.run();
     }
-
-
-
-
 
 
 }
