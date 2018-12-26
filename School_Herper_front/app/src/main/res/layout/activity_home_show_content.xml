@@ -375,7 +375,7 @@
         android:layout_above="@+id/scro_mycontent"
         >
         <Button
-            android:id="@+id/content_btn_chat"
+            android:id="@+id/showcontent_btn_botttom_chat"
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:text="私信"
@@ -383,7 +383,7 @@
             android:layout_weight="1"
             android:background="@color/themeColor"/>
         <Button
-            android:id="@+id/content_btn_gettask"
+            android:id="@+id/showcontent_btn_gettask"
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:text="接赏金"
