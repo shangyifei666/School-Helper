@@ -120,7 +120,7 @@ public class TaskFragment extends Fragment {
                 intent.setClass(getContext(), HomeShowContentActivity.class);
 
                 board Tboard = boards.get(position);
-                intent.putExtra("user",Tboard);
+                intent.putExtra("wait",Tboard);
 
                 startActivity(intent);
             }
