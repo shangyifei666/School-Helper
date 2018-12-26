@@ -66,12 +66,12 @@ public class TaskAdapter extends BaseAdapter {
         }
         if ("3".equals(boards.get(position).getState())){
             condition.setText("待验收");
-            condition.setTextColor(Color.parseColor("0xFF0000"));
+            condition.setTextColor(Color.parseColor("#E51C23"));
         }
 
         if("2".equals(boards.get(position).getState())){
             condition.setText("待完成");
-            condition.setTextColor(Color.parseColor("0xFF0000"));
+            condition.setTextColor(Color.parseColor("#E51C23"));
         }
         if ("4".equals(boards.get(position).getState())){
             condition.setText("已完成");
