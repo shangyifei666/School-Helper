@@ -115,7 +115,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
             countTime(poster.getEndTime());
             showDeleteTv(state,"放弃任务","receiver");
 
-        }else if(intent.getSerializableExtra("user")!=null){                //布告栏进入
+        }else if(intent.getSerializableExtra("user")!=null){                 //布告栏
             final board user = (board)intent.getSerializableExtra("user");
             fillViewFromMain(user,llValue);
             countTime(user.getEndTime());
@@ -139,7 +139,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 }
             });
 
-        }else if(intent.getSerializableExtra("receiver") != null){           //我的发布
+        }else if(intent.getSerializableExtra("receiver") != null){            //我的发布
             fillViewFromMy(my,llValue);
             final board receiver = (board) intent.getSerializableExtra("receiver");
             setState();
@@ -163,7 +163,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
             }
             countTime(receiver.getEndTime());
             showDeleteTv(state,"删除任务","poster");
-        }else if(intent.getSerializableExtra("posterFinished")!=null ){
+        }else if(intent.getSerializableExtra("posterFinished")!=null ){         //已完成
             fillViewFromMy(my,llValue);
             final board pf = (board)intent.getSerializableExtra("posterFinished");
             setState();
@@ -180,6 +180,19 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 }
             });
 
+        }else if (intent.getSerializableExtra("wait")!= null){                  //待处理
+            setState();
+            fillViewFromMy(my,llValue);
+            board wait = (board)intent.getSerializableExtra("wait");
+            state = wait.getState();
+            eventFromPoster(state,wait);
+            fillViewFromList(wait,llvalue1);
+            showDeleteTv(state,"删除任务","");
+            if("2".equals(state)){  //2 待完成 我的接收
+                tvType.setText("发布者");
+            }else if("3".equals(state)){ //3 待确认 我的发布
+                tvType.setText("接收者");
+            }
         }
     }
     /**
