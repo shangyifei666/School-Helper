@@ -102,7 +102,7 @@ public class SendData{
     }
 
     /**
-     * @function send datas where come from publish Page;
+     * @function package content ;
      * @param param
      * @param url
      * @param servletUrl
