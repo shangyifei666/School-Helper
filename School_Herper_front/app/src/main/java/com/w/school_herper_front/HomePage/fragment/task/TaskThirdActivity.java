@@ -67,7 +67,7 @@ public class TaskThirdActivity extends AppCompatActivity {
                 intent.setClass(TaskThirdActivity.this, HomeShowContentActivity.class);
 
                 board Tboard = boards.get(position);
-                intent.putExtra("finish",Tboard);
+                intent.putExtra("posterFinished",Tboard);
 
                 startActivity(intent);
             }
