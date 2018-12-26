@@ -1,6 +1,7 @@
 package com.w.school_herper_front.HomePage.fragment.board;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class BoardAdapter extends BaseAdapter {
         content.setText(boards.get(position).getContent());
         TextView endTime = convertView.findViewById(R.id.endtime);
         /*转变日期的格式*/
-        String e = "20"+boards.get(position).getEndTime().substring(0, 2)+"-"+boards.get(position).getEndTime().substring(3,5)+"-"+boards.get(position).getEndTime().substring(6,8);
+        String e = boards.get(position).getEndTime().substring(0, 4)+"-"+boards.get(position).getEndTime().substring(6,8)+"-"+boards.get(position).getEndTime().substring(10,12);
         endTime.setText(e);
         TextView money = convertView.findViewById(R.id.money);
         money.setText(String.valueOf(boards.get(position).getMoney()));
