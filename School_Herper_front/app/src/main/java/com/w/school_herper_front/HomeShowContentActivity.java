@@ -5,11 +5,13 @@ package com.w.school_herper_front;
  * @DATE: 18/12/16
  */
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -50,16 +52,19 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 case SendData.SEND_FAIL:
                     Toast.makeText(HomeShowContentActivity.this, "接赏金失败，请重试~", Toast.LENGTH_SHORT).show();
                     break;
-                case SendData.SEND_FAIL1:
-                    Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
-                    break;
-                case SendData.CHANGE_SUCCESS:  //接赏金跳转
+                case SendData.CHANGE_SUCCESS:  //状态改变
                     Toast.makeText(HomeShowContentActivity.this, "确认完成", Toast.LENGTH_SHORT).show();
                     break;
                 case SendData.CHANGE_FAIL:
-                    Toast.makeText(HomeShowContentActivity.this, "确认失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomeShowContentActivity.this, "确认失败，", Toast.LENGTH_SHORT).show();
                     break;
-                case SendData.CHANGE_FAIL1:
+                case SendData.CANCEL_SUCCESS:   //取消悬赏令
+                    Toast.makeText(HomeShowContentActivity.this,"取消成功~",Toast.LENGTH_SHORT).show();
+                    break;
+                case SendData.CANCEL_FAIL:
+                    Toast.makeText(HomeShowContentActivity.this,"取消失败，请重试",Toast.LENGTH_SHORT).show();
+                    break;
+                case SendData.FAIL:
                     Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
                     break;
                 default:
@@ -72,7 +77,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
     private ImageView ivUserHead,ivUserSex,ivHead1;
     private TextView tvUserName,tvMoney,tvContent,tvPublishTime,tvName1,tvState, tvDelete,tvType,tvType1;
     private LinearLayout llValue,llvalue1,llUser1,llTail,llNone;
-    private Button btnState,btnchat,btnBottomChat,btnGetTask;
+    private Button btnState,btnchat,btnBottomChat,btnGetTask,btnRtn;
     private User my = SendDatesToServer.user1;
 
 
@@ -82,7 +87,12 @@ public class HomeShowContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_show_content);
 
         getWidgets();
-
+        btnRtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Intent intent = getIntent();
         judgeToShowWidgets(intent);
 
@@ -100,8 +110,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
             setState();
             fillViewFromMy(my,llValue);
 
-            state = poster.getState();
-            eventFromReceiver(state);  //Button
+            eventFromReceiver(poster);  //Button
             fillViewFromList(poster,llvalue1);
             tvType.setText("发布者");
             btnchat.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +122,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 }
             });
             countTime(poster.getEndTime());
-            showDeleteTv(state,"放弃任务","receiver");
+            showDeleteTv("放弃任务","receiver",poster);
 
         }else if(intent.getSerializableExtra("user")!=null){                 //布告栏
             final board user = (board)intent.getSerializableExtra("user");
@@ -132,9 +141,10 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     new SendData(handler).SendDatasToServer(
-                            transfer(user.getUserId()+"",
+                            packgeMap(user.getUserId()+"",
                                     my.getUserId()+"",
-                                    user.getRewardId()+"")
+                                    user.getRewardId()+"",
+                                    "2")
                     );
                 }
             });
@@ -146,7 +156,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
             state = receiver.getState();
             eventFromPoster(state,receiver);
             if("1"==state){ //1 :无人接下悬赏令
-                showDeleteTv("1","删除任务","poster");
+                showDeleteTv("删除任务","poster",receiver);
                 llNone.setVisibility(View.VISIBLE);
                 llvalue1.setVisibility(View.GONE);
             }else{
@@ -162,13 +172,13 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 });
             }
             countTime(receiver.getEndTime());
-            showDeleteTv(state,"删除任务","poster");
-        }else if(intent.getSerializableExtra("posterFinished")!=null ){         //已完成
+            showDeleteTv("删除任务","poster",receiver);
+        }else if(intent.getSerializableExtra("posterFinished")!=null ){        //4 已完成
             fillViewFromMy(my,llValue);
             final board pf = (board)intent.getSerializableExtra("posterFinished");
             setState();
             state = pf.getState();
-            eventFromReceiver(state);
+            eventFromReceiver(pf);
             fillViewFromList(pf,llvalue1);
             tvType.setText("接收者");
             btnchat.setOnClickListener(new View.OnClickListener() {
@@ -179,26 +189,27 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             });
-
-        }else if (intent.getSerializableExtra("wait")!= null){                  //待处理
+            showDeleteTv("删除任务","",null);
+        }else if (intent.getSerializableExtra("wait")!= null){               //2,3待处理
             setState();
             fillViewFromMy(my,llValue);
             board wait = (board)intent.getSerializableExtra("wait");
             state = wait.getState();
             eventFromPoster(state,wait);
             fillViewFromList(wait,llvalue1);
-            showDeleteTv(state,"删除任务","");
             if("2".equals(state)){  //2 待完成 我的接收
                 tvType.setText("发布者");
+                showDeleteTv("放弃任务","receiver",wait);
             }else if("3".equals(state)){ //3 待确认 我的发布
                 tvType.setText("接收者");
+                showDeleteTv("删除任务","",wait);
             }
         }
     }
     /**
-     * function: show button event by judge state From Poster;
-     * param: String state;
-     * info: my receive;
+     * @function: show button event by judge state From Poster;
+     * @param: String state;
+     * @info: my receive;
      */
     private void eventFromPoster(String state,final board receiver){
         switch (state){
@@ -224,9 +235,10 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                         //-----------------给揭下悬赏令的用户发布悬赏金，（告知后台）
                         new SendData(handler).changeState(
-                                transfer(my.getUserId()+"",
+                                packgeMap(my.getUserId()+"",
                                         receiver.getUserId()+"",
-                                        receiver.getRewardId()+"")
+                                        receiver.getRewardId()+"",
+                                        "4")  //已完成
                         );
 
                         // 并发送消息到接收者，提示任务已经被确认，悬赏金已经被发放-----------
@@ -263,27 +275,12 @@ public class HomeShowContentActivity extends AppCompatActivity {
     }
 
     /**
-     * @function connect with back and send message to change reward state;
-     * @param posterId
-     * @param receiverId
-     * @param rewardId
-     * @return map
+     * @function: show button event by judge state FromReceiver;
+     * @param: String state;
+     * @info: my receive;
      */
-    private Map<String,String> transfer(String posterId,String receiverId ,String rewardId){
-        Map<String , String> map = new HashMap<>();
-        map.put("posterId",posterId);
-        map.put("receiverId",receiverId);
-        map.put("rewardId",rewardId);
-        return map;
-    }
-
-
-    /**
-     * function: show button event by judge state FromReceiver;
-     * param: String state;
-     * info: my receive;
-     */
-    private void eventFromReceiver(String state){
+    private void eventFromReceiver(final board poster){
+        final String state = poster.getState();
         switch (state){
             case "2"://待完成
                 tvState.setText("已接单，等待您的完成");
@@ -296,6 +293,14 @@ public class HomeShowContentActivity extends AppCompatActivity {
                         btnState.setEnabled(false);//不可点击
 
                         //-----------------发送消息到发布者，请求确认-----------
+
+                        //----------后台状态改变
+                        new SendData(handler).changeState(
+                                packgeMap(poster.getUserId()+"",
+                                        my.getUserId()+"",
+                                        poster.getRewardId()+"",
+                                        "3")   //待确认
+                        );
 
                     }
                 });
@@ -335,11 +340,31 @@ public class HomeShowContentActivity extends AppCompatActivity {
         }
     }
 
+
     /**
-     * function: TextView choice  event differ from state;
-     * param:String state ; String str; String ori
+     * @function connect with back and send message to change reward state;
+     * @param posterId
+     * @param receiverId
+     * @param rewardId
+     * @return map
      */
-    private void showDeleteTv(String state , String str , String ori){
+    private Map<String,String> packgeMap(String posterId, String receiverId , String rewardId, String state){
+        Map<String , String> map = new HashMap<>();
+        map.put("posterId",posterId);
+        map.put("receiverId",receiverId);
+        map.put("rewardId",rewardId);
+        map.put("state",state);
+        return map;
+    }
+
+    /**
+     * @function TextView choice event differ from state;
+     * @param str
+     * @param ori
+     * @param p
+     */
+    private void showDeleteTv( String str , String ori,final board p){
+        final String state = p.getState();
         tvDelete.setText(str);
         switch (state){
             case "1"://待接收
@@ -348,7 +373,22 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         //---------跳出对话框“您确认要放弃任务吗”
-                        //---------确认，则删除从后台任务
+                        new AlertDialog.Builder(HomeShowContentActivity.this)
+                                .setTitle("请三思")
+                                .setMessage("您确认要删除已发布的悬赏令吗")
+                                .setPositiveButton("是的", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //---------确认，则删除从后台任务
+                                        new SendData(handler).deleteReward(
+                                            packgeMap(p.getUserId()+"","",p.getRewardId()+"",
+                                                    state)
+                                        );
+                                    }
+                                })
+                                .setNegativeButton("我再考虑考虑", null)
+                                .create()
+                                .show();
 
                     }
                 });
@@ -358,10 +398,32 @@ public class HomeShowContentActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            //----------------跳出对话框以警示会降低信誉值-----
+                            //跳出对话框以警示会降低信誉值-----
+                            new AlertDialog.Builder(HomeShowContentActivity.this)
+                                    .setTitle("请三思")
+                                    .setMessage("您要放弃已接下的悬赏令吗？")
+                                    .setPositiveButton("是的，我意已决", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                            //------------------用户仍然点击，改变任务的状态为未接单，
-                            //---------同时发送消息通知任务发布者，并扣除接单者信誉值----------
+                                            //从该用户的“我的接收”中删除悬赏令
+                                            new SendData(handler).deleteReward(
+                                                    packgeMap("",p.getUserId()+"",
+                                                            p.getRewardId()+"",p.getState())
+                                            );
+                                            //改变任务的状态为未接单，
+                                            new SendData(handler).changeState(
+                                                    packgeMap(p.getUserId()+"","",
+                                                            p.getRewardId()+"","1")
+                                            );
+
+                                            //---------同时发送消息通知任务发布者，并扣除接单者信誉值----------
+
+                                        }
+                                    })
+                                    .setNegativeButton("我再考虑考虑",null)
+                                    .create()
+                                    .show();
 
                         }
                     });
@@ -371,10 +433,29 @@ public class HomeShowContentActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                             //----------------跳出对话框以警示会降低信誉值-----
-                            //--“您的悬赏令已被接下，确定要放弃任务吗，会扣除10%的悬赏金哦，并且会降低信誉值”
-                            //------------------用户仍然点击，删除任务，
-                            //---------同时发送消息通知任务接收者，同时给予违约金，----------
-                            //通知任务发布者，告知任务已取消成功，退还剩余悬赏金，
+                            //--“您的悬赏令已被接下，确定要放弃任务吗，会扣除5%的悬赏金哦，并且会降低信誉值”
+                            new AlertDialog.Builder(HomeShowContentActivity.this)
+                                    .setTitle("请三思")
+                                    .setMessage("您确定要删除已被揭下的的悬赏令吗？要赔付5%的违约金并降低信誉值哦")
+                                    .setPositiveButton("已阅，坚持删除", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            //发布者删除悬赏令,接受者也要删除
+                                            new SendData(handler).deleteReward(
+                                                    packgeMap(my.getUserId()+"",p.getUserId()+"",
+                                                            p.getRewardId()+"",state)
+                                            );
+
+                                            //---------同时发送消息通知任务发布者，并扣除接单者信誉值----------
+                                            //-------通知任务发布者，告知任务已取消成功，退还剩余悬赏金，
+
+                                        }
+                                    })
+                                    .setNegativeButton("我再考虑考虑",null)
+                                    .create()
+                                    .show();
+
 
                         }
                     });
@@ -428,6 +509,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
         tvType = findViewById(R.id.showcontent_tv_type1);
         btnBottomChat = findViewById(R.id.showcontent_btn_botttom_chat);
         btnGetTask = findViewById(R.id.showcontent_btn_gettask);
+        btnRtn = findViewById(R.id.showcontent_btn_rtn);
 
     }
 
@@ -486,7 +568,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
      * return :board ; LinearLayout
      * info:
      */
-    private void fillViewFromMain(board user,LinearLayout layout){
+    private void fillViewFromMain(board user,LinearLayout layout) {
 //        ivUserHead.setImageResource();
         tvUserName.setText(user.getName());
         if("女".equals(user.getSex())){
