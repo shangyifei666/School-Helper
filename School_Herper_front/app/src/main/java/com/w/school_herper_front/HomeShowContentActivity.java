@@ -148,6 +148,23 @@ public class HomeShowContentActivity extends AppCompatActivity {
             }
             countTime(receiver.getEndTime());
             showDeleteTv(state,"删除任务","poster");
+        }else if(intent.getSerializableExtra("posterFinished")!=null ){
+            fillViewFromMy(my,llValue);
+            final board pf = (board)intent.getSerializableExtra("posterFinished");
+            setState();
+            state = pf.getState();
+            eventFromReceiver(state);
+            fillViewFromList(pf,llvalue1);
+            tvType.setText("接收者");
+            btnchat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(HomeShowContentActivity.this, MessageTalkActivity.class);
+                    i.putExtra("id",pf.getUserId());
+                    startActivity(i);
+                }
+            });
+
         }
     }
     /**
