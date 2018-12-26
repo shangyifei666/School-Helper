@@ -49,6 +49,7 @@ public class TaskServlet extends HttpServlet {
 		JSONArray array=new JSONArray();
 		RewardDao rewardDao = new RewardDao();
 		List<RewardBean> rewardList =rewardDao.MyPublish(userId);
+		//发布任务的被接受在发布人那里显示待确认
 		for(RewardBean reward:rewardList) {
 			if(reward.getRewardState().equals("3")) {
 			JSONObject json15=new JSONObject();
@@ -68,6 +69,7 @@ public class TaskServlet extends HttpServlet {
 		}
 		ConnectionDao condao=new ConnectionDao();
 		List<ConnectionBean> connectionList =condao.selectConnection(userId);
+		//接受发布人的任务在接受人那里显示待完成
 		for(ConnectionBean con:connectionList) {
 			RewardDao redao=new RewardDao();
 			List<RewardBean> rewardListone = redao.MyPublish(con.getPosterId());

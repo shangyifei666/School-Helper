@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import bean.RewardBean;
+import bean.UserBean;
 
 public class RewardDao {
 	/**
@@ -89,6 +91,42 @@ public class RewardDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, posterId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				RewardBean reward = new RewardBean();
+				reward.setPosterId(rs.getInt("poster_id"));
+				reward.setRewardId(rs.getInt("reward_id"));
+				reward.setRewardTitle(rs.getString("reward_title"));
+				reward.setRewardContent(rs.getString("reward_content"));
+				reward.setRewardImage(rs.getString("reward_image"));
+				reward.setRewardTime(rs.getString("reward_time"));
+				reward.setRewardDeadline(rs.getString("reward_deadline"));
+				reward.setRewardMoney(rs.getShort("reward_money"));
+				reward.setRewardState(rs.getString("reward_state"));
+				rewardList.add(reward);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rewardList;
+	}
+	public static int reviseState(RewardBean reward) throws Exception{
+		Connection conn=DataBase.getConnection();
+		String sql="update reward set reward_state='"+reward.getRewardState()+"'where reward_id="+reward.getRewardId()+"";
+		Statement stmt=conn.createStatement();
+		int result=stmt.executeUpdate(sql);
+		conn.close();
+		return result;
+	}
+	public List<RewardBean> getAllReward() {
+		List<RewardBean> rewardList = new ArrayList<RewardBean>();
+		Connection conn = DataBase.getConnection();
+		String sql = "select * from reward";
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				RewardBean reward = new RewardBean();
