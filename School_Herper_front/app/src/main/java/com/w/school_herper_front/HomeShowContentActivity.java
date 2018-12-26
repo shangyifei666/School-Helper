@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 
 import com.w.school_herper_front.HomePage.fragment.board.board;
 import com.w.school_herper_front.Talk.MessageTalkActivity;
-import com.w.school_herper_front.bean.RewardBean;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,9 +42,9 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
     };
     private ImageView ivUserHead,ivUserSex,ivHead1;
-    private TextView tvUserName,tvMoney,tvContent,tvPublishTime,tvName1,tvState,tvChoice,tvType,tvType1;
+    private TextView tvUserName,tvMoney,tvContent,tvPublishTime,tvName1,tvState, tvDelete,tvType,tvType1;
     private LinearLayout llValue,llvalue1,llUser1,llTail,llNone;
-    private Button btnUserChat1;
+    private Button btnState,btnchat;
     private User my = SendDatesToServer.user1;
 
 
@@ -66,7 +63,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
     /**
      * function:to judge whether to show widgets by intent
-     *
+     * param:Intent intent;
      */
     private void judgeToShowWidgets(Intent intent){
         String state;
@@ -79,7 +76,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
             eventFromReceiver(state);  //Button
             fillViewFromList(poster,llvalue1);
             tvType.setText("发布者");
-            btnUserChat1.setOnClickListener(new View.OnClickListener() {
+            btnchat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(HomeShowContentActivity.this, MessageTalkActivity.class);
@@ -87,25 +84,28 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             });
-            showChoiceFromReceive(state,"放弃任务");
+            countTime(poster.getEndTime());
+            showDeleteTv(state,"放弃任务","receiver");
 
         }else if(intent.getSerializableExtra("user")!=null){                //布告栏进入
             board user = (board)intent.getSerializableExtra("user");
             fillViewFromMain(user,llValue);
             countTime(user.getEndTime());
 
-        }else{                                                                    //我的发布
-            setState();
+        }else if(intent.getSerializableExtra("receiver") != null){           //我的发布
             fillViewFromMy(my,llValue);
-
-            if(intent.getSerializableExtra("receiver") != null){
-                //有人接收，显示信息
-                final board receiver = (board) intent.getSerializableExtra("receiver");
-                state = receiver.getState();
-                eventFromPoster(state);
+            final board receiver = (board) intent.getSerializableExtra("receiver");
+            setState();
+            state = receiver.getState();
+            eventFromPoster(state);
+            if("1"==state){ //1 :无人接下悬赏令
+                showDeleteTv("1","删除任务","poster");
+                llNone.setVisibility(View.VISIBLE);
+                llvalue1.setVisibility(View.GONE);
+            }else{
                 fillViewFromList(receiver,llvalue1);
                 tvType.setText("接收者");
-                btnUserChat1.setOnClickListener(new View.OnClickListener() {
+                btnchat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(HomeShowContentActivity.this, MessageTalkActivity.class);
@@ -113,12 +113,9 @@ public class HomeShowContentActivity extends AppCompatActivity {
                         startActivity(i);
                     }
                 });
-                showChoiceFromReceive(state,"删除任务");
-
-            }else{
-                //无人接收
-                llNone.setVisibility(View.VISIBLE);
             }
+            countTime(receiver.getEndTime());
+            showDeleteTv(state,"删除任务","poster");
         }
     }
     /**
@@ -130,21 +127,23 @@ public class HomeShowContentActivity extends AppCompatActivity {
         switch (state){
             case "1": //待接收
                 tvState.setText("任务尚未被接收");
-                btnUserChat1.setVisibility(View.INVISIBLE);
+                btnState.setVisibility(View.INVISIBLE);
                 break;
             case "2"://待完成
                 tvState.setText("任务已被接受，等待接受者完成");
-                btnUserChat1.setVisibility(View.INVISIBLE);
+                btnState.setText("待确认");
+                btnState.setBackgroundColor(Color.GRAY);
+                btnState.setEnabled(false);
                 break;
             case "3"://待确认
                 tvState.setText("任务已提交，等待您的确认");
-                btnUserChat1.setText("待确认");
-                btnUserChat1.setOnClickListener(new View.OnClickListener() {
+                btnState.setText("待确认");
+                btnState.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        btnUserChat1.setBackgroundColor(Color.GRAY);
-                        btnUserChat1.setText("已完成");
-                        btnUserChat1.setEnabled(false);//不可点击
+                        btnState.setBackgroundColor(Color.GRAY);
+                        btnState.setText("已完成");
+                        btnState.setEnabled(false);//不可点击
 
                         //-----------------增加悬赏金，
                         // 并发送消息到接收者，提示任务已经被确认，悬赏金已经被发放-----------
@@ -154,9 +153,9 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 break;
             case "4"://已完成
                 tvState.setText("任务已结束");
-                btnUserChat1.setText("已完成");
-                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
-                btnUserChat1.setEnabled(false);//不可点击
+                btnState.setText("已完成");
+                btnState.setBackgroundColor(Color.GRAY);//灰色
+                btnState.setEnabled(false);//不可点击
 
                 Message message = new Message();//结束倒计时
                 message.what = 2;
@@ -165,9 +164,9 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 break;
             case "5":  //已截止 5
                 tvState.setText("任务已截止");
-                btnUserChat1.setText("已截止");
-                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
-                btnUserChat1.setEnabled(false);//不可点击
+                btnState.setText("已截止");
+                btnState.setBackgroundColor(Color.GRAY);//灰色
+                btnState.setEnabled(false);//不可点击
                 RelativeLayout thisPage = findViewById(R.id.rl_show_content);
                 thisPage.setAlpha((float) 0.3);
 
@@ -188,13 +187,13 @@ public class HomeShowContentActivity extends AppCompatActivity {
         switch (state){
             case "2"://待完成
                 tvState.setText("已接单，等待您的完成");
-                btnUserChat1.setText("待完成");
-                btnUserChat1.setOnClickListener(new View.OnClickListener() {
+                btnState.setText("待完成");
+                btnState.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        btnUserChat1.setBackgroundColor(Color.GRAY);
-                        btnUserChat1.setText("待确认");
-                        btnUserChat1.setEnabled(false);//不可点击
+                        btnState.setBackgroundColor(Color.GRAY);
+                        btnState.setText("待确认");
+                        btnState.setEnabled(false);//不可点击
 
                         //-----------------发送消息到发布者，请求确认-----------
 
@@ -204,15 +203,15 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 break;
             case "3"://待确认
                 tvState.setText("已提交，等待发布者确认完成");
-                btnUserChat1.setText("待确认");
-                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
-                btnUserChat1.setEnabled(false);//不可点击
+                btnState.setText("待确认");
+                btnState.setBackgroundColor(Color.GRAY);//灰色
+                btnState.setEnabled(false);//不可点击
                 break;
             case "4"://已完成
                 tvState.setText("任务已结束");
-                btnUserChat1.setText("已完成");
-                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
-                btnUserChat1.setEnabled(false);//不可点击
+                btnState.setText("已完成");
+                btnState.setBackgroundColor(Color.GRAY);//灰色
+                btnState.setEnabled(false);//不可点击
 
                 Message message = new Message();//结束倒计时
                 message.what = 2;
@@ -221,9 +220,9 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 break;
             case "5":  //已截止 5
                 tvState.setText("任务已截止");
-                btnUserChat1.setText("已截止");
-                btnUserChat1.setBackgroundColor(Color.GRAY);//灰色
-                btnUserChat1.setEnabled(false);//不可点击
+                btnState.setText("已截止");
+                btnState.setBackgroundColor(Color.GRAY);//灰色
+                btnState.setEnabled(false);//不可点击
                 RelativeLayout thisPage = findViewById(R.id.rl_show_content);
                 thisPage.setAlpha((float) 0.3);
 
@@ -238,32 +237,58 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
     /**
      * function: TextView choice  event differ from state;
-     * param:String state ; String str
+     * param:String state ; String str; String ori
      */
-    private void showChoiceFromReceive(String state , String str){
-        tvChoice.setText(str);
+    private void showDeleteTv(String state , String str , String ori){
+        tvDelete.setText(str);
         switch (state){
-            case "2": //待完成,（已接下任务状态，点击放弃任务要扣信誉值）
-                tvChoice.setOnClickListener(new View.OnClickListener() {
+            case "1"://待接收
+                tvDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        //----------------跳出对话框以警示会降低信誉值-----
-
-                        //------------------用户仍然点击，改变任务的状态为未接单，
-                        //---------同时发送消息通知任务发布者，并扣除接单者信誉值----------
+                        //---------跳出对话框“您确认要放弃任务吗”
+                        //---------确认，则删除从后台任务
 
                     }
                 });
+            case "2": //待完成,（已接下任务状态，点击放弃任务要扣信誉值）
+                if("receiver".equals(ori)){ //接收者要放弃任务
+                    tvDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            //----------------跳出对话框以警示会降低信誉值-----
+
+                            //------------------用户仍然点击，改变任务的状态为未接单，
+                            //---------同时发送消息通知任务发布者，并扣除接单者信誉值----------
+
+                        }
+                    });
+                }else if("poster".equals(ori)){ //发布者要删除任务
+                    tvDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            //----------------跳出对话框以警示会降低信誉值-----
+                            //--“您的悬赏令已被接下，确定要放弃任务吗，会扣除10%的悬赏金哦，并且会降低信誉值”
+                            //------------------用户仍然点击，删除任务，
+                            //---------同时发送消息通知任务接收者，同时给予违约金，----------
+                            //通知任务发布者，告知任务已取消成功，退还剩余悬赏金，
+
+                        }
+                    });
+                }
+
                 break;
             case "3": //待确认
-                tvChoice.setVisibility(View.INVISIBLE);
+                tvDelete.setVisibility(View.INVISIBLE);
                 break;
             case "4": //已完成
-                tvChoice.setVisibility(View.INVISIBLE);
+                tvDelete.setVisibility(View.INVISIBLE);
                 break;
             case "5": //已截止
-                tvChoice.setVisibility(View.INVISIBLE);
+                tvDelete.setVisibility(View.INVISIBLE);
                 break;
 
 
@@ -292,11 +317,12 @@ public class HomeShowContentActivity extends AppCompatActivity {
         llUser1 = findViewById(R.id.showcontent_ll_user1);
         tvName1 = findViewById(R.id.showcontent_tv_name1);
         llvalue1 = findViewById(R.id.showcontent_ll_value1);
-        btnUserChat1 = findViewById(R.id.showcontent_btn_user1_chat);
+        btnchat = findViewById(R.id.showcontent_btn_user1_chat);
+        btnState = findViewById(R.id.showcontent_btn_submit);
         ivHead1 = findViewById(R.id.showcontent_iv_head1);
         tvState = findViewById(R.id.showcontent_tv_state);
         llTail = findViewById(R.id.showcontent_ll_tail);
-        tvChoice = findViewById(R.id.showcontent_tv_choice);
+        tvDelete = findViewById(R.id.showcontent_tv_choice);
         llNone = findViewById(R.id.showcontent_ll_none);
         tvType = findViewById(R.id.showcontent_tv_type);
         tvType = findViewById(R.id.showcontent_tv_type1);
@@ -308,10 +334,10 @@ public class HomeShowContentActivity extends AppCompatActivity {
      * param :
      */
     private void setState(){
-        btnUserChat1.setVisibility(View.VISIBLE);   //button
+        btnState.setVisibility(View.VISIBLE);   //button
         llUser1.setVisibility(View.VISIBLE);   //LinearLayout
         tvState.setVisibility(View.VISIBLE);
-        tvChoice.setVisibility(View.VISIBLE);   //删除
+        tvDelete.setVisibility(View.VISIBLE);
         llTail.setVisibility(View.GONE);        //隐藏tail
 
     }
@@ -344,11 +370,6 @@ public class HomeShowContentActivity extends AppCompatActivity {
         tvMoney.setText("赏金："+user.getMoney()+" ￥");
 //        ivHead1.setImageResource();
         tvName1.setText(user.getName());
-//        if("女".equals(user.getSex())){
-//            ivUserSex.setImageResource(R.drawable.girl);
-//        }else{
-//            ivUserSex.setImageResource(R.drawable.boy);
-//        }
 
 //        int value = user.getValue();
 //        showValue(layout,value);
