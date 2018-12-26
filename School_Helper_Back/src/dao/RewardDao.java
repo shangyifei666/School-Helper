@@ -59,12 +59,48 @@ public class RewardDao {
 			while(rs.next()) {
 				RewardBean reward = new RewardBean();
 				reward.setPosterId(rs.getInt("poster_id"));
+				reward.setRewardId(rs.getInt("reward_id"));
 				reward.setRewardTitle(rs.getString("reward_title"));
 				reward.setRewardContent(rs.getString("reward_content"));
 				reward.setRewardImage(rs.getString("reward_image"));
 				reward.setRewardTime(rs.getString("reward_time"));
 				reward.setRewardDeadline(rs.getString("reward_deadline"));
 				reward.setRewardMoney(rs.getShort("reward_money"));
+				reward.setRewardState(rs.getString("reward_state"));
+				rewardList.add(reward);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rewardList;
+	}
+	/**
+	 * 姓名：杨旭辉
+	 * 日期：2018.12.26
+	 * 简介：查找我发布的任务
+	 */
+	public List<RewardBean> MyPublish(int posterId) {
+		List<RewardBean> rewardList = new ArrayList<RewardBean>();
+		Connection conn = DataBase.getConnection();
+		String sql = "select * from reward where poster_id=?";
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, posterId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				RewardBean reward = new RewardBean();
+				reward.setPosterId(rs.getInt("poster_id"));
+				reward.setRewardId(rs.getInt("reward_id"));
+				reward.setRewardTitle(rs.getString("reward_title"));
+				reward.setRewardContent(rs.getString("reward_content"));
+				reward.setRewardImage(rs.getString("reward_image"));
+				reward.setRewardTime(rs.getString("reward_time"));
+				reward.setRewardDeadline(rs.getString("reward_deadline"));
+				reward.setRewardMoney(rs.getShort("reward_money"));
+				reward.setRewardState(rs.getString("reward_state"));
 				rewardList.add(reward);
 			}
 		} catch (SQLException e) {

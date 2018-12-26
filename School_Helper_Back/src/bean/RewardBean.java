@@ -24,6 +24,21 @@ public class RewardBean {
 	}
 	
 	
+	public RewardBean(int rewardId, int posterId, String rewardContent, String rewardTitle, double rewardMoney,
+			String rewardTime, String rewardDeadline, String rewardState, String rewardImage) {
+		super();
+		this.rewardId = rewardId;
+		this.posterId = posterId;
+		this.rewardContent = rewardContent;
+		this.rewardTitle = rewardTitle;
+		this.rewardMoney = rewardMoney;
+		this.rewardTime = rewardTime;
+		this.rewardDeadline = rewardDeadline;
+		this.rewardState = rewardState;
+		this.rewardImage = rewardImage;
+	}
+
+
 	public RewardBean(int posterId, String rewardContent, String rewardTitle, double rewardMoney, String rewardTime,
 			String rewardDeadline, String rewardState, String rewardImage) {
 		super();
