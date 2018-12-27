@@ -48,31 +48,37 @@ public class TaskServlet extends HttpServlet {
 		int userId=Integer.parseInt(request.getParameter("userId"));
 		JSONArray array=new JSONArray();
 		RewardDao rewardDao = new RewardDao();
-		List<RewardBean> rewardList =rewardDao.MyPublish(userId);
-		//发布任务的被接受在发布人那里显示待确认
-		for(RewardBean reward:rewardList) {
-			if(reward.getRewardState().equals("3")) {
-			JSONObject json15=new JSONObject();
-			json15.put("userId", reward.getPosterId());
-			json15.put("rewardId", reward.getRewardId());
-			json15.put("name", getName(reward));
-			json15.put("sex", getSex(reward));
-			json15.put("title", reward.getRewardTitle());
-			json15.put("content", reward.getRewardContent());
-			json15.put("rewardTime", reward.getRewardTime());
-			json15.put("endTime", reward.getRewardDeadline());
-			json15.put("money", reward.getRewardMoney());
-			json15.put("state", reward.getRewardState());
-			array.put(json15);
-			System.err.println(json15);
+		ConnectionDao condao=new ConnectionDao();
+		//发布任务的被接受然后接收者点击已完成在发布人那里显示待确认
+		List<ConnectionBean> connectionListone =condao.selectConnectionone(userId);
+		for(ConnectionBean con:connectionListone) {
+			RewardDao redao=new RewardDao();
+			List<RewardBean> rewardListtwo = redao.MyPublishone(con.getRewardId());
+			for(RewardBean rewardone:rewardListtwo) {
+				if(rewardone.getRewardState().equals("3")) {
+				JSONObject json15 = new JSONObject();
+				json15.put("userId", rewardone.getPosterId());
+				json15.put("rewardId", rewardone.getRewardId());
+				json15.put("name", getName(rewardone));
+				json15.put("sex", getSex(rewardone));
+				json15.put("title", rewardone.getRewardTitle());
+				json15.put("content", rewardone.getRewardContent());
+				json15.put("rewardTime", rewardone.getRewardTime());
+				json15.put("endTime", rewardone.getRewardDeadline());
+				json15.put("money", rewardone.getRewardMoney());
+				json15.put("state", rewardone.getRewardState());
+				array.put(json15);
+				System.err.println(json15);
+//				rewardList=null;
+				}
 			}
 		}
-		ConnectionDao condao=new ConnectionDao();
-		List<ConnectionBean> connectionList =condao.selectConnection(userId);
+		
 		//接受发布人的任务在接受人那里显示待完成
+		List<ConnectionBean> connectionList =condao.selectConnection(userId);
 		for(ConnectionBean con:connectionList) {
 			RewardDao redao=new RewardDao();
-			List<RewardBean> rewardListone = redao.MyPublish(con.getPosterId());
+			List<RewardBean> rewardListone = redao.MyPublishone(con.getRewardId());
 			for(RewardBean reward:rewardListone) {
 				if(reward.getRewardState().equals("2")) {
 				JSONObject json16 = new JSONObject();

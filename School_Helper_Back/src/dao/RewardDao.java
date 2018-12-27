@@ -112,6 +112,35 @@ public class RewardDao {
 		
 		return rewardList;
 	}
+	public List<RewardBean> MyPublishone(int rewardId) {
+		List<RewardBean> rewardList = new ArrayList<RewardBean>();
+		Connection conn = DataBase.getConnection();
+		String sql = "select * from reward where reward_id=?";
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rewardId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				RewardBean reward = new RewardBean();
+				reward.setPosterId(rs.getInt("poster_id"));
+				reward.setRewardId(rs.getInt("reward_id"));
+				reward.setRewardTitle(rs.getString("reward_title"));
+				reward.setRewardContent(rs.getString("reward_content"));
+				reward.setRewardImage(rs.getString("reward_image"));
+				reward.setRewardTime(rs.getString("reward_time"));
+				reward.setRewardDeadline(rs.getString("reward_deadline"));
+				reward.setRewardMoney(rs.getShort("reward_money"));
+				reward.setRewardState(rs.getString("reward_state"));
+				rewardList.add(reward);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rewardList;
+	}
 	public static int reviseState(RewardBean reward) throws Exception{
 		Connection conn=DataBase.getConnection();
 		String sql="update reward set reward_state='"+reward.getRewardState()+"'where reward_id="+reward.getRewardId()+"";
