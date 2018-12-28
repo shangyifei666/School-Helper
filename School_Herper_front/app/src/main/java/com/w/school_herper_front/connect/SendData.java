@@ -33,6 +33,8 @@ public class SendData{
     public static final int CHANGE_FAIL=0x127;
     public static final int CANCEL_SUCCESS=0x128;
     public static final int CANCEL_FAIL=0x129;
+//    public static final int SUBMIT_SUCCESS=0x130;
+//    public static final int SUBMIT_FAIL=0x131;
     public JSONObject object;
     public JSONArray array;
     private String servletUrl;
@@ -67,6 +69,7 @@ public class SendData{
             }
         }).start();
     }
+
     /**
      * @function after poster ensure task
      * @param connect

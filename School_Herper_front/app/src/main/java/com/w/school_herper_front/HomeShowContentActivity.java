@@ -53,9 +53,11 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     Toast.makeText(HomeShowContentActivity.this, "接赏金失败，请重试~", Toast.LENGTH_SHORT).show();
                     break;
                 case SendData.CHANGE_SUCCESS:  //状态改变
+                    finish();
                     Toast.makeText(HomeShowContentActivity.this, "确认完成", Toast.LENGTH_SHORT).show();
                     break;
                 case SendData.CHANGE_FAIL:
+                    finish();
                     Toast.makeText(HomeShowContentActivity.this, "确认失败，", Toast.LENGTH_SHORT).show();
                     break;
                 case SendData.CANCEL_SUCCESS:   //取消悬赏令
