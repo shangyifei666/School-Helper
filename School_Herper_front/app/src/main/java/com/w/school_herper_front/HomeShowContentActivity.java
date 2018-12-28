@@ -361,7 +361,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
         return map;
     }
 
-    private Map<String,String> packgeMap2(String userId,String posterId, String receiverId , String rewardId, String state){
+    private Map<String,String> packgeMap(String userId,String posterId, String receiverId , String rewardId, String state){
         Map<String , String> map = new HashMap<>();
         map.put("userId",userId);
         map.put("posterId",posterId);
@@ -394,7 +394,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //---------确认，则删除从后台任务
                                         new SendData(handler).deleteReward(
-                                            packgeMap2(my.getUserId()+"",p.getUserId()+"","",p.getRewardId()+"",
+                                            packgeMap(my.getUserId()+"",p.getUserId()+"","",p.getRewardId()+"",
                                                     state)
                                         );
                                     }
@@ -421,7 +421,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                                             //从该用户的“我的接收”中删除悬赏令
                                             new SendData(handler).deleteReward(
-                                                    packgeMap2(my.getUserId()+"","",p.getUserId()+"",
+                                                    packgeMap(my.getUserId()+"","",p.getUserId()+"",
                                                             p.getRewardId()+"",p.getState())
                                             );
                                             //改变任务的状态为未接单，
@@ -456,7 +456,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                                             //发布者删除悬赏令,接受者也要删除
                                             new SendData(handler).deleteReward(
-                                                    packgeMap2(my.getUserId()+"",my.getUserId()+"",p.getUserId()+"",
+                                                    packgeMap(my.getUserId()+"",my.getUserId()+"",p.getUserId()+"",
                                                             p.getRewardId()+"",state)
                                             );
 
