@@ -111,4 +111,21 @@ public class ConnectionDao {
 		
 		return connectionListone;
 	}
+	public void delete(int rewardId) {
+		Connection conn=DataBase.getConnection();
+		PreparedStatement pstmt=null;
+		String sql="delete from connection where reward_id=?";
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, rewardId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			DataBase.close(pstmt);
+			DataBase.close(conn);
+		}
+	}
 }

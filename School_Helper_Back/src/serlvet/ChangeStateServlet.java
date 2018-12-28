@@ -9,13 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import bean.ConnectionBean;
 import bean.RewardBean;
 import bean.UserBean;
 import dao.ConnectionDao;
 import dao.RewardDao;
 import dao.UserDao;
-
+/*
+ * 功能：ChangeStateServlet
+ * 开发人：杨旭辉
+ * 开发时间：2018.12.28
+ * */
 /**
  * Servlet implementation class ChangeStateServlet
  */
@@ -43,12 +50,15 @@ public class ChangeStateServlet extends HttpServlet {
 		ConnectionBean con=new ConnectionBean();
 		ConnectionDao condao=new ConnectionDao();
 		RewardDao redao=new RewardDao();
+		JSONObject json18 = new JSONObject();
 		List<RewardBean> rewardList =redao.MyPublishone(rewardId);
 		for(RewardBean thisreward:rewardList) {
 			if(thisreward.getRewardState().equals("2")) {
 			try {
 				thisreward.setRewardState(state);
 				redao.reviseState(thisreward);
+				
+//				array.put(json18);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -65,9 +75,6 @@ public class ChangeStateServlet extends HttpServlet {
 							Double money1=user.getUserMoney();
 							Double money2=thisreward.getRewardMoney();
 							Double money=money1+money2;
-							System.err.println(money1);
-							System.err.println(money2);
-							System.err.println(money);
 							user.setUserMoney(money);
 							userdao.reviseUser(user);
 						}
@@ -76,10 +83,15 @@ public class ChangeStateServlet extends HttpServlet {
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}	
+					}
+//					JSONObject json19 = new JSONObject();
+//					json19 .put("response", "success");
+//					array.put(json19);
 				}
 			}
 		}
+		json18.put("response", "success");
+		response.getWriter().append(json18.toString()).append(request.getContentType());
 	}
 
 	/**

@@ -112,6 +112,11 @@ public class RewardDao {
 		
 		return rewardList;
 	}
+	/**
+	 * 姓名：杨旭辉
+	 * 日期：2018.12.28
+	 * 简介：查找我发布的任务
+	 */
 	public List<RewardBean> MyPublishone(int rewardId) {
 		List<RewardBean> rewardList = new ArrayList<RewardBean>();
 		Connection conn = DataBase.getConnection();
@@ -141,6 +146,11 @@ public class RewardDao {
 		
 		return rewardList;
 	}
+	/**
+	 * 姓名：杨旭辉
+	 * 日期：2018.12.28
+	 * 简介：更新数据库
+	 */
 	public static int reviseState(RewardBean reward) throws Exception{
 		Connection conn=DataBase.getConnection();
 		String sql="update reward set reward_state='"+reward.getRewardState()+"'where reward_id="+reward.getRewardId()+"";
@@ -149,6 +159,11 @@ public class RewardDao {
 		conn.close();
 		return result;
 	}
+	/**
+	 * 姓名：杨旭辉
+	 * 日期：2018.12.28
+	 * 简介：得到所有的悬赏令
+	 */
 	public List<RewardBean> getAllReward() {
 		List<RewardBean> rewardList = new ArrayList<RewardBean>();
 		Connection conn = DataBase.getConnection();
@@ -176,5 +191,27 @@ public class RewardDao {
 		}
 		
 		return rewardList;
+	}
+	/**
+	 * 姓名：杨旭辉
+	 * 日期：2018.12.28
+	 * 简介：删除数据库
+	 */
+	public void delete(int rewardId) {
+		Connection conn=DataBase.getConnection();
+		PreparedStatement pstmt=null;
+		String sql="delete from reward where reward_id=?";
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, rewardId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			DataBase.close(pstmt);
+			DataBase.close(conn);
+		}
 	}
 }

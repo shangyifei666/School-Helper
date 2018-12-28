@@ -15,7 +15,11 @@ import bean.ConnectionBean;
 import bean.RewardBean;
 import dao.ConnectionDao;
 import dao.RewardDao;
-
+/*
+ * 功能：GetTaskServlet
+ * 开发人：杨旭辉
+ * 开发时间：2018.12.28
+ * */
 /**
  * Servlet implementation class GetTaskServlet
  */
