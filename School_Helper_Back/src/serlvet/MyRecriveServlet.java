@@ -52,7 +52,7 @@ public class MyRecriveServlet extends HttpServlet {
 		List<ConnectionBean> connectionList =condao.selectConnection(receiverId);
 		for(ConnectionBean con:connectionList) {
 			RewardDao redao=new RewardDao();
-			List<RewardBean> rewardList = redao.MyPublish(con.getPosterId());
+			List<RewardBean> rewardList = redao.MyPublishone(con.getRewardId());
 			for(RewardBean reward:rewardList) {
 				JSONObject json13 = new JSONObject();
 				json13.put("userId", reward.getPosterId());
