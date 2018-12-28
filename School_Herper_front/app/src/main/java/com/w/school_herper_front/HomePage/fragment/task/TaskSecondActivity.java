@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.w.school_herper_front.HomePage.fragment.board.board;
@@ -32,6 +33,7 @@ public class TaskSecondActivity extends AppCompatActivity {
 
     final List<board> boards = new ArrayList<>();
     ListView listView;
+    ImageView back;
     private String url = new ServerUrl().getUrl();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,17 @@ public class TaskSecondActivity extends AppCompatActivity {
 
         new TaskAsyncTask().execute();
         listView = findViewById(R.id.lv_task_second);
+        //点击返回上一页
+        back = findViewById(R.id.img_back_second);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("id",1);
+                setResult(0,intent);
+                finish();
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
