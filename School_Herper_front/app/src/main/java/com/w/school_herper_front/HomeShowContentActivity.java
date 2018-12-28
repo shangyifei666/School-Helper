@@ -154,7 +154,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
             final board receiver = (board) intent.getSerializableExtra("receiver");
             setState();
             state = receiver.getState();
-            eventFromPoster(state,receiver);
+            eventFromPoster(receiver);
             if("1"==state){ //1 :无人接下悬赏令
                 showDeleteTv("删除任务","poster",receiver);
                 llNone.setVisibility(View.VISIBLE);
@@ -195,15 +195,17 @@ public class HomeShowContentActivity extends AppCompatActivity {
             fillViewFromMy(my,llValue);
             board wait = (board)intent.getSerializableExtra("wait");
             state = wait.getState();
-            eventFromPoster(state,wait);
             fillViewFromList(wait,llvalue1);
             if("2".equals(state)){  //2 待完成 我的接收
+                eventFromReceiver(wait);
                 tvType.setText("发布者");
                 showDeleteTv("放弃任务","receiver",wait);
             }else if("3".equals(state)){ //3 待确认 我的发布
+                eventFromPoster(wait);
                 tvType.setText("接收者");
                 showDeleteTv("删除任务","",wait);
             }
+            countTime(wait.getEndTime());
         }
     }
     /**
@@ -211,7 +213,8 @@ public class HomeShowContentActivity extends AppCompatActivity {
      * @param: String state;
      * @info: my receive;
      */
-    private void eventFromPoster(String state,final board receiver){
+    private void eventFromPoster(final board receiver){
+        final String state = receiver.getState();
         switch (state){
             case "1": //待接收
                 tvState.setText("任务尚未被接收");
@@ -283,7 +286,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
         final String state = poster.getState();
         switch (state){
             case "2"://待完成
-                tvState.setText("已接单，等待您的完成");
+                tvState.setText("已接下悬赏令，等待您的完成");
                 btnState.setText("待完成");
                 btnState.setOnClickListener(new View.OnClickListener() {
                     @Override
