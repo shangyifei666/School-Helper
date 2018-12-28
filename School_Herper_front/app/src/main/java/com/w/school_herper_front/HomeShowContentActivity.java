@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.w.school_herper_front.HomePage.HomeActivity;
 import com.w.school_herper_front.HomePage.fragment.board.board;
 import com.w.school_herper_front.Talk.MessageTalkActivity;
 import com.w.school_herper_front.connect.SendData;
@@ -48,6 +49,8 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     break;
                 case SendData.SEND_SUCCESS:  //接赏金跳转
                     Toast.makeText(HomeShowContentActivity.this, "成功接下悬赏令~", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(HomeShowContentActivity.this, HomeActivity.class);
+                    startActivity(intent);
                     break;
                 case SendData.SEND_FAIL:
                     Toast.makeText(HomeShowContentActivity.this, "接赏金失败，请重试~", Toast.LENGTH_SHORT).show();
@@ -361,7 +364,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
         return map;
     }
 
-    private Map<String,String> packgeMap(String userId,String posterId, String receiverId , String rewardId, String state){
+    private Map<String,String> packgeMap2(String userId,String posterId, String receiverId , String rewardId, String state){
         Map<String , String> map = new HashMap<>();
         map.put("userId",userId);
         map.put("posterId",posterId);
@@ -394,7 +397,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //---------确认，则删除从后台任务
                                         new SendData(handler).deleteReward(
-                                            packgeMap(my.getUserId()+"",p.getUserId()+"","",p.getRewardId()+"",
+                                            packgeMap2(my.getUserId()+"",p.getUserId()+"","",p.getRewardId()+"",
                                                     state)
                                         );
                                     }
@@ -421,7 +424,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                                             //从该用户的“我的接收”中删除悬赏令
                                             new SendData(handler).deleteReward(
-                                                    packgeMap(my.getUserId()+"","",p.getUserId()+"",
+                                                    packgeMap2(my.getUserId()+"",p.getUserId()+"",my.getUserId()+"",
                                                             p.getRewardId()+"",p.getState())
                                             );
                                             //改变任务的状态为未接单，
@@ -456,7 +459,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
 
                                             //发布者删除悬赏令,接受者也要删除
                                             new SendData(handler).deleteReward(
-                                                    packgeMap(my.getUserId()+"",my.getUserId()+"",p.getUserId()+"",
+                                                    packgeMap2(my.getUserId()+"",my.getUserId()+"",p.getUserId()+"",
                                                             p.getRewardId()+"",state)
                                             );
 
