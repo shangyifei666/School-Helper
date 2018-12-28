@@ -72,7 +72,7 @@ public class SendData{
      * @param connect
      */
     public void changeState(final Map<String,String> connect ){
-        servletUrl ="/School_Helper_Back/changeStateServlet";
+        servletUrl ="/School_Helper_Back/ChangeStateServlet";
         new Thread(new Runnable() {
             @Override
             public void run() {
