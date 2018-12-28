@@ -551,7 +551,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
      * info:except header(fillViewFromMy) where date  filled from my;
      */
     private void fillViewFromList(board user,LinearLayout layout){
-        tvMoney.setText("赏金："+user.getMoney()+" ￥");
+        tvMoney.setText("赏金："+user.getMoney());
 //        ivHead1.setImageResource();
         tvName1.setText(user.getName());
 

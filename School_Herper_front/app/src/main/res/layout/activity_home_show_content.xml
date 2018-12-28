@@ -130,12 +130,12 @@
             <TextView
                 android:id="@+id/showcontent_tv_hour1"
                 android:background="@drawable/content_tv_timecount"
-                android:text="2"
+                android:text="0"
                 style="@style/CountTimeText"/>
             <TextView
                 android:id="@+id/showcontent_tv_hour2"
                 android:background="@drawable/content_tv_timecount"
-                android:text="2"
+                android:text="0"
                 style="@style/CountTimeText"
                 android:layout_marginLeft="7dp"/>
             <ImageView
@@ -146,12 +146,12 @@
             <TextView
                 android:id="@+id/showcontent_tv_minute1"
                 android:background="@drawable/content_tv_timecount"
-                android:text="2"
+                android:text="0"
                 style="@style/CountTimeText"/>
             <TextView
                 android:id="@+id/showcontent_tv_minute2"
                 android:background="@drawable/content_tv_timecount"
-                android:text="2"
+                android:text="0"
                 style="@style/CountTimeText"
                 android:layout_marginLeft="7dp"/>
             <ImageView
@@ -162,12 +162,12 @@
             <TextView
                 android:id="@+id/showcontent_tv_second1"
                 android:background="@drawable/content_tv_timecount"
-                android:text="2"
+                android:text="0"
                 style="@style/CountTimeText"/>
             <TextView
                 android:id="@+id/showcontent_tv_second2"
                 android:background="@drawable/content_tv_timecount"
-                android:text="2"
+                android:text="0"
                 style="@style/CountTimeText"
                 android:layout_marginLeft="7dp"/>
 
