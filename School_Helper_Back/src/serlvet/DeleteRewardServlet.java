@@ -13,8 +13,10 @@ import org.json.JSONObject;
 
 import bean.ConnectionBean;
 import bean.RewardBean;
+import bean.UserBean;
 import dao.ConnectionDao;
 import dao.RewardDao;
+import dao.UserDao;
 /*
  * 功能：DeleteRewardServlet
  * 开发人：杨旭辉
@@ -46,25 +48,48 @@ public class DeleteRewardServlet extends HttpServlet {
 		int userId=Integer.parseInt(request.getParameter("userId"));
 		int posterId=Integer.parseInt(request.getParameter("posterId"));
 		int receiverId=Integer.parseInt(request.getParameter("receiverId"));
+		UserDao userdao=new UserDao();
+		UserBean user=new UserBean();
+		user=userdao.checkUser(userId);
 		ConnectionBean con=new ConnectionBean();
 		ConnectionDao condao=new ConnectionDao();
 		RewardBean reward=new RewardBean();
 		JSONObject json19 = new JSONObject();
 		RewardDao redao=new RewardDao();
 		if(userId==posterId) {
-			List<RewardBean> rewardList=redao.MyPublish(posterId);
+			List<RewardBean> rewardList=redao.MyPublishone(rewardId);
 			for(RewardBean rewardone:rewardList) {
 				if(rewardone.getRewardState().equals("2")) {
 					condao.delete(rewardone.getRewardId());
 					redao.delete(rewardId);
+					try {
+						Double money1=user.getUserMoney();
+						Double money2=rewardone.getRewardMoney();
+						Double money=money1+money2;
+						user.setUserMoney(money);
+						userdao.reviseUser(user);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}else if(rewardone.getRewardState().equals("1")) {
 					redao.delete(rewardId);
+					try {
+						Double money1=user.getUserMoney();
+						Double money2=rewardone.getRewardMoney();
+						Double money=money1+money2;
+						user.setUserMoney(money);
+						userdao.reviseUser(user);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}else if(userId==receiverId) {
 			List<RewardBean> rewardList=redao.MyPublishone(rewardId);
 			for(RewardBean rewardtwo:rewardList) {
-				System.err.println(rewardtwo.getRewardId());
+//				System.err.println(rewardtwo.getRewardId());
 				condao.delete(rewardtwo.getRewardId());
 				rewardtwo.setRewardState("1");
 				try {
@@ -75,6 +100,8 @@ public class DeleteRewardServlet extends HttpServlet {
 				}
 			}
 		}
+		json19.put("money", user.getUserMoney());
+		System.err.println(user.getUserMoney());
 		json19.put("response", "success");
 		response.getWriter().append(json19.toString()).append(request.getContentType());
 	}

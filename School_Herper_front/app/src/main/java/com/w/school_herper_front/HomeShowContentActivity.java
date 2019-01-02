@@ -25,6 +25,7 @@ import com.w.school_herper_front.HomePage.HomeActivity;
 import com.w.school_herper_front.HomePage.fragment.board.board;
 import com.w.school_herper_front.Talk.MessageTalkActivity;
 import com.w.school_herper_front.connect.SendData;
+import com.w.school_herper_front.connect.SendDatas;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -63,11 +64,14 @@ public class HomeShowContentActivity extends AppCompatActivity {
                     finish();
                     Toast.makeText(HomeShowContentActivity.this, "确认失败，", Toast.LENGTH_SHORT).show();
                     break;
-                case SendData.CANCEL_SUCCESS:   //取消悬赏令
+                case SendDatas.CANCEL_SUCCESS:   //取消悬赏令
                     Toast.makeText(HomeShowContentActivity.this,"取消成功~",Toast.LENGTH_SHORT).show();
                     break;
-                case SendData.CANCEL_FAIL:
+                case SendDatas.CANCEL_FAIL:
                     Toast.makeText(HomeShowContentActivity.this,"取消失败，请重试",Toast.LENGTH_SHORT).show();
+                    break;
+                case SendDatas.FAIL:
+                    Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
                     break;
                 case SendData.FAIL:
                     Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
@@ -396,7 +400,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //---------确认，则删除从后台任务
-                                        new SendData(handler).deleteReward(
+                                        new SendDatas(handler).deleteReward(
                                             packgeMap2(my.getUserId()+"",p.getUserId()+"","",p.getRewardId()+"",
                                                     state)
                                         );
@@ -423,7 +427,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
 
                                             //从该用户的“我的接收”中删除悬赏令
-                                            new SendData(handler).deleteReward(
+                                            new SendDatas(handler).deleteReward(
                                                     packgeMap2(my.getUserId()+"",p.getUserId()+"",my.getUserId()+"",
                                                             p.getRewardId()+"",p.getState())
                                             );
@@ -458,7 +462,7 @@ public class HomeShowContentActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
 
                                             //发布者删除悬赏令,接受者也要删除
-                                            new SendData(handler).deleteReward(
+                                            new SendDatas(handler).deleteReward(
                                                     packgeMap2(my.getUserId()+"",my.getUserId()+"",p.getUserId()+"",
                                                             p.getRewardId()+"",state)
                                             );
