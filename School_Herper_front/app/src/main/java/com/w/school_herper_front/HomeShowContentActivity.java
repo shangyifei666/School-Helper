@@ -70,9 +70,6 @@ public class HomeShowContentActivity extends AppCompatActivity {
                 case SendDatas.CANCEL_FAIL:
                     Toast.makeText(HomeShowContentActivity.this,"取消失败，请重试",Toast.LENGTH_SHORT).show();
                     break;
-                case SendDatas.FAIL:
-                    Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
-                    break;
                 case SendData.FAIL:
                     Toast.makeText(HomeShowContentActivity.this, "抱歉，连接服务器失败，请重试", Toast.LENGTH_SHORT).show();
                     break;
