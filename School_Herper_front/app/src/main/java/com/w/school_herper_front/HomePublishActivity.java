@@ -73,9 +73,9 @@ public class HomePublishActivity extends AppCompatActivity   {
                 case SendDatesToServer.SEND_FAIL:
                     Toast.makeText(HomePublishActivity.this, "数据上传失败", Toast.LENGTH_SHORT).show();
                     break;
-                case SendDatesToServer.SEND_FAIL1:
-                    Toast.makeText(HomePublishActivity.this, "任务发布失败，请重新发布", Toast.LENGTH_SHORT).show();
-                    break;
+//                case SendDatesToServer.SEND_FAIL1:
+//                    Toast.makeText(HomePublishActivity.this, "任务发布失败，请重新发布", Toast.LENGTH_SHORT).show();
+//                    break;
                 default:
                     break;
             }

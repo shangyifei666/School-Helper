@@ -15,7 +15,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="239dp"
+        android:layout_height="259dp"
         android:orientation="vertical"
         android:layout_marginTop="6dp">
 
@@ -29,10 +29,10 @@
 
         <ImageView
             android:layout_width="172dp"
-            android:layout_height="166dp"
+            android:layout_height="182dp"
             android:layout_gravity="center"
             android:paddingTop="0dp"
-            android:src="@drawable/signin" />
+            android:src="@drawable/myhead" />
 
     </LinearLayout>
     <LinearLayout

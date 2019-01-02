@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2018-12-28 16:00:41
+Date: 2019-01-02 10:45:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,14 +26,11 @@ CREATE TABLE `connection` (
   `reward_id` int(10) NOT NULL,
   PRIMARY KEY (`connection_id`),
   KEY `reward_id` (`reward_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of connection
 -- ----------------------------
-INSERT INTO `connection` VALUES ('39', '1', '2', '20');
-INSERT INTO `connection` VALUES ('42', '2', '1', '43');
-INSERT INTO `connection` VALUES ('45', '1', '3', '47');
 
 -- ----------------------------
 -- Table structure for `reward`
@@ -51,17 +48,17 @@ CREATE TABLE `reward` (
   `reward_image` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`reward_id`),
   UNIQUE KEY `reward_id` (`reward_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of reward
 -- ----------------------------
-INSERT INTO `reward` VALUES ('20', '1', '444', '444', '4.00', '2018年12月26日 00:05:55', '2018-12-29 00:05:51', '4', null);
-INSERT INTO `reward` VALUES ('23', '3', '777', '777', '0.00', '2018年12月26日 00:53:25', '2018-12-27 00:53:14', '2', null);
-INSERT INTO `reward` VALUES ('43', '2', '555', '555', '55.00', '2018年12月28日 07:28:12', '2018-12-30 07:28:08', '4', null);
-INSERT INTO `reward` VALUES ('47', '1', 'ceshi', 'wohaishiceshi', '11.00', '2018年12月28日 07:52:02', '2018-12-30 07:51:59', '4', null);
-INSERT INTO `reward` VALUES ('50', '1', '6666', '6666', '6.00', '2018年12月28日 07:58:18', '2018-12-31 07:58:16', '1', null);
-INSERT INTO `reward` VALUES ('51', '1', '777', '777', '7.00', '2018年12月28日 07:58:57', '2018-12-30 07:58:55', '1', null);
+INSERT INTO `reward` VALUES ('52', '1323', '1月2号，正定机场3点50分的飞机', '机场接人', '10.00', '2019年01月02日 02:18:12', '2019-01-04 02:18:01', '1', null);
+INSERT INTO `reward` VALUES ('53', '1323', '西门圆通快递', '代取快递', '10.00', '2019年01月02日 02:18:47', '2019-01-03 02:18:41', '1', null);
+INSERT INTO `reward` VALUES ('54', '1323', '东门京东快递', '代取快递', '5.00', '2019年01月02日 02:21:59', '2019-01-03 02:21:53', '1', null);
+INSERT INTO `reward` VALUES ('55', '1324', '1月2号，软件学院404帮忙占一个前排座位', '帮忙占座', '5.00', '2019年01月02日 02:27:41', '2019-01-04 02:27:30', '1', null);
+INSERT INTO `reward` VALUES ('56', '1324', '1月4号下午2点30分，石家庄站', '火车站接人', '5.00', '2019年01月02日 02:31:04', '2019-01-05 02:30:56', '1', null);
+INSERT INTO `reward` VALUES ('57', '1325', '求收购英语四级材料', '收购英语四级材料', '10.00', '2019年01月02日 02:37:52', '2019-01-06 02:37:45', '1', null);
 
 -- ----------------------------
 -- Table structure for `school`
@@ -102,13 +99,11 @@ CREATE TABLE `user` (
   UNIQUE KEY `user_id` (`user_id`),
   KEY `school_id` (`school_id`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `school` (`school_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1322 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1326 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'xiaomogui', '120', '1', '2016', '110', 'R.drawble.myhead', '914.00', '60', '0', '0', '0', 'xiaomogui', 'xiaoxigua', '男');
-INSERT INTO `user` VALUES ('2', '别人的名字', '16513', '1', '65232620', '1321', 'images/geren.png', '9685.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
-INSERT INTO `user` VALUES ('3', '技术大牛', '123123', '1', '2017', '120', 'images/geren.png', '11.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
-INSERT INTO `user` VALUES ('4', 'null', '12345', '1', '2016', '12345', 'images/geren.png', '0.00', '60', '0', '0', 'null', 'null', 'null', 'null');
-INSERT INTO `user` VALUES ('5', '12', '123', '1', '2016', '123456', 'images/geren.png', '320.00', '60', '0', '0', '0', '个性标签', '真实姓名', '男');
+INSERT INTO `user` VALUES ('1323', '我是官方号', '123123', '1', '2016011111', '15232811399', 'images/geren.png', '975.00', '60', '0', '0', '未认证', '我是官方号哈哈哈哈哈', '尚一飞', '男');
+INSERT INTO `user` VALUES ('1324', '软件吴彦祖', '123123', '1', '2016011112', '110', 'images/geren.png', '990.00', '60', '0', '0', '未认证', '软件学院吴彦祖哈哈哈', '张海波', '男');
+INSERT INTO `user` VALUES ('1325', '小魔鬼', '123123', '1', '2016011113', '120', 'images/geren.png', '990.00', '60', '0', '0', '未认证', '我是小魔鬼哈哈哈', '小红', '男');

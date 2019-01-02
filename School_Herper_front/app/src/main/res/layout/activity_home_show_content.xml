@@ -38,7 +38,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@drawable/home_publish_test1"/>
+                android:src="@drawable/myhead"/>
 
             <TextView
                 android:id="@+id/showcontent_tv_name"
@@ -317,9 +317,9 @@
                 android:layout_marginLeft="5dp"
                 android:text="假装有内容假装有内容假装有内容假装有内容，假装有内容假装有内容假装有内容假装有内容假装有内，容假装有内容假装有内容假装有内容假装有内容假装有内容"/>
 
-            <ImageView
-                style="@style/CustomPicView"
-                android:src="@drawable/home_publish_test2"/>
+            <!--<ImageView-->
+                <!--style="@style/CustomPicView"-->
+                <!--android:src="@drawable/home_publish_test2"/>-->
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
