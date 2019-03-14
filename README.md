@@ -3,8 +3,8 @@
 
 ## 说明：   
 针对大学生日常生活中所遇到的困难，发布悬赏并提供相应的赏金，其他人可接受任务完成后获得相应的赏金。  
-School_Helper_Back  为后台项目  
-School_Helper_Front 为前端项目  
+School_Helper_Back  为服务器端  
+School_Helper_Front 为客户端  
 images 为图片文件  
 Mysql  为数据库文件  
 
