@@ -31,7 +31,7 @@ Mysql  为数据库文件
 <img src="https://github.com/shangyifei666/School-Helper/blob/master/images/%E5%8E%9F%E5%9E%8B%E5%9B%BE/%E8%AE%BE%E7%BD%AE%E9%A1%B5.png" width="250" alt="注册界面"/>
 <img src="https://github.com/shangyifei666/School-Helper/blob/master/images/%E5%8E%9F%E5%9E%8B%E5%9B%BE/%E9%92%B1%E5%8C%85%E9%A1%B5.png" width="250" alt="注册界面"/>  
 
-##项目成品图:sunny:  
+##  项目成品图:sunny:  
 <img src="https://github.com/shangyifei666/School-Helper/blob/master/images/%E5%AE%9E%E7%89%A9%E5%9B%BE/%E5%AE%9E%E7%89%A9%E5%9B%BE1.png" width="250"/>
 <img src="https://github.com/shangyifei666/School-Helper/blob/master/images/%E5%AE%9E%E7%89%A9%E5%9B%BE/%E5%AE%9E%E7%89%A9%E5%9B%BE2.png" width="250"/>
 <img src="https://github.com/shangyifei666/School-Helper/blob/master/images/%E5%AE%9E%E7%89%A9%E5%9B%BE/%E5%AE%9E%E7%89%A9%E5%9B%BE3.png" width="250"/>
